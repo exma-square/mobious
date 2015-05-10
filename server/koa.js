@@ -18,7 +18,7 @@ import restRouter from './restRouter';
 
 import config from './config/init';
 
-const app = koa();
+const app = module.exports = koa();
 const env = process.env.NODE_ENV || 'development';
 
 // add header `X-Response-Time`
