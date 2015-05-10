@@ -16,6 +16,7 @@ import isomorphicRouter from './router';
 import restRouter from './restRouter';
 
 import models from './models';
+import bootstrap from './bootstrap';
 
 import config from './config/init';
 
@@ -80,17 +81,21 @@ restRouter.setup(app);
 
 var liftApp = (cb) => {
   models.sequelize.sync({force: config.connection.force}).then(function () {
-    app.listen(config.port);
 
-    console.log(`Application started on port ${config.port}`);
-    if (process.send) {
-      process.send('online');
-    }
-    return cb(app);
+    bootstrap(function(){
+      app.listen(config.port);
 
+      console.log(`Application started on port ${config.port}`);
+      if (process.send) {
+        process.send('online');
+      }
+
+      if (typeof(cb) === 'function')
+        return cb(app);
+      else
+        return;
+    });
   });
-
-
 }
 
 if (env !== 'test') liftApp();
