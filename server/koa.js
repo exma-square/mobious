@@ -12,7 +12,10 @@ import favicon from 'koa-favicon';
 import staticCache from 'koa-static-cache';
 import responseTime from 'koa-response-time';
 
-import router from './router';
+import isomorphicRouter from './router';
+import restRouter from './restRouter';
+
+
 import config from './config/init';
 
 const app = koa();
@@ -67,7 +70,10 @@ else {
   app.use(mount('/assets', staticCache(path.join(__dirname, '../dist'), cacheOpts)));
 }
 
-app.use(router);
+app.use(isomorphicRouter);
+
+restRouter.setup(app);
+
 app.listen(config.port);
 
 console.log(`Application started on port ${config.port}`);

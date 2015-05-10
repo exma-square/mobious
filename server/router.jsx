@@ -11,7 +11,13 @@ import routes from 'routes';
 import Flux from 'utils/flux';
 import promisify from 'utils/promisify';
 
-export default function *() {
+export default function *(next) {
+  
+  if (this.request.url.startsWith("/rest")){
+    return yield next;
+  }
+
+
   const isCashed = this.cashed ? yield *this.cashed() : false;
   if (!isCashed) {
     const router = Router.create({
