@@ -1,15 +1,14 @@
 'use strict';
 import models from './models';
 
-export default function (cb) {
+export default async (cb) => {
 
   console.log("=== run bootstrap ===");
 
-  models.User.create({username: 'testUser'}).then(function(result){
-    return cb();
-  });
+  var result = await models.User.create({username: 'testUser'})
 
+  console.log("=== bootstrap result ===", result.dataValues.id);
 
-
+  return cb();
 
 }
