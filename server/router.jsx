@@ -12,7 +12,7 @@ import Flux from 'utils/flux';
 import promisify from 'utils/promisify';
 
 export default function *(next) {
-  
+
   if (this.request.url.startsWith("/rest")){
     return yield next;
   }

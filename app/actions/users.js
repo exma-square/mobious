@@ -1,6 +1,7 @@
 'use strict';
 
-import {sample, take} from 'lodash';
+import {sample} from 'lodash';
+import request from 'superagent';
 
 import data from 'data/users.json';
 
@@ -25,12 +26,17 @@ class UsersActions {
   }
   fetch() {
     const promise: Function = (resolve) => {
-      this.alt.getActions('requests').start();
-      setTimeout(() => {
-        this.actions.fetchSuccess(take(data.users, 10));
-        this.alt.getActions('requests').success();
+      let that = this;
+      that.alt.getActions('requests').start();
+
+      request.get('http://localhost:8080/rest/user')
+      // .set('Accept', 'application/json')
+      .end(function(error, res){
+
+        that.actions.fetchSuccess(res.body.users);
+        that.alt.getActions('requests').success();
         return resolve();
-      }, 300);
+      });
     };
     this.alt.resolve(promise);
   }

@@ -4,5 +4,5 @@ exports.index = function *() {
 
   let users = yield models.User.findAll()
 
-  this.body = {users: users}
+  this.body = {users}
 };

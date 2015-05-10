@@ -38,7 +38,7 @@ class UsersStore {
       const merged: Array<Object> = this.users.slice();
       users.forEach((user) => {
         // update the most recent data into store
-        let match: ?Object = merged.find((u) => u.seed === user.seed) || null;
+        let match: ?Object = merged.find((u) => u.id === user.id) || null;
         if (match) {
           match = user;
         }
@@ -54,7 +54,7 @@ class UsersStore {
 
   onFetchBySeedSuccess(user) {
     const users: Array<Object> = this.users.slice();
-    let occurrence: ?Object = users.find((u) => u.seed === user.seed);
+    let occurrence: ?Object = users.find((u) => u.id === user.id);
     if (occurrence) {
       occurrence = user;
     }

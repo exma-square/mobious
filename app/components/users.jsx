@@ -58,10 +58,10 @@ export default requireAuth(React.createClass({
     return this.state.users.map((user, index) => {
       return (
         <tr className='user--row' key={index}>
-          <td>{user.user.email}</td>
+          <td>{user.email}</td>
           <td className='text-center'>
             <button
-              onClick={this.showProfile.bind(this, user.seed)}>
+              onClick={this.showProfile.bind(this, user.id)}>
               Profile
             </button>
           </td>
