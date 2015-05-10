@@ -1,23 +1,6 @@
 "use strict";
-/**
- * Dependencies
- */
-
-var should = require("should");
-var liftApp = require("../../../server");
-var request = require("supertest");
-var app = null;
 
 describe("Index", function () {
-
-  before(function (done) {
-    liftApp(function (appInstance){
-      app = appInstance;
-      request = request.agent(app.listen());
-      done();
-    });
-  });
-
 
 
   it("should get test message", function (done) {
