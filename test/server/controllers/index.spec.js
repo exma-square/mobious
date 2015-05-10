@@ -37,7 +37,7 @@ describe("Index", function () {
     .expect(200)
     .end(function (error, res) {
 
-      res.body.test.should.be.equal('test');
+      res.body.user.id.should.greaterThan(0);
 
       done(error);
 
