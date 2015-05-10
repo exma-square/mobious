@@ -79,7 +79,7 @@ restRouter.setup(app);
 
 
 var liftApp = (cb) => {
-  models.sequelize.sync().then(function () {
+  models.sequelize.sync({force: config.connection.force}).then(function () {
     app.listen(config.port);
 
     console.log(`Application started on port ${config.port}`);

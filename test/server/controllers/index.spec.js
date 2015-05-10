@@ -36,7 +36,7 @@ describe("Index", function () {
     request.get("/rest/testData")
     .expect(200)
     .end(function (error, res) {
-
+      console.log("res.body.user.id", res.body.user.id);
       res.body.user.id.should.greaterThan(0);
 
       done(error);

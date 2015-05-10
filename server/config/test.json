@@ -5,7 +5,8 @@
     "storage": "./db.development.sqlite",
     "username": null,
     "password": null,
-    "database": null
+    "database": null,
+    "force": true
 
   }
 }
