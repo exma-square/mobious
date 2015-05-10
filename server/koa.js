@@ -15,11 +15,14 @@ import responseTime from 'koa-response-time';
 import isomorphicRouter from './router';
 import restRouter from './restRouter';
 
+import models from './models';
 
 import config from './config/init';
 
-const app = module.exports = koa();
+const app = koa();
 const env = process.env.NODE_ENV || 'development';
+
+
 
 // add header `X-Response-Time`
 app.use(responseTime());
@@ -74,9 +77,22 @@ app.use(isomorphicRouter);
 
 restRouter.setup(app);
 
-app.listen(config.port);
 
-console.log(`Application started on port ${config.port}`);
-if (process.send) {
-  process.send('online');
+var liftApp = (cb) => {
+  models.sequelize.sync().then(function () {
+    app.listen(config.port);
+
+    console.log(`Application started on port ${config.port}`);
+    if (process.send) {
+      process.send('online');
+    }
+    return cb(app);
+
+  });
+
+
 }
+
+if (env !== 'test') liftApp();
+
+module.exports = liftApp

@@ -8,4 +8,5 @@ exports.setup = function (app) {
   app.use(router(app));
 
   app.get('/rest', mainController.index);
+  app.get('/rest/testData', mainController.testData);
 };
