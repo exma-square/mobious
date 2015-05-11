@@ -11,6 +11,7 @@ import logger from 'koa-logger';
 import favicon from 'koa-favicon';
 import staticCache from 'koa-static-cache';
 import responseTime from 'koa-response-time';
+import koaBodyParser from 'koa-bodyparser';
 
 import isomorphicRouter from './router';
 import restRouter from './restRouter';
@@ -57,6 +58,9 @@ if (env === 'development') {
 }
 
 app.use(favicon(path.join(__dirname, '../app/images/favicon.ico')));
+
+app.use(koaBodyParser());
+
 app.use(hbs.middleware({
   defaultLayout: 'index',
   layoutsPath: path.join(__dirname, '/views/layouts'),
