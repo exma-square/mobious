@@ -1,4 +1,4 @@
-var models  = require('../models');
+
 
 exports.index = function *() {
 
@@ -23,4 +23,22 @@ exports.create = function *() {
   let user = result;
 
   this.body = {user}
+};
+
+
+exports.delete = function *() {
+
+  let userId = this.params.id;
+
+  let result = null;
+
+  try {
+    let user = yield models.User.findOne(userId);
+
+    result = user.destroy()
+  } catch (e) {
+    console.error("create user error", e);
+  }
+
+  this.body = {result}
 };

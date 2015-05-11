@@ -3,9 +3,9 @@
  * Dependencies
  */
 
-describe("User", function () {
+describe("User", () => {
 
-  it("index all user", function (done) {
+  it("index all user", (done) => {
 
     request.get("/rest/user/")
     .expect(200)
@@ -20,39 +20,68 @@ describe("User", function () {
 
   });
 
-  it("create user", function (done) {
 
-    let picture = {
-      "large":"http://api.randomuser.me/portraits/women/72.jpg",
-      "medium":"http://api.randomuser.me/portraits/med/women/72.jpg",
-      "thumbnail":"http://api.randomuser.me/portraits/thumb/women/72.jpg"
-    }
+  describe.only("create and delete", () => {
 
-    let newUserParams = {
-      "username":"testuser",
-      "password":"testuser",
-      "gender":"male",
-      "email":"testuser@testuser.com",
-      "phone":"(951)-385-6121",
-      "cell":"(657)-919-3511",
-      "picture":JSON.stringify(picture)
-    }
+    let createdUser = null;
+
+    it("create user", (done) => {
+
+      let picture = {
+        "large":"http://api.randomuser.me/portraits/women/72.jpg",
+        "medium":"http://api.randomuser.me/portraits/med/women/72.jpg",
+        "thumbnail":"http://api.randomuser.me/portraits/thumb/women/72.jpg"
+      }
+
+      let newUserParams = {
+        "username":"testuser",
+        "password":"testuser",
+        "gender":"male",
+        "email":"testuser@testuser.com",
+        "phone":"(951)-385-6121",
+        "cell":"(657)-919-3511",
+        "picture":JSON.stringify(picture)
+      }
 
 
-    request.post("/rest/user/create/")
-    .send(newUserParams)
-    .expect(200)
-    .end(function (error, res) {
-      console.log("res.body.user", res.body.user);
+      request.post("/rest/user")
+      .send(newUserParams)
+      .expect(200)
+      .end((error, res) => {
+        console.log("res.body.user", res.body.user);
 
-      res.body.user.should.be.Object;
-      res.body.user.id.should.greaterThan(0);
-      res.body.user.username.should.equal(newUserParams.username);
+        res.body.user.should.be.Object;
+        res.body.user.id.should.greaterThan(0);
+        res.body.user.username.should.equal(newUserParams.username);
 
-      done(error);
+        createdUser = res.body.user;
+
+        done(error);
+      });
+
     });
 
+    it("delete user", (done) => {
+
+      request.delete("/rest/user/"+ createdUser.id)
+      .expect(200)
+      .end((error, res) => {
+
+        models.User.findOne(createdUser.id).then((result) =>{
+          (result == null).should.true
+          done(error);
+        });
+
+
+
+      });
+
+
+    });
+
+
   });
+
 
 
 
