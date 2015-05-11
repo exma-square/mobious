@@ -8,4 +8,5 @@ exports.setup = function (app) {
   app.use(router(app));
 
   app.get('/rest/user/', userController.index);
+  app.post('/rest/user/create', userController.create);
 };
