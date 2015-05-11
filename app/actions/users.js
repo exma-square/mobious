@@ -8,7 +8,7 @@ import data from 'data/users.json';
 class UsersActions {
   constructor() {
     this.generateActions(
-      'remove', 'fetchSuccess', 'addSuccess',
+      'removeSuccess', 'fetchSuccess', 'addSuccess',
       'fetchBySeedSuccess'
     );
   }
@@ -24,6 +24,26 @@ class UsersActions {
     };
     this.alt.resolve(promise);
   }
+
+
+  remove(id: number, index: number) {
+    const promise: Function = (resolve) => {
+      let that = this;
+      that.alt.getActions('requests').start();
+
+      request.del('http://localhost:8080/rest/user/'+id)
+      // .set('Accept', 'application/json')
+      .end(function(){
+
+        that.actions.removeSuccess(index);
+        that.alt.getActions('requests').success();
+        return resolve();
+      });
+    };
+    this.alt.resolve(promise);
+  }
+
+
   fetch() {
     const promise: Function = (resolve) => {
       let that = this;

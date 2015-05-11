@@ -48,8 +48,11 @@ export default requireAuth(React.createClass({
   handleStoreChange() {
     this.setState(this.getInitialState());
   },
-  removeUser(index: number) {
-    return this.props.flux.getActions('users').remove(index);
+  removeUser(id: number, index: number) {
+
+    console.log('removeUser id', id);
+    console.log('removeUser index', index);
+    return this.props.flux.getActions('users').remove(id, index);
   },
   showProfile(seed: string) {
     return this.context.router.transitionTo('profile', {seed});
@@ -68,7 +71,7 @@ export default requireAuth(React.createClass({
           <td className='text-center'>
             <button
               className='user--remove'
-              onClick={this.removeUser.bind(this, index)}>
+              onClick={this.removeUser.bind(this, user.id, index)}>
               X
             </button>
           </td>

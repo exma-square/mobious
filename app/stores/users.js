@@ -14,7 +14,7 @@ class UsersStore {
     return {user: users.find((user) => user.seed === seed)};
   }
 
-  onRemove(index) {
+  onRemoveSuccess(index) {
     const users: Array<Object> = this.users.slice();
     users.splice(index, 1);
 
