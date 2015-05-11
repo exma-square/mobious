@@ -16,7 +16,7 @@ import koaBodyParser from 'koa-bodyparser';
 import isomorphicRouter from './router';
 import restRouter from './restRouter';
 
-import models from './models';
+
 import bootstrap from './bootstrap';
 
 import config from './config/init';
@@ -24,6 +24,7 @@ import config from './config/init';
 const app = koa();
 const env = process.env.NODE_ENV || 'development';
 
+global.models = require('./models');
 
 
 // add header `X-Response-Time`
