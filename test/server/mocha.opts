@@ -1,4 +1,0 @@
--t 500000
---require should
---recursive test/server/beforeAll.js
---reporter spec
