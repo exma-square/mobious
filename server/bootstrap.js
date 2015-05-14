@@ -31,10 +31,5 @@ export default async (cb) => {
 
     console.log("error", e);
 
-  } finally {
-
-    return cb();
-
   }
-
 }

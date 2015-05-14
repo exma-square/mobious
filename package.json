@@ -7,7 +7,7 @@
     "build": "./node_modules/.bin/webpack --progress --stats --config ./webpack/prod.config.js",
     "dev": "node --harmony ./webpack/dev-server.js",
     "test": "./node_modules/.bin/karma start --single-run",
-    "rest-test": "NODE_ENV=test ./node_modules/.bin/mocha --opts ./test/server/mocha.opts ./test/server/**/*.spec.js",
+    "rest-test": "NODE_ENV=test ./node_modules/.bin/mocha --opts ./test/server/mocha.opts --compilers js:mocha-traceur ./test/server/**/*.spec.js",
     "postinstall": "npm run build"
   },
   "repository": {
@@ -90,6 +90,7 @@
     "karma-sourcemap-loader": "^0.3.4",
     "karma-webpack": "^1.5.0",
     "mocha": "^2.2.1",
+    "mocha-traceur": "^2.1.0",
     "node-sass": "^3.0.0-beta.7",
     "node-watch": "^0.3.4",
     "react-a11y": "git://github.com/iam4x/react-a11y.git#packaged",

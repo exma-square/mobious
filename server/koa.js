@@ -84,23 +84,22 @@ app.use(isomorphicRouter);
 restRouter.setup(app);
 
 
-var liftApp = (cb) => {
-  models.sequelize.sync({force: config.connection.force}).then(function () {
+var liftApp = async (cb) => {
+  await models.sequelize.sync({force: config.connection.force})
 
-    bootstrap(function(){
-      app.listen(config.port);
+  await bootstrap();
+  app.listen(config.port);
 
-      console.log(`Application started on port ${config.port}`);
-      if (process.send) {
-        process.send('online');
-      }
+  console.log(`Application started on port ${config.port}`);
+  if (process.send) {
+    process.send('online');
+  }
 
-      if (typeof(cb) === 'function')
-        return cb(app);
-      else
-        return;
-    });
-  });
+  if (typeof(cb) === 'function')
+    return cb(app);
+  else
+    return;
+
 }
 
 if (env !== 'test') liftApp();

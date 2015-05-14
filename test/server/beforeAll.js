@@ -4,8 +4,9 @@ global.app = null;
 
 var liftApp = require("../../server");
 
-before(function(done){
-  liftApp(function (appInstance){
+before((done) => {
+
+  liftApp((appInstance) => {
     global.app = appInstance;
     global.request = global.request.agent(app.listen());
     done();

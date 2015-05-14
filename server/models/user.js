@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define("User", {
     username: DataTypes.STRING,
     gender: DataTypes.STRING,
@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     picture: DataTypes.JSON
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         User.hasMany(models.Task)
       }
     }

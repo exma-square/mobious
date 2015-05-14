@@ -1,11 +1,11 @@
 "use strict";
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = (sequelize, DataTypes) => {
   var Task = sequelize.define("Task", {
     title: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
+      associate: (models) => {
         Task.belongsTo(models.User);
       }
     }

@@ -3,7 +3,7 @@ import router from 'koa-router';
 import userController from './controllers/user';
 
 
-exports.setup = function (app) {
+exports.setup = (app) => {
   // register functions
   app.use(router(app));
 

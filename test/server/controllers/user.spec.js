@@ -9,7 +9,7 @@ describe("User", () => {
 
     request.get("/rest/user/")
     .expect(200)
-    .end(function (error, res) {
+    .end((error, res) => {
       console.log("res.body.users", res.body.users);
 
       res.body.users.should.be.Array;
