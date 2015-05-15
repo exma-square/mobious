@@ -17,8 +17,6 @@ class UsersActions {
       // fake xhr
       this.alt.getActions('requests').start();
 
-      console.log('params', params);
-
       request.post('http://localhost:8080/rest/user/')
       .send(params)
       .end((error, res) => {

@@ -3,12 +3,11 @@
 import React from 'react';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
-import {Navigation} from 'react-router';
 
 
 export default React.createClass({
   displayName: 'userCreate',
-  mixins: [ListenerMixin, IntlMixin, Navigation],
+  mixins: [ListenerMixin, IntlMixin],
   contextTypes: {
     router: React.PropTypes.func
   },
@@ -17,8 +16,6 @@ export default React.createClass({
   },
 
   getInitialState() {
-    this.handleSubmit = this.handleSubmit.bind(this);
-
     return {
       error: false
     };
@@ -34,11 +31,9 @@ export default React.createClass({
       pass: this.refs.pass.getDOMNode().value
     };
 
-    console.log('newUser', newUser);
-    console.log('this.props', this.props);
-    console.log('this.props.flux', this.props.flux);
     this.props.flux.getActions('users').create(newUser);
-    this.transitionTo('users');
+
+    this.context.router.transitionTo('userList');
 
 
 

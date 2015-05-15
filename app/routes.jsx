@@ -8,7 +8,7 @@ import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
 export default (
   <Route name='app' path='/' handler={require('./components/app')}>
     <DefaultRoute
-      name='users'
+      name='userList'
       handler={require('./components/user/list')} />
 
     <Route
