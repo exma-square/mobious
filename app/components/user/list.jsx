@@ -3,7 +3,8 @@
 import React from 'react';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
-import auth from '../utils/auth';
+import auth from '../../utils/auth';
+import {Link} from 'react-router';
 
 
 
@@ -97,11 +98,9 @@ export default requireAuth(React.createClass({
           </tbody>
         </table>
         <p className='text-center'>
-          <button
-            ref='add-button'
-            onClick={this.props.flux.getActions('users').add}>
-            {this.getIntlMessage('users.add')}
-          </button>
+          <Link to='userCreate'>
+            userCreate
+          </Link>
         </p>
       </div>
     );

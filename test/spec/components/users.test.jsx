@@ -7,11 +7,11 @@ import objectAssign from 'react/lib/Object.assign';
 
 import injectLang from '../../utils/inject-lang';
 
-import Users from 'components/users';
+import UserList from 'components/user/list';
 
 const should = chai.should();
 
-describe('Users', () => {
+describe('UserList', () => {
 
   let node;
   let instance;
@@ -22,7 +22,7 @@ describe('Users', () => {
     flux = new Flux();
 
     const props = objectAssign({flux}, injectLang(flux));
-    const element = React.createElement(Users, props);
+    const element = React.createElement(UserList, props);
 
     node = window.document.createElement('div');
     instance = React.render(element, node);

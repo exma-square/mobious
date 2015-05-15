@@ -1,6 +1,6 @@
 'use strict';
 
-import {sample} from 'lodash';
+
 import request from 'superagent';
 
 import data from 'data/users.json';
@@ -8,16 +8,22 @@ import data from 'data/users.json';
 class UsersActions {
   constructor() {
     this.generateActions(
-      'removeSuccess', 'fetchSuccess', 'addSuccess',
+      'removeSuccess', 'fetchSuccess', 'createSuccess',
       'fetchBySeedSuccess'
     );
   }
-  add() {
+  create(params) {
     const promise: Function = (resolve) => {
       // fake xhr
       this.alt.getActions('requests').start();
-      setTimeout(() => {
-        this.actions.addSuccess(sample(data.users));
+
+      console.log('params', params);
+
+      request.post('http://localhost:8080/rest/user/')
+      .send(params)
+      .end((error, res) => {
+        let createdUser = res.body.user;
+        this.actions.createSuccess(createdUser);
         this.alt.getActions('requests').success();
         return resolve();
       }, 300);
@@ -32,8 +38,7 @@ class UsersActions {
       that.alt.getActions('requests').start();
 
       request.del('http://localhost:8080/rest/user/'+id)
-      // .set('Accept', 'application/json')
-      .end(function(){
+      .end(() => {
 
         that.actions.removeSuccess(index);
         that.alt.getActions('requests').success();
@@ -51,7 +56,7 @@ class UsersActions {
 
       request.get('http://localhost:8080/rest/user')
       // .set('Accept', 'application/json')
-      .end(function(error, res){
+      .end((error, res) => {
 
         that.actions.fetchSuccess(res.body.users);
         that.alt.getActions('requests').success();
@@ -74,5 +79,7 @@ class UsersActions {
     this.alt.resolve(promise);
   }
 }
+
+
 
 export default UsersActions;

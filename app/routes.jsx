@@ -9,7 +9,11 @@ export default (
   <Route name='app' path='/' handler={require('./components/app')}>
     <DefaultRoute
       name='users'
-      handler={require('./components/users')} />
+      handler={require('./components/user/list')} />
+
+    <Route
+      name='userCreate'
+      handler={require('./components/user/create')} />
 
     <Route
       name='login'
