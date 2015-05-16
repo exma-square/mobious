@@ -19,7 +19,10 @@ export default class AltResolver {
     }
   }
   mapPromises() {
-    return this._toResolve.map((promise) => new Promise(promise));
+    let mapPromises = this._toResolve.map(
+      (promise) => new Promise(promise)
+    );
+    return mapPromises;
   }
   async render(Handler: object, flux: object, force: ?boolean = false) {
     if (process.env.BROWSER && !force) {
@@ -43,8 +46,10 @@ export default class AltResolver {
         // Get the new content with promises resolved
         const app: string = React.renderToString(React.createElement(Handler, {flux}));
 
+        let initProps = flux.flush();
+
         // Render the html with state in it
-        content = Iso.render(app, flux.flush());
+        content = Iso.render(app, initProps);
       }
       catch (error) {
         // catch script error, render 500 page

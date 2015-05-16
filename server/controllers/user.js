@@ -7,6 +7,15 @@ exports.index = function *() {
   this.body = {users}
 };
 
+exports.get = function *() {
+
+  let userId = this.params.id;
+  
+  let user = yield models.User.findOne(userId);
+
+  this.body = {user}
+};
+
 
 exports.create = function *() {
 

@@ -55,7 +55,7 @@ export default requireAuth(React.createClass({
     console.log('removeUser index', index);
     return this.props.flux.getActions('users').remove(id, index);
   },
-  showProfile(seed: string) {
+  showProfile(seed: number) {
     return this.context.router.transitionTo('profile', {seed});
   },
   renderUsers() {

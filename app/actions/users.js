@@ -3,8 +3,6 @@
 
 import request from 'superagent';
 
-import data from 'data/users.json';
-
 class UsersActions {
   constructor() {
     this.generateActions(
@@ -66,8 +64,9 @@ class UsersActions {
   fetchBySeed(seed: string) {
     const promise = (resolve) => {
       this.alt.getActions('requests').start();
-      setTimeout(() => {
-        const user: Object = data.users.find((u) => u.seed === seed);
+      request.get('http://localhost:8080/rest/user/'+seed)
+      .end((error, res) => {
+        const user: Object = res.body.user;
         this.actions.fetchBySeedSuccess(user);
         this.alt.getActions('requests').success();
         return resolve();

@@ -22,8 +22,11 @@ export default React.createClass({
     return this.props.flux.getStore('users').getBySeed(seed);
   },
   componentWillMount() {
-    const seed: string = this.context.router.getCurrentParams().seed;
-    return this.props.flux.getActions('users').fetchBySeed(seed);
+
+    if(!this.state.user){
+      const seed: string = this.context.router.getCurrentParams().seed;
+      return this.props.flux.getActions('users').fetchBySeed(seed);
+    }
   },
   componentDidMount() {
     this.listenTo(this.props.flux.getStore('users'), this.handleStoreChange);
@@ -33,10 +36,10 @@ export default React.createClass({
   },
   render() {
     if (this.state.user) {
-      const user: Object = this.state.user.user;
+      const user: Object = this.state.user;
       return (
         <div className='app--profile'>
-          <h2>{`${capitalize(user.name.first)} ${capitalize(user.name.last)}`}</h2>
+          <h2>{`${capitalize(user.username)}`}</h2>
           <img
             src={user.picture.medium}
             alt='profile picture' />
