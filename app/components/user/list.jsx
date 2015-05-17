@@ -3,32 +3,17 @@
 import React from 'react';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
-import auth from '../../utils/auth';
 import {Link} from 'react-router';
 
 
 
 
-var requireAuth = (Component) => {
-  return class Authenticated extends React.Component {
-    static willTransitionTo(transition) {
-      console.log('auth.loggedIn', auth.loggedIn());
-
-      if (!auth.loggedIn()) {
-        transition.redirect('/login', {}, {nextPath: transition.path});
-      }
-    }
-    render () {
-      return (<Component {...this.props}/>);
-    }
-  };
-};
 
 if (process.env.BROWSER) {
   require('styles/users.scss');
 }
 
-export default requireAuth(React.createClass({
+export default React.createClass({
   displayName: 'UsersList',
   mixins: [ListenerMixin, IntlMixin],
   contextTypes: {
@@ -105,4 +90,4 @@ export default requireAuth(React.createClass({
       </div>
     );
   }
-}));
+});
