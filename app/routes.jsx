@@ -16,6 +16,10 @@ export default (
       handler={require('./components/user/create')} />
 
     <Route
+      name='login'
+      handler={require('./components/login')} />
+
+    <Route
       name='guides'
       handler={require('./components/guides')} />
     <Route
