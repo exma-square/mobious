@@ -2,8 +2,7 @@
 /**
  * Dependencies
  */
-
- var pluginService = require("../../../server/services/pluginService");
+var pluginService = require("../../../server/services/pluginService");
 
 describe.only("pluginService", () => {
 

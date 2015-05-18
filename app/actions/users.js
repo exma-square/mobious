@@ -1,7 +1,9 @@
 'use strict';
 
+import {baseUrl} from '../../server/config/init';
+var request = require('superagent');
 
-import request from 'superagent';
+
 
 class UsersActions {
   constructor() {
@@ -15,7 +17,7 @@ class UsersActions {
       // fake xhr
       this.alt.getActions('requests').start();
 
-      request.post('http://localhost:8080/rest/user/')
+      request.post(baseUrl + 'rest/user/')
       .send(params)
       .end((error, res) => {
         let createdUser = res.body.user;
@@ -33,7 +35,7 @@ class UsersActions {
       let that = this;
       that.alt.getActions('requests').start();
 
-      request.del('http://localhost:8080/rest/user/'+id)
+      request.del(baseUrl + 'rest/user/'+id)
       .end(() => {
 
         that.actions.removeSuccess(index);
@@ -50,7 +52,7 @@ class UsersActions {
       let that = this;
       that.alt.getActions('requests').start();
 
-      request.get('http://localhost:8080/rest/user')
+      request.get(baseUrl + 'rest/user')
       // .set('Accept', 'application/json')
       .end((error, res) => {
 
@@ -64,7 +66,7 @@ class UsersActions {
   fetchBySeed(seed: string) {
     const promise = (resolve) => {
       this.alt.getActions('requests').start();
-      request.get('http://localhost:8080/rest/user/'+seed)
+      request.get(baseUrl + 'rest/user/' + seed)
       .end((error, res) => {
         const user: Object = res.body.user;
         this.actions.fetchBySeedSuccess(user);

@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     phone: DataTypes.STRING,
     cell: DataTypes.STRING,
-    picture: DataTypes.JSON
+    picture: DataTypes.TEXT
   }, {
     classMethods: {
       associate: (models) => {
-        User.hasMany(models.Task)
+        User.hasMany(models.Task);
       }
     }
   });
