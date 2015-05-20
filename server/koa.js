@@ -84,7 +84,7 @@ app.use(isomorphicRouter);
 restRouter.setup(app);
 
 
-var liftApp = async (cb) => {
+var liftApp = async () => {
   await models.sequelize.sync({force: config.connection.force})
 
   await bootstrap();
@@ -95,10 +95,8 @@ var liftApp = async (cb) => {
     process.send('online');
   }
 
-  if (typeof(cb) === 'function')
-    return cb(app);
-  else
-    return;
+
+  return app;
 
 }
 

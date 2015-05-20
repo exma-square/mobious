@@ -4,11 +4,11 @@ global.app = null;
 
 var liftApp = require("../../server");
 
-before((done) => {
+before(async (done) => {
 
-  liftApp((appInstance) => {
-    global.app = appInstance;
-    global.request = global.request.agent(app.listen());
-    done();
-  });
+  let app = await liftApp()
+  global.app = app
+  global.request = global.request.agent(app.listen());
+  done();
+
 });
