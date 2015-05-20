@@ -2,16 +2,23 @@
 /**
  * Dependencies
  */
-var pluginService = require("../../../server/services/pluginService");
+import PluginService from '../../../server/services/pluginService';
+import models from '../../../server/models';
 
-describe.only("pluginService", () => {
+import {connection} from '../../../server/config/init';
+import Sequelize from 'sequelize';
+
+describe.only('pluginService', () => {
 
   it('install plugin', (done) => {
 
-    pluginService.installModels();
+    var pluginService = new PluginService(models.sequelize);
+
+    pluginService.addPlugin('mobious_plugin_sample');
+
+    pluginService.mountModels();
 
     done();
-
   });
 
 

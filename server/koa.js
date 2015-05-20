@@ -24,8 +24,15 @@ import config from './config/init';
 const app = koa();
 const env = process.env.NODE_ENV || 'development';
 
+import PluginService from './services/pluginService';
+
 global.models = require('./models');
 
+var pluginService = new PluginService(models.sequelize);
+
+pluginService.addPlugin('mobious_plugin_sample');
+
+global.models = pluginService.db;
 
 // add header `X-Response-Time`
 app.use(responseTime());
@@ -83,8 +90,9 @@ app.use(isomorphicRouter);
 
 restRouter.setup(app);
 
-
 var liftApp = async () => {
+
+
   await models.sequelize.sync({force: config.connection.force})
 
   await bootstrap();
