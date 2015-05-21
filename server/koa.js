@@ -30,9 +30,9 @@ global.models = require('./models');
 
 var pluginService = new PluginService(models.sequelize);
 
-pluginService.addPlugin('mobious_plugin_sample');
+pluginService.installPlugin('mobious_plugin_sample');
 
-global.models = pluginService.db;
+global.models = pluginService.getDb();
 
 // add header `X-Response-Time`
 app.use(responseTime());

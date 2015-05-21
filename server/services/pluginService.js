@@ -1,17 +1,13 @@
 
-
-
 export default class PluginService {
   constructor(sequelize){
 
-    this.plugins = [];
     this.db = {};
     this.sequelize = sequelize;
 
   }
 
-  addPlugin(pluginName){
-    console.log("=== pluginName ===", pluginName);
+  installPlugin(pluginName){
 
     var Plugin = require(pluginName);
 
@@ -21,30 +17,15 @@ export default class PluginService {
     }
 
     this.db = newPlugin.instance.db;
+
+  }
+
+
+  getDb(){
     this.db.sequelize =this.sequelize;
-
-    this.plugins.push(newPlugin);
-
-
-
-
+    return this.db;
   }
 
-  getPlugin(){
-    return this.piugins;
-  }
-
-  mountModels(){
-    // console.log('=== mountModels ===');
-    // var that = this;
-    //
-    // Object.keys(that.db).forEach((modelName) => {
-    //   if ("associate" in that.db[modelName]) {
-    //     that.db[modelName].associate(that.db);
-    //   }
-    // });
-
-  }
 
 
 }

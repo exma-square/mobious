@@ -1,5 +1,4 @@
 'use strict';
-import models from './models';
 
 export default async (cb) => {
 
