@@ -35,7 +35,7 @@ class UsersActions {
       let that = this;
       that.alt.getActions('requests').start();
 
-      request.del(baseUrl + 'rest/user/'+id)
+      request.del(baseUrl + 'rest/user/' + id)
       .end(() => {
 
         that.actions.removeSuccess(index);
