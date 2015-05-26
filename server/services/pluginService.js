@@ -1,9 +1,10 @@
 
 export default class PluginService {
-  constructor(sequelize){
+  constructor(sequelize, router){
 
     this.db = {};
     this.sequelize = sequelize;
+    this.router = router;
 
   }
 
@@ -13,7 +14,7 @@ export default class PluginService {
 
     var newPlugin = {
       name: 'pluginName',
-      instance: new Plugin(this.sequelize)
+      instance: new Plugin(this.sequelize, this.router)
     }
 
     this.db = newPlugin.instance.db;

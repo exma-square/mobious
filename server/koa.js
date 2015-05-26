@@ -14,21 +14,24 @@ import responseTime from 'koa-response-time';
 import koaBodyParser from 'koa-bodyparser';
 
 import isomorphicRouter from './router';
-import restRouter from './restRouter';
-
-
 import bootstrap from './bootstrap';
 
 import config from './config/init';
-
-const app = koa();
-const env = process.env.NODE_ENV || 'development';
-
+import Router from 'koa-router';
 import PluginService from './services/pluginService';
+import models from './models';
 
-global.models = require('./models');
+const env = process.env.NODE_ENV || 'development';
+const app = koa();
 
-var pluginService = new PluginService(models.sequelize);
+var router = new Router();
+var pluginService = new PluginService(models.sequelize, router);
+
+app.use(koaBodyParser());
+
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 pluginService.installPlugin('mobious_plugin_sample');
 
@@ -67,7 +70,7 @@ if (env === 'development') {
 
 app.use(favicon(path.join(__dirname, '../app/images/favicon.ico')));
 
-app.use(koaBodyParser());
+
 
 app.use(hbs.middleware({
   defaultLayout: 'index',
@@ -87,8 +90,6 @@ else {
 }
 
 app.use(isomorphicRouter);
-
-restRouter.setup(app);
 
 var liftApp = async () => {
 
