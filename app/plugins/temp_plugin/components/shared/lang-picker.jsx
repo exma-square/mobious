@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 
 if (process.env.BROWSER) {
-  require('styles/lang-picker.scss');
+  require('plugins/temp_plugin/styles/lang-picker.scss');
 }
 
 export default React.createClass({

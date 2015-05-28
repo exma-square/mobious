@@ -3,7 +3,7 @@
 import chai from 'chai';
 import React from 'react/addons';
 
-import ServerError from 'pages/server-error';
+import ServerError from 'plugins/temp_plugin/pages/server-error';
 
 chai.should();
 

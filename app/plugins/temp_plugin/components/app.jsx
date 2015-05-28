@@ -5,11 +5,11 @@ import objectAssign from 'react/lib/Object.assign';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {RouteHandler} from 'react-router';
 
-import Header from 'components/header';
-import Footer from 'components/footer';
+import Header from 'plugins/temp_plugin/components/header';
+import Footer from 'plugins/temp_plugin/components/footer';
 
 if (process.env.BROWSER) {
-  require('styles/main.scss');
+  require('plugins/temp_plugin/styles/main.scss');
 }
 
 export default React.createClass({

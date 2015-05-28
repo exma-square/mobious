@@ -7,7 +7,7 @@ export default {
     users: {
       title: 'Some random users',
       email: 'Email address',
-      actions: 'Actions',
+      actions: 'plugins/temp_plugin/actions',
       add: 'Add random user'
     }
   }

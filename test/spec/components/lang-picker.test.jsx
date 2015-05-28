@@ -7,7 +7,7 @@ import Flux from 'utils/flux';
 
 import injectLang from '../../utils/inject-lang';
 
-import LangPicker from 'components/shared/lang-picker';
+import LangPicker from 'plugins/temp_plugin/components/shared/lang-picker';
 
 const should = chai.should();
 

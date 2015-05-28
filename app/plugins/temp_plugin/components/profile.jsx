@@ -5,7 +5,7 @@ import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {capitalize} from 'lodash';
 
 if (process.env.BROWSER) {
-  require('styles/profile.scss');
+  require('plugins/temp_plugin/styles/profile.scss');
 }
 
 export default React.createClass({

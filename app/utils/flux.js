@@ -3,13 +3,13 @@
 import Alt from 'alt';
 import AltResolver from './alt-resolver.js';
 
-import RequestsActions from 'actions/requests';
-import LocaleActions from 'actions/locale';
-import UsersActions from 'actions/users';
+import RequestsActions from 'plugins/temp_plugin/actions/requests';
+import LocaleActions from 'plugins/temp_plugin/actions/locale';
+import UsersActions from 'plugins/temp_plugin/actions/users';
 
-import RequestsStore from 'stores/requests';
-import LocaleStore from 'stores/locale';
-import UsersStore from 'stores/users';
+import RequestsStore from 'plugins/temp_plugin/stores/requests';
+import LocaleStore from 'plugins/temp_plugin/stores/locale';
+import UsersStore from 'plugins/temp_plugin/stores/users';
 
 class Flux extends Alt {
 

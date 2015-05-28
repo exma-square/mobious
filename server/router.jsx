@@ -47,7 +47,7 @@ export default function *(next) {
 
     // Get request locale for rendering
     const locale = this.cookies.get('_lang') || this.acceptsLanguages(require('./config/init').locales) || 'en';
-    const {messages} = require(`data/${locale}`);
+    const {messages} = require(`plugins/temp_plugin/data/${locale}`);
 
     // Populate store with locale
     flux

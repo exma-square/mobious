@@ -8,17 +8,17 @@ const loaders = {
       require.ensure([
         'intl/Intl',
         'intl/locale-data/jsonp/en.js',
-        'data/en'
+        'plugins/temp_plugin/data/en'
       ], (require) => {
         require('intl/Intl');
         require('intl/locale-data/jsonp/en.js');
-        const lang = require('data/en');
+        const lang = require('plugins/temp_plugin/data/en');
         return callback(lang);
       });
     }
     else {
-      require.ensure(['data/en'], (require) => {
-        const lang = require('data/en');
+      require.ensure(['plugins/temp_plugin/data/en'], (require) => {
+        const lang = require('plugins/temp_plugin/data/en');
         return callback(lang);
       });
     }
@@ -28,17 +28,17 @@ const loaders = {
       require.ensure([
         'intl/Intl',
         'intl/locale-data/jsonp/fr.js',
-        'data/fr'
+        'plugins/temp_plugin/data/fr'
       ], (require) => {
         require('intl/Intl');
         require('intl/locale-data/jsonp/fr.js');
-        const lang = require('data/fr');
+        const lang = require('plugins/temp_plugin/data/fr');
         return callback(lang);
       });
     }
     else {
-      require.ensure(['data/fr'], (require) => {
-        const lang = require('data/fr');
+      require.ensure(['plugins/temp_plugin/data/fr'], (require) => {
+        const lang = require('plugins/temp_plugin/data/fr');
         return callback(lang);
       });
     }

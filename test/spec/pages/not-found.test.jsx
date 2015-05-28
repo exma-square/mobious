@@ -3,7 +3,7 @@
 import chai from 'chai';
 import React from 'react/addons';
 
-import NotFound from 'pages/not-found';
+import NotFound from 'plugins/temp_plugin/pages/not-found';
 
 chai.should();
 

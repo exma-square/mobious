@@ -6,22 +6,22 @@ import React from 'react';
 import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
 
 export default (
-  <Route name='app' path='/' handler={require('./components/app')}>
+  <Route name='app' path='/' handler={require('./plugins/temp_plugin/components/app')}>
     <DefaultRoute
       name='userList'
-      handler={require('./components/user/list')} />
+      handler={require('./plugins/temp_plugin/components/user/list')} />
 
     <Route
       name='userCreate'
-      handler={require('./components/user/create')} />
+      handler={require('./plugins/temp_plugin/components/user/create')} />
 
     <Route
       name='guides'
-      handler={require('./components/guides')} />
+      handler={require('./plugins/temp_plugin/components/guides')} />
     <Route
       name='profile'
       path='profile/:seed'
-      handler={require('./components/profile')} />
-    <NotFoundRoute handler={require('./pages/not-found')} />
+      handler={require('./plugins/temp_plugin/components/profile')} />
+    <NotFoundRoute handler={require('./plugins/temp_plugin/pages/not-found')} />
   </Route>
 );

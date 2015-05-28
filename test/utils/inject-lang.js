@@ -1,7 +1,7 @@
 'use strict';
 
 export default (flux, locale='en') => {
-  const {messages} = require(`data/${locale}`);
+  const {messages} = require(`plugins/temp_plugin/data/${locale}`);
 
   flux
     .getActions('locale')

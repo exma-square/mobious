@@ -10,7 +10,7 @@ import {Link} from 'react-router';
 
 
 if (process.env.BROWSER) {
-  require('styles/users.scss');
+  require('plugins/temp_plugin/styles/users.scss');
 }
 
 export default React.createClass({

@@ -7,7 +7,7 @@ import objectAssign from 'react/lib/Object.assign';
 
 import injectLang from '../../utils/inject-lang';
 
-import UserList from 'components/user/list';
+import UserList from 'plugins/temp_plugin/components/user/list';
 
 const should = chai.should();
 
