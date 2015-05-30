@@ -9,9 +9,9 @@ import Router from 'koa-router';
 
 
 
-describe.only('pluginService', () => {
+describe('pluginService', () => {
 
-  it('install plugin', (done) => {
+  it('install database and rest of plugin', (done) => {
 
     var router = new Router();
 
@@ -23,6 +23,24 @@ describe.only('pluginService', () => {
 
     done();
   });
+
+  it.only('get install app path of plugin', (done) => {
+
+    var path = PluginService.getInstallAppPath('mobious_plugin_sample');
+
+    done();
+
+  });
+
+
+  it.only('install app of plugin', async (done) => {
+
+    await PluginService.installApp('mobious_plugin_sample');
+
+    done();
+
+  });
+
 
 
 });

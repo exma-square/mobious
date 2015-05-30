@@ -1,3 +1,4 @@
+import fse from 'fs-extra';
 
 export default class PluginService {
   constructor(sequelize, router){
@@ -28,5 +29,32 @@ export default class PluginService {
   }
 
 
+  static async installApp(pluginName) {
+
+    var pluginAppPath = `${global.HOME_PATH}/node_modules/${pluginName}/dist/app`;
+
+
+    var pluginAppInstallPath = this.getInstallAppPath(pluginName);
+
+
+    var result = await new Promise((resolve, reject) => {
+
+      fse.copy(pluginAppPath, pluginAppInstallPath, (error) => {
+        if(error){
+          resolve(error);
+        } else {
+          resolve("ok");
+        }
+      });
+
+    });
+
+  }
+
+  static getInstallAppPath(pluginName) {
+    var pluginAppInstallPath = `${global.HOME_PATH}/app/plugins/${pluginName}`;
+
+    return pluginAppInstallPath;
+  }
 
 }
