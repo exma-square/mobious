@@ -4,7 +4,7 @@ import React from 'react';
 import Iso from 'iso';
 import debug from 'debug';
 
-import ErrorPage from 'plugins/temp_plugin/pages/server-error';
+import ErrorPage from 'pages/server-error';
 
 export default class AltResolver {
   constructor() {

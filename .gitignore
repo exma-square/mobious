@@ -10,3 +10,4 @@ dist
 .c9
 
 db.development.sqlite
+app/plugins

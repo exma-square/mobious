@@ -4,24 +4,27 @@
 /* eslint no-unused-vars: 0 */
 import React from 'react';
 import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
+import {APP_CLIENT_HOME} from '../server/config/init';
+
+
 
 export default (
-  <Route name='app' path='/' handler={require('./plugins/temp_plugin/components/app')}>
+  <Route name='app' path='/' handler={require(`./${APP_CLIENT_HOME}/components/app.jsx`)}>
     <DefaultRoute
       name='userList'
-      handler={require('./plugins/temp_plugin/components/user/list')} />
+      handler={require(`./${APP_CLIENT_HOME}/components/user/list`)} />
 
     <Route
       name='userCreate'
-      handler={require('./plugins/temp_plugin/components/user/create')} />
+      handler={require(`./${APP_CLIENT_HOME}/components/user/create`)} />
 
     <Route
       name='guides'
-      handler={require('./plugins/temp_plugin/components/guides')} />
+      handler={require(`./${APP_CLIENT_HOME}/components/guides`)} />
     <Route
       name='profile'
       path='profile/:seed'
-      handler={require('./plugins/temp_plugin/components/profile')} />
-    <NotFoundRoute handler={require('./plugins/temp_plugin/pages/not-found')} />
+      handler={require(`./${APP_CLIENT_HOME}/components/profile`)} />
+    <NotFoundRoute handler={require(`./pages/not-found`)} />
   </Route>
 );

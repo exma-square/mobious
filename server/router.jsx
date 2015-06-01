@@ -8,7 +8,7 @@ import Router from 'react-router';
 
 // Paths are relative to `app` directory
 import routes from 'routes';
-import Flux from 'utils/flux';
+import Flux from 'plugins/mobious_plugin_sample/flux';
 import promisify from 'utils/promisify';
 
 export default function *(next) {
@@ -47,7 +47,7 @@ export default function *(next) {
 
     // Get request locale for rendering
     const locale = this.cookies.get('_lang') || this.acceptsLanguages(require('./config/init').locales) || 'en';
-    const {messages} = require(`plugins/temp_plugin/data/${locale}`);
+    const {messages} = require(`plugins/mobious_plugin_sample/data/${locale}`);
 
     // Populate store with locale
     flux

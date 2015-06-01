@@ -16,7 +16,7 @@ export default class PluginService {
     var newPlugin = {
       name: 'pluginName',
       instance: new Plugin(this.sequelize, this.router)
-    }
+    };
 
     this.db = newPlugin.instance.db;
 
@@ -24,37 +24,29 @@ export default class PluginService {
 
 
   getDb(){
-    this.db.sequelize =this.sequelize;
+    this.db.sequelize = this.sequelize;
     return this.db;
   }
 
 
   static async installApp(pluginName) {
 
-    var pluginAppPath = `${global.HOME_PATH}/node_modules/${pluginName}/dist/app`;
+    var pluginAppPath = `node_modules/${pluginName}/dist/app`;
+    var pluginAppHomePath =`app/plugins/${pluginName}`;
 
 
-    var pluginAppInstallPath = this.getInstallAppPath(pluginName);
+    await new Promise((resolve) => {
 
-
-    var result = await new Promise((resolve, reject) => {
-
-      fse.copy(pluginAppPath, pluginAppInstallPath, (error) => {
+      fse.copy(pluginAppPath, pluginAppHomePath, (error) => {
         if(error){
           resolve(error);
         } else {
-          resolve("ok");
+          resolve('ok');
         }
       });
 
     });
 
-  }
-
-  static getInstallAppPath(pluginName) {
-    var pluginAppInstallPath = `${global.HOME_PATH}/app/plugins/${pluginName}`;
-
-    return pluginAppInstallPath;
   }
 
 }

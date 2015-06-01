@@ -120,7 +120,7 @@ How to `require()` images on server side
 On client with webpack, you can directly `require()` images for your images DOM element like:
 
 ```
-<img src={require('plugins/temp_plugin/images/logo.png')} />
+<img src={require('plugins/mobious_plugin_sample/images/logo.png')} />
 ```
 
 Webpack will load them through the `url-loader` and if it's too big it will sent through `file-loader` for minification/compilation. The results is an image with a new filename for cache busting.
@@ -133,10 +133,10 @@ import imageResolver from 'utils/image-resolver'
 let image;
 // On browser just require() the image as usual
 if (process.env.BROWSER) {
-  image = require('plugins/temp_plugin/images/logo.png');
+  image = require('plugins/mobious_plugin_sample/images/logo.png');
 }
 else {
-  image = imageResolver('plugins/temp_plugin/images/logo.png');
+  image = imageResolver('plugins/mobious_plugin_sample/images/logo.png');
 }
 
 ...

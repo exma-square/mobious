@@ -24,13 +24,6 @@ describe('pluginService', () => {
     done();
   });
 
-  it.only('get install app path of plugin', (done) => {
-
-    var path = PluginService.getInstallAppPath('mobious_plugin_sample');
-
-    done();
-
-  });
 
 
   it.only('install app of plugin', async (done) => {
