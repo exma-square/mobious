@@ -9,7 +9,7 @@ import Header from './header';
 import Footer from './footer';
 
 if (process.env.BROWSER) {
-  require('userManager/styles/main.scss');
+  require('styles/main.scss');
 }
 
 export default React.createClass({

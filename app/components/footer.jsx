@@ -3,7 +3,7 @@
 import React from 'react';
 
 if (process.env.BROWSER) {
-  require('userManager/styles/footer.scss');
+  require('styles/footer.scss');
 }
 
 export default React.createClass({

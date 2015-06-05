@@ -5,19 +5,19 @@ import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
 
 import imageResolver from 'utils/image-resolver';
-import Spinner from 'userManager/components/shared/spinner';
-import LangPicker from 'userManager/components/shared/lang-picker';
+import Spinner from './shared/spinner';
+import LangPicker from './shared/lang-picker';
 
 // Load styles for the header
 // and load the `react-logo.png` image
 // for the `<img src='' />` element
 let reactLogo;
 if (process.env.BROWSER) {
-  require('userManager/styles/header.scss');
-  reactLogo = require('userManager/images/react-logo.png');
+  require('styles/header.scss');
+  reactLogo = require('images/react-logo.png');
 }
 else {
-  reactLogo = imageResolver('userManager/images/react-logo.png');
+  reactLogo = imageResolver('images/react-logo.png');
 }
 
 export default React.createClass({

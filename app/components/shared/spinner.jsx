@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 
 if (process.env.BROWSER) {
-  require('userManager/styles/spinner.scss');
+  require('styles/spinner.scss');
 }
 
 export default React.createClass({
