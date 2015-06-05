@@ -5,8 +5,8 @@ import React from 'react';
 import Router from 'react-router';
 
 // Paths are relative to `app` directory
-import Flux from 'plugins/mobious_plugin_sample/flux';
-import intlLoader from 'plugins/mobious_plugin_sample/intl-loader';
+import Flux from 'userManager/flux';
+import intlLoader from 'userManager/intl-loader';
 
 if (process.env.NODE_ENV === 'development') {
   // Warns about potential accessibility issues with your React elements

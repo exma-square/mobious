@@ -7,7 +7,7 @@ import objectAssign from 'react/lib/Object.assign';
 
 import injectLang from '../../utils/inject-lang';
 
-import UserList from 'plugins/mobious_plugin_sample/components/user/list';
+import UserList from 'userManager/components/user/list';
 
 const should = chai.should();
 

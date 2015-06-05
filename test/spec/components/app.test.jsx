@@ -7,7 +7,7 @@ import Flux from 'utils/flux';
 import reactRouterStub from '../../utils/stub-router-context';
 import injectLang from '../../utils/inject-lang';
 
-import App from 'plugins/mobious_plugin_sample/components/app';
+import App from 'userManager/components/app';
 
 const should = chai.should();
 

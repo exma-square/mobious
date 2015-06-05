@@ -27,7 +27,7 @@ try {
   config.HOME_PATH = __dirname.replace('/server/config', '');
   global.HOME_PATH = config.HOME_PATH;
 
-  config.APP_HOME = `${config.HOME_PATH}/app/plugins/mobious_plugin_sample`;
+  config.APP_HOME = `${config.HOME_PATH}/app/userManager`;
   // global.APP_HOME = config.APP_HOME;
 
   config.APP_CLIENT_HOME = getClientInstallAppPath('mobious_plugin_sample');

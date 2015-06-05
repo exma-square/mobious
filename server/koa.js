@@ -17,25 +17,23 @@ import isomorphicRouter from './router';
 import bootstrap from './bootstrap';
 
 import config from './config/init';
-import Router from 'koa-router';
-import PluginService from './services/pluginService';
-import models from './models';
+
+
+import Models from './models';
+import Controllers from './controllers';
+
+
 
 const env = process.env.NODE_ENV || 'development';
 const app = koa();
 
-var router = new Router();
-var pluginService = new PluginService(models.sequelize, router);
-
 app.use(koaBodyParser());
 
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
+// setup rest router
+(new Controllers()).setupRoute(app)
 
-pluginService.installPlugin('mobious_plugin_sample');
-
-global.models = pluginService.getDb();
+// setup rest models
+global.models = (new Models()).getDb();
 
 // add header `X-Response-Time`
 app.use(responseTime());

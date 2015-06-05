@@ -8,7 +8,7 @@ import objectAssign from 'react/lib/Object.assign';
 import reactRouterStub from '../../utils/stub-router-context';
 import injectLang from '../../utils/inject-lang';
 
-import Header from 'plugins/mobious_plugin_sample/components/header';
+import Header from 'userManager/components/header';
 
 chai.should();
 

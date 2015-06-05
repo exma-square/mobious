@@ -3,6 +3,11 @@ mobious framework
 
 base on [isomorphic-flux-boilerplate](https://github.com/iam4x/isomorphic-flux-boilerplate)
 
+controllers
+===========
+
+define router: server/controllers.index.js
+
 ES6 Isomorphic Flux/ReactJS Boilerplate
 =======================================
 
@@ -120,7 +125,7 @@ How to `require()` images on server side
 On client with webpack, you can directly `require()` images for your images DOM element like:
 
 ```
-<img src={require('plugins/mobious_plugin_sample/images/logo.png')} />
+<img src={require('userManager/images/logo.png')} />
 ```
 
 Webpack will load them through the `url-loader` and if it's too big it will sent through `file-loader` for minification/compilation. The results is an image with a new filename for cache busting.
@@ -133,10 +138,10 @@ import imageResolver from 'utils/image-resolver'
 let image;
 // On browser just require() the image as usual
 if (process.env.BROWSER) {
-  image = require('plugins/mobious_plugin_sample/images/logo.png');
+  image = require('userManager/images/logo.png');
 }
 else {
-  image = imageResolver('plugins/mobious_plugin_sample/images/logo.png');
+  image = imageResolver('userManager/images/logo.png');
 }
 
 ...

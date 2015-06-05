@@ -6,9 +6,9 @@ import reactRouterStub from '../../utils/stub-router-context';
 import {capitalize} from 'lodash';
 
 import Flux from 'utils/flux';
-import Profile from 'plugins/mobious_plugin_sample/components/profile';
+import Profile from 'userManager/components/profile';
 
-import {users} from 'plugins/mobious_plugin_sample/data/users.json';
+import {users} from 'userManager/data/users.json';
 
 const should = chai.should();
 const seed = '7729a1ef4ba6ef68';

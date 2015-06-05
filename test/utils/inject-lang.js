@@ -1,7 +1,7 @@
 'use strict';
 
 export default (flux, locale='en') => {
-  const {messages} = require(`plugins/mobious_plugin_sample/data/${locale}`);
+  const {messages} = require(`userManager/data/${locale}`);
 
   flux
     .getActions('locale')
