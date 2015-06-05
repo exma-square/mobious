@@ -8,6 +8,40 @@ controllers
 
 define router: server/controllers.index.js
 
+Isomorphic app module useage
+============================
+
+path
+----
+
+-	app/#{module_name}
+
+ex: app/userManager
+
+flux
+----
+
+-	app/#{module_name}/flux
+
+i18n load
+---------
+
+-	app/#{module_name}/intl-loader
+
+Isomorphic app share resource
+=============================
+
+app/pages
+---------
+
+-	404: not find page
+-	500: server error page
+
+app/utils
+---------
+
+use for general process
+
 ES6 Isomorphic Flux/ReactJS Boilerplate
 =======================================
 
