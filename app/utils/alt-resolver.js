@@ -24,7 +24,7 @@ export default class AltResolver {
     );
     return mapPromises;
   }
-  async render(Handler: object, flux: object, force: ?boolean = false) {
+  async render(Handler: Object, flux: Object, force: ?boolean = false) {
     if (process.env.BROWSER && !force) {
       debug('dev')('`altResolver.render` should not be used in browser, something went wrong');
       return null;

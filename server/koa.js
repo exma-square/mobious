@@ -13,6 +13,8 @@ import staticCache from 'koa-static-cache';
 import responseTime from 'koa-response-time';
 import koaBodyParser from 'koa-bodyparser';
 
+import cors from 'koa-cors';
+
 import isomorphicRouter from './router';
 import bootstrap from './bootstrap';
 
@@ -27,6 +29,8 @@ import Controllers from './controllers';
 const env = process.env.NODE_ENV || 'development';
 const app = koa();
 
+
+app.use(cors());
 app.use(koaBodyParser());
 
 // setup rest router

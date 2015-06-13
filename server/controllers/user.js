@@ -10,7 +10,7 @@ exports.index = function *() {
 exports.get = function *() {
 
   let userId = this.params.id;
-  
+
   let user = yield models.User.findOne(userId);
 
   this.body = {user}
@@ -42,11 +42,11 @@ exports.delete = function *() {
   let result = null;
 
   try {
-    let user = yield models.User.findOne(userId);
+    let user = yield models.User.findById(userId);
 
     result = user.destroy()
   } catch (e) {
-    console.error("create user error", e);
+    console.error("delete user error", e);
   }
 
   this.body = {result}
