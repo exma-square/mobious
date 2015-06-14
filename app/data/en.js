@@ -4,7 +4,7 @@ export default {
       users: 'Users List',
       guides: 'Guides'
     },
-    users: {
+    userManager: {
       title: 'Some random users',
       email: 'Email address',
       actions: 'userManager/actions',

@@ -3,12 +3,12 @@
 import Alt from 'alt';
 import AltResolver from 'utils/alt-resolver.js';
 
-import RequestsActions from 'userManager/actions/requests';
-import LocaleActions from 'userManager/actions/locale';
+import RequestsActions from 'actions/requests';
+import LocaleActions from 'actions/locale';
 import UsersActions from 'userManager/actions/users';
 
-import RequestsStore from 'userManager/stores/requests';
-import LocaleStore from 'userManager/stores/locale';
+import RequestsStore from 'stores/requests';
+import LocaleStore from 'stores/locale';
 import UsersStore from 'userManager/stores/users';
 
 class Flux extends Alt {

@@ -5,8 +5,8 @@ import React from 'react';
 import Router from 'react-router';
 
 // Paths are relative to `app` directory
-import Flux from 'userManager/flux';
-import intlLoader from 'userManager/intl-loader';
+import Flux from 'utils/flux';
+import intlLoader from 'utils/intl-loader';
 
 if (process.env.NODE_ENV === 'development') {
   // Warns about potential accessibility issues with your React elements

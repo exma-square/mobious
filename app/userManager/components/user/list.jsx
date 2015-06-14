@@ -68,13 +68,13 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <h1 className='text-center'>{this.getIntlMessage('users.title')}</h1>
+        <h1 className='text-center'>{this.getIntlMessage('userManager.title')}</h1>
         <table className='app--users'>
           <thead>
             <tr>
-              <th>{this.getIntlMessage('users.email')}</th>
+              <th>{this.getIntlMessage('userManager.email')}</th>
               <th colSpan='2'>
-                {this.getIntlMessage('users.actions')}
+                {this.getIntlMessage('userManager.actions')}
               </th>
             </tr>
           </thead>

@@ -4,7 +4,7 @@ export default {
       users: 'Utilisateurs',
       guides: 'Guides'
     },
-    users: {
+    userManager: {
       title: 'Des utilisateurs au hasard',
       email: 'Adresse email',
       actions: 'Opérations',

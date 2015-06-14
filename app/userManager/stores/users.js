@@ -10,8 +10,7 @@ class UsersStore {
   }
 
   static getBySeed(seed) {
-    console.log('=== getBySeed ===', seed);
-    console.log('=== this.getState() ===', this.getState());
+
     const users: Array<Object> = this.getState().users;
     return {user: users.find((user) => user.id.toString() === seed.toString())};
   }

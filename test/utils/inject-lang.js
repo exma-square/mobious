@@ -1,7 +1,7 @@
 'use strict';
 
 export default (flux, locale='en') => {
-  const {messages} = require(`userManager/data/${locale}`);
+  const {messages} = require(`data/${locale}`);
 
   flux
     .getActions('locale')
