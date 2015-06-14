@@ -1,0 +1,23 @@
+doctype html
+html(lang='#{locale}')
+  head
+    //if IE 8
+      script(src='//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.1/es5-shim.min.js')
+      script(src='//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.1/es5-sham.min.js')
+      script(src='//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js')
+      script(src='//cdn.uriit.ru/console-polyfill/index.js')
+    
+    meta(charset='utf-8')
+    link(rel='icon', type='image/ico', href='/favicon.ico')
+      
+    each style in assets.style
+      link(rel='stylesheet', href='#{style}')
+
+    title ISO-ReactJS
+  
+  body
+    block body
+  
+  each script in assets.script
+    script(src='#{script}')
+  
