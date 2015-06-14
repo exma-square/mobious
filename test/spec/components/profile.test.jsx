@@ -8,8 +8,6 @@ import {capitalize} from 'lodash';
 import Flux from 'utils/flux';
 import Profile from 'userManager/components/profile';
 
-import {users} from 'userManager/data/users.json';
-
 const should = chai.should();
 const seed = '7729a1ef4ba6ef68';
 

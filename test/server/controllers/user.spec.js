@@ -5,6 +5,19 @@
 
 describe("User", () => {
 
+  before((done)=>{
+    sinon.stub(controllers, 'isAuthenticated', (app) =>{
+      return true
+    });
+    done();
+  });
+
+  after((done) =>{
+    controllers.isAuthenticated.restore();
+    done();
+  });
+
+
   it("index all user", (done) => {
 
     request.get("/rest/user/")
@@ -21,9 +34,11 @@ describe("User", () => {
   });
 
 
-  describe.only("create and delete", () => {
+  describe("create and delete", () => {
 
     let createdUser = null;
+
+    console.log("app.isAuthenticated()", global.app);
 
     it("create user", (done) => {
 
@@ -67,7 +82,7 @@ describe("User", () => {
       .expect(200)
       .end((error, res) => {
 
-        models.User.findOne(createdUser.id).then((result) =>{
+        models.User.findById(createdUser.id).then((result) =>{
           (result == null).should.true
           done(error);
         });

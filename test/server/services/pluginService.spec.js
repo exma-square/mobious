@@ -9,7 +9,7 @@ import Router from 'koa-router';
 
 
 
-describe('pluginService', () => {
+describe.skip('pluginService', () => {
 
   it('install database and rest of plugin', (done) => {
 
@@ -26,7 +26,7 @@ describe('pluginService', () => {
 
 
 
-  it.only('install app of plugin', async (done) => {
+  it('install app of plugin', async (done) => {
 
     await PluginService.installApp('mobious_plugin_sample');
 

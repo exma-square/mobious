@@ -8,12 +8,16 @@ import Router from 'react-router';
 
 // Paths are relative to `app` directory
 import routes from 'routes';
-import Flux from 'userManager/flux';
+import Flux from 'utils/flux';
 import promisify from 'utils/promisify';
 
 export default function *(next) {
 
-  if (this.request.url.startsWith("/rest")){
+  console.log("=== iso router===")
+
+  var url = this.request.url;
+
+  if (url.startsWith("/rest") || url.startsWith("/auth")){
     return yield next;
   }
 
@@ -47,7 +51,7 @@ export default function *(next) {
 
     // Get request locale for rendering
     const locale = this.cookies.get('_lang') || this.acceptsLanguages(require('./config/init').locales) || 'en';
-    const {messages} = require(`userManager/data/${locale}`);
+    const {messages} = require(`data/${locale}`);
 
     // Populate store with locale
     flux
@@ -71,6 +75,11 @@ export default function *(next) {
     }
 
     debug('dev')('return html content');
-    yield this.render('main', {content, assets, locale});
+    try {
+      this.render('main', {content, assets, locale});
+    } catch (error) {
+      debug('dev')(error);
+    }
+
   }
 }

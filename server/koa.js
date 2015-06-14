@@ -4,7 +4,7 @@ import path from 'path';
 import debug from 'debug';
 
 import koa from 'koa';
-import hbs from 'koa-hbs';
+import jade from 'koa-jade';
 import mount from 'koa-mount';
 import helmet from 'koa-helmet';
 import logger from 'koa-logger';
@@ -33,8 +33,21 @@ const app = koa();
 app.use(cors());
 app.use(koaBodyParser());
 
-// setup rest router
-(new Controllers()).setupRoute(app)
+
+// sessions
+var session = require('koa-generic-session')
+app.keys = ['your-session-secret']
+app.use(session())
+
+
+// authentication
+require('./auth')
+var passport = require('koa-passport')
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+
 
 // setup rest models
 global.models = (new Models()).getDb();
@@ -72,13 +85,21 @@ if (env === 'development') {
 
 app.use(favicon(path.join(__dirname, '../app/images/favicon.ico')));
 
-
-
-app.use(hbs.middleware({
-  defaultLayout: 'index',
-  layoutsPath: path.join(__dirname, '/views/layouts'),
+app.use(jade.middleware({
+  debug: true,
+  pretty: true,
   viewPath: path.join(__dirname, '/views')
 }));
+
+
+// setup rest router
+var controllers = new Controllers(app, passport);
+global.controllers = controllers;
+controllers.setupPublicRoute()
+controllers.setupAppRoute()
+
+
+
 
 const cacheOpts: Object = {maxAge: 86400000, gzip: true};
 
@@ -91,7 +112,11 @@ else {
   app.use(mount('/assets', staticCache(path.join(__dirname, '../dist'), cacheOpts)));
 }
 
+
+
 app.use(isomorphicRouter);
+
+
 
 var liftApp = async () => {
 

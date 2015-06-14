@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        User.hasMany(models.Task);
+        User.hasMany(models.Passport);
       }
     }
   });
