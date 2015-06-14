@@ -1,5 +1,6 @@
 
 import UserController from './user';
+import BeanController from './bean';
 import Router from 'koa-router';
 import fs from 'fs';
 import path from 'path';
@@ -59,6 +60,7 @@ export default class Routes {
 
       publicRoute.get('/rest/user/:id', UserController.get);
       publicRoute.get('/rest/user/', UserController.index);
+      publicRoute.get('/rest/bean/', BeanController.index);
 
 
       app.use(publicRoute.middleware())

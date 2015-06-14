@@ -47,6 +47,11 @@ export default React.createClass({
               {this.getIntlMessage('header.guides')}
             </Link>
           </li>
+          <li>
+            <Link to='beanList'>
+              {this.getIntlMessage('beanManager.title')}
+            </Link>
+          </li>
         </ul>
         <hr />
       </header>

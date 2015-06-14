@@ -20,10 +20,16 @@ export default (
     <Route
       name='guides'
       handler={require(`./userManager/components/guides`)} />
+
     <Route
       name='profile'
       path='profile/:seed'
       handler={require(`./userManager/components/profile`)} />
+
+    <Route
+      name='beanList'
+      handler={require(`./beanManager/components/list`)} />
+
     <NotFoundRoute handler={require(`./pages/not-found`)} />
   </Route>
 );

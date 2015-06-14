@@ -9,6 +9,10 @@ export default {
       email: 'Email address',
       actions: 'userManager/actions',
       add: 'Add random user'
+    },
+    beanManager: {
+      title: 'Bean Manager',
+      name: 'bean name'
     }
   }
 };
