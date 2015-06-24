@@ -1,4 +1,4 @@
-{
+export default {
   "port": 3010,
   "domain": "localhost",
   "connection": {
@@ -9,4 +9,4 @@
     "dialect": "mysql",
     "force": false
   }
-}
+};

@@ -1,4 +1,4 @@
-{
+export default {
   "port": 3000,
   "connection": {
     "dialect": "sqlite",
@@ -9,4 +9,4 @@
     "force": true
 
   }
-}
+};
