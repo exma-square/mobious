@@ -1,17 +1,5 @@
-'use strict';
-
 import Alt from 'alt';
-import AltResolver from 'utils/alt-resolver.js';
-
-import RequestsActions from 'actions/requests';
-import LocaleActions from 'actions/locale';
-import UsersActions from 'userManager/actions/users';
-import BeanActions from 'beanManager/actions/bean';
-
-import RequestsStore from 'stores/requests';
-import LocaleStore from 'stores/locale';
-import UsersStore from 'userManager/stores/users';
-import BeanStore from 'beanManager/stores/bean';
+import AltResolver from './alt-resolver.js';
 
 class Flux extends Alt {
 
@@ -21,16 +9,20 @@ class Flux extends Alt {
     this._resolver = new AltResolver();
 
     // Register Actions
-    this.addActions('requests', RequestsActions);
-    this.addActions('locale', LocaleActions);
-    this.addActions('users', UsersActions);
-    this.addActions('bean', BeanActions);
+    this.addActions('requests', require('actions/requests'));
+    this.addActions('locale', require('actions/locale'));
+    this.addActions('users', require('userManager/actions/users'));
+    this.addActions('page-title', require('actions/page-title'));
+
+    this.addActions('bean', require('beanManager/actions/bean'));
 
     // Register Stores
-    this.addStore('requests', RequestsStore);
-    this.addStore('locale', LocaleStore);
-    this.addStore('users', UsersStore);
-    this.addStore('bean', BeanStore);
+    this.addStore('requests', require('stores/requests'));
+    this.addStore('locale', require('stores/locale'));
+    this.addStore('users', require('userManager/stores/users'));
+    this.addStore('page-title', require('stores/page-title'));
+
+    this.addStore('bean', require('beanManager/stores/bean'));
   }
 
   resolve(result) {
