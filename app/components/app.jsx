@@ -1,34 +1,55 @@
-'use strict';
-
-import React from 'react';
-import objectAssign from 'react/lib/Object.assign';
-import ListenerMixin from 'alt/mixins/ListenerMixin';
+import React, {Component, PropTypes} from 'react';
+import {assign} from 'lodash';
 import {RouteHandler} from 'react-router';
 
-import Header from './header';
-import Footer from './footer';
+import Header from 'components/header';
+import Footer from 'components/footer';
 
 if (process.env.BROWSER) {
   require('styles/main.scss');
 }
 
-export default React.createClass({
-  displayName: 'App',
-  mixins: [ListenerMixin],
-  propTypes: {
-    flux: React.PropTypes.object.isRequired
-  },
-  getInitialState() {
-    return this.props.flux.getStore('locale').getState();
-  },
+class App extends Component {
+
+  static propTypes = {
+    flux: PropTypes.object.isRequired
+  }
+
+  state = this.props.flux
+    .getStore('locale')
+    .getState();
+
   componentDidMount() {
-    this.listenTo(this.props.flux.getStore('locale'), this.handleStoreChange);
-  },
-  handleStoreChange() {
-    this.setState(this.props.flux.getStore('locale').getState());
-  },
+    this.props.flux
+      .getStore('locale')
+      .listen(this._handleLocaleChange);
+
+    this.props.flux
+      .getStore('page-title')
+      .listen(this._handlePageTitleChange);
+  }
+
+  componentWillUnmount() {
+    this.props.flux
+      .getStore('locale')
+      .unlisten(this._handleLocaleChange);
+
+    this.props.flux
+      .getStore('page-title')
+      .unlisten(this._handlePageTitleChange);
+  }
+
+  _handleLocaleChange = this._handleLocaleChange.bind(this)
+  _handleLocaleChange(state: Object) {
+    return this.setState(state);
+  }
+
+  _handlePageTitleChange({title}) {
+    document.title = title;
+  }
+
   render() {
-    const props: Object = objectAssign(this.state, this.props);
+    const props: Object = assign({}, this.state, this.props);
     return (
       <div>
         <Header {...props} />
@@ -37,4 +58,7 @@ export default React.createClass({
       </div>
     );
   }
-});
+
+}
+
+export default App;

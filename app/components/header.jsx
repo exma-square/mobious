@@ -1,12 +1,10 @@
-'use strict';
-
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
 
 import imageResolver from 'utils/image-resolver';
-import Spinner from './shared/spinner';
-import LangPicker from './shared/lang-picker';
+import Spinner from 'components/shared/spinner';
+import LangPicker from 'components/shared/lang-picker';
 
 // Load styles for the header
 // and load the `react-logo.png` image
@@ -20,12 +18,14 @@ else {
   reactLogo = imageResolver('images/react-logo.png');
 }
 
-export default React.createClass({
-  displayName: 'Header',
-  mixins: [IntlMixin],
-  propTypes: {
-    flux: React.PropTypes.object.isRequired
-  },
+class Header extends Component {
+
+  static propTypes: {
+    flux: PropTypes.object.isRequired
+  }
+
+  _getIntlMessage = IntlMixin.getIntlMessage
+
   render() {
     return (
       <header className='app--header'>
@@ -39,17 +39,17 @@ export default React.createClass({
         <ul className='app--navbar un-select'>
           <li>
             <Link to='app'>
-              {this.getIntlMessage('header.users')}
+              {this._getIntlMessage('header.users')}
             </Link>
           </li>
           <li>
             <Link to='guides'>
-              {this.getIntlMessage('header.guides')}
+              {this._getIntlMessage('header.guides')}
             </Link>
           </li>
           <li>
-            <Link to='beanList'>
-              {this.getIntlMessage('beanManager.title')}
+            <Link to='protected'>
+              {this._getIntlMessage('header.protected')}
             </Link>
           </li>
         </ul>
@@ -57,4 +57,6 @@ export default React.createClass({
       </header>
     );
   }
-});
+}
+
+export default Header;

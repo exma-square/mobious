@@ -1,5 +1,3 @@
-'use strict';
-
 import Iso from 'iso';
 import React from 'react';
 import Router from 'react-router';
@@ -9,8 +7,6 @@ import Flux from 'utils/flux';
 import intlLoader from 'utils/intl-loader';
 
 if (process.env.NODE_ENV === 'development') {
-  // Warns about potential accessibility issues with your React elements
-  require('react-a11y')();
   require('debug').enable('dev,koa');
 }
 
