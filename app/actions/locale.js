@@ -1,6 +1,4 @@
-'use strict';
-
-var intlLoader = require('utils/intl-loader');
+import intlLoader from 'utils/intl-loader';
 
 class LocaleActions {
   constructor() {

@@ -1,7 +1,5 @@
-'use strict';
-
 import {baseUrl} from '../../../server/config/init';
-var request = require('superagent');
+import request from 'superagent';
 
 
 
