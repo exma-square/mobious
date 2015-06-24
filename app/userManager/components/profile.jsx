@@ -3,7 +3,7 @@ import {IntlMixin} from 'react-intl';
 import {capitalize, assign} from 'lodash';
 
 if (process.env.BROWSER) {
-  require('styles/profile.scss');
+  require('userManager/styles/profile.scss');
 }
 
 class Profile extends Component {

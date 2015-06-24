@@ -1,8 +1,6 @@
 import {baseUrl} from '../../../server/config/init';
 import request from 'superagent';
 
-
-
 class UsersActions {
   constructor() {
     this.generateActions(
@@ -18,6 +16,8 @@ class UsersActions {
       request.post(baseUrl + 'rest/user/')
       .send(params)
       .end((error, res) => {
+        if (error) return resolve(error);
+
         let createdUser = res.body.user;
         this.actions.createSuccess(createdUser);
         this.alt.getActions('requests').success();
@@ -35,7 +35,6 @@ class UsersActions {
 
       request.del(baseUrl + 'rest/user/' + id)
       .end(() => {
-
         that.actions.removeSuccess(index);
         that.alt.getActions('requests').success();
         return resolve();
@@ -53,7 +52,7 @@ class UsersActions {
       request.get(baseUrl + 'rest/user')
       // .set('Accept', 'application/json')
       .end((error, res) => {
-
+        if (error) return resolve(error);
         that.actions.fetchSuccess(res.body.users);
         that.alt.getActions('requests').success();
         return resolve();
@@ -66,6 +65,7 @@ class UsersActions {
       this.alt.getActions('requests').start();
       request.get(baseUrl + 'rest/user/' + seed)
       .end((error, res) => {
+        if (error) return resolve(error);
         const user: Object = res.body.user;
         this.actions.fetchBySeedSuccess(user);
         this.alt.getActions('requests').success();
@@ -76,7 +76,5 @@ class UsersActions {
     this.alt.resolve(promise);
   }
 }
-
-
 
 export default UsersActions;

@@ -1,7 +1,5 @@
-'use strict';
-
 import {baseUrl} from '../../../server/config/init';
-var request = require('superagent');
+import request from 'superagent';
 
 class BeanActions {
   constructor() {
@@ -17,7 +15,7 @@ class BeanActions {
 
       request.get(baseUrl + 'rest/bean')
       .end((error, res) => {
-
+        if (error) return resolve(error);
         that.actions.fetchSuccess(res.body.beans);
         that.alt.getActions('requests').success();
         return resolve();
@@ -26,7 +24,5 @@ class BeanActions {
     this.alt.resolve(promise);
   }
 }
-
-
 
 export default BeanActions;

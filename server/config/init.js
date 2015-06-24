@@ -7,6 +7,11 @@ let config;
 
 try {
   config = require(`./${env}`);
+
+  let port = config.port || '8080';
+  let domain = config.domain || 'localhost';
+
+  config.baseUrl = `http://${domain}:${port}/`;
 }
 catch (error) {
   debug('dev')(`No specific configuration for env ${env}`);

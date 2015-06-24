@@ -2,13 +2,26 @@ export default {
   messages: {
     header: {
       users: 'Users List',
-      guides: 'Guides'
+      guides: 'Guides',
+      protected: 'Protected'
+    },
+    guides: {
+      'page-title': 'Guides'
+    },
+    protected: {
+      'page-title': 'Protected Page'
+    },
+    profile: {
+      'page-title': 'Profile - {fullName}',
+      'not-found-page-title': 'User profile not found'
     },
     userManager: {
+      'page-title': 'Users',
       title: 'Some random users',
       email: 'Email address',
-      actions: 'userManager/actions',
-      add: 'Add random user'
+      actions: 'Actions',
+      add: 'Add random user',
+      profile: 'Profile'
     },
     beanManager: {
       title: 'Bean Manager',

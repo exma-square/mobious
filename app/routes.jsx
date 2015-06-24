@@ -5,7 +5,7 @@ export default (
   <Route name='app' path='/' handler={require('./components/app')}>
     <DefaultRoute
       name='users'
-      handler={require('./userManager/components/users')} />
+      handler={require('./userManager/components/users.jsx')} />
     <Route
       name='guides'
       handler={require('./components/guides')} />
@@ -15,7 +15,7 @@ export default (
     <Route
       name='profile'
       path='profile/:seed'
-      handler={require('./components/profile')} />
+      handler={require('./userManager/components/profile')} />
     <Route
       name='login-info'
       handler={require('./pages/login-info')} />

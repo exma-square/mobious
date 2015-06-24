@@ -83,7 +83,7 @@ export default function *(next) {
       }
 
       debug('dev')('return html content');
-      yield this.render('main', {body, assets, locale, title});
+      this.render('main', {body, assets, locale, title});
     }
     // Catch error from rendering procress
     catch (error) {

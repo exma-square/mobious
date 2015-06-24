@@ -52,6 +52,11 @@ class Header extends Component {
               {this._getIntlMessage('header.protected')}
             </Link>
           </li>
+          <li>
+            <Link to='beanList'>
+              {this._getIntlMessage('beanManager.title')}
+            </Link>
+          </li>
         </ul>
         <hr />
       </header>

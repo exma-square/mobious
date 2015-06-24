@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
 
 if (process.env.BROWSER) {
-  require('styles/users.scss');
+  require('userManager/styles/users.scss');
 }
 
 class Users extends Component {
@@ -24,7 +24,7 @@ class Users extends Component {
   componentWillMount() {
     this.props.flux
       .getActions('page-title')
-      .set(this._getIntlMessage('users.page-title'));
+      .set(this._getIntlMessage('userManager.page-title'));
 
     this.props.flux
       .getActions('users')
@@ -63,7 +63,7 @@ class Users extends Component {
     return this.state.users.map((user, index) => {
       return (
         <tr className='user--row' key={index}>
-          <td>{user.user.email}</td>
+          <td>{user.email}</td>
           <td className='text-center'>
             <button
               onClick={this._showProfile.bind(this, user.seed)}>
@@ -86,16 +86,16 @@ class Users extends Component {
     return (
       <div>
         <h1 className='text-center'>
-          {this._getIntlMessage('users.title')}
+          {this._getIntlMessage('userManager.title')}
         </h1>
         <table className='app--users'>
           <thead>
             <tr>
               <th>
-                {this._getIntlMessage('users.email')}
+                {this._getIntlMessage('userManager.email')}
               </th>
               <th colSpan='2'>
-                {this._getIntlMessage('users.actions')}
+                {this._getIntlMessage('userManager.actions')}
               </th>
             </tr>
           </thead>
@@ -107,7 +107,7 @@ class Users extends Component {
           <button
             ref='add-button'
             onClick={this.props.flux.getActions('users').add}>
-            {this._getIntlMessage('users.add')}
+            {this._getIntlMessage('userManager.add')}
           </button>
         </p>
       </div>

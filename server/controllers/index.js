@@ -18,9 +18,6 @@ export default class Routes {
         console.log("app.isAuthenticated()", app.isAuthenticated());
         return app.isAuthenticated();
       }
-
-
-
     }
 
     setupPublicRoute() {
@@ -72,7 +69,6 @@ export default class Routes {
         if (that.isAuthenticated(this)) {
           yield next
         } else {
-          console.log("=== final ===");
           this.redirect('/auth/login')
         }
       })
