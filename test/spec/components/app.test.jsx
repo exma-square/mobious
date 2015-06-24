@@ -1,5 +1,3 @@
-'use strict';
-
 import chai from 'chai';
 import React from 'react/addons';
 import Flux from 'utils/flux';
@@ -7,12 +5,11 @@ import Flux from 'utils/flux';
 import reactRouterStub from '../../utils/stub-router-context';
 import injectLang from '../../utils/inject-lang';
 
-import App from 'userManager/components/app';
+import App from 'components/app';
 
 const should = chai.should();
 
 describe('App', () => {
-
   let node;
   let instance;
   let flux;

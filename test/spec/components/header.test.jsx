@@ -1,5 +1,3 @@
-'use strict';
-
 import chai from 'chai';
 import React from 'react/addons';
 import Flux from 'utils/flux';
@@ -8,12 +6,11 @@ import objectAssign from 'react/lib/Object.assign';
 import reactRouterStub from '../../utils/stub-router-context';
 import injectLang from '../../utils/inject-lang';
 
-import Header from 'userManager/components/header';
+import Header from 'components/header';
 
 chai.should();
 
 describe('Header', () => {
-
   let node;
   let instance;
   let flux;
@@ -37,12 +34,11 @@ describe('Header', () => {
 
   it('should render links correctly', () => {
     const links = TestUtils.findRenderedDOMComponentWithClass(instance, 'app--navbar');
-    links.props.children.length.should.eql(2);
+    links.props.children.length.should.eql(3);
   });
 
   it('should render lang picker correctly', () => {
     const langs = TestUtils.findRenderedDOMComponentWithClass(instance, 'lang--picker');
     langs.props.children.length.should.eql(2);
   });
-
 });

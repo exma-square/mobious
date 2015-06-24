@@ -1,7 +1,6 @@
-'use strict';
+/* eslint-disable */
 
-/* jscs:disable requireCamelCaseOrUpperCaseIdentifiers */
-/* eslint camelcase: 0 */
+'use strict';
 
 require('babel/register');
 
@@ -30,7 +29,7 @@ module.exports = {
       {
         test: /\.js$|.jsx$/,
         exclude: /node_modules/,
-        loaders: ['eslint', 'jscs']
+        loader: 'eslint'
       }
     ],
     loaders: [
@@ -98,7 +97,9 @@ module.exports = {
     }),
 
     // write webpack stats
-    function () { this.plugin('done', writeStats); }
+    function() {
+      this.plugin('done', writeStats);
+    }
 
   ],
   resolve: {

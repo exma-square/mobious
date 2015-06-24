@@ -1,5 +1,3 @@
-'use strict';
-
 import chai from 'chai';
 import React from 'react/addons';
 import objectAssign from 'react/lib/Object.assign';
@@ -7,12 +5,11 @@ import Flux from 'utils/flux';
 
 import injectLang from '../../utils/inject-lang';
 
-import LangPicker from 'userManager/components/shared/lang-picker';
+import LangPicker from 'components/shared/lang-picker';
 
 const should = chai.should();
 
 describe('LangPicker', () => {
-
   let node;
   let instance;
   let flux;
@@ -32,7 +29,7 @@ describe('LangPicker', () => {
   });
 
   afterEach(() => {
-    if (instance && instance.isMounted()) {
+    if (instance) {
       React.unmountComponentAtNode(node);
     }
   });
@@ -76,5 +73,4 @@ describe('LangPicker', () => {
     TestUtils.Simulate.click(active);
     active.props.className.should.eql('active');
   });
-
 });

@@ -1,18 +1,20 @@
-'use strict';
-
 import chai from 'chai';
 import React from 'react/addons';
-import reactRouterStub from '../../utils/stub-router-context';
+import objectAssign from 'react/lib/Object.assign';
 import {capitalize} from 'lodash';
 
+import reactRouterStub from '../../utils/stub-router-context';
+import injectLang from '../../utils/inject-lang';
+
 import Flux from 'utils/flux';
-import Profile from 'userManager/components/profile';
+import Profile from 'components/profile';
+
+import {users} from 'data/users.json';
 
 const should = chai.should();
 const seed = '7729a1ef4ba6ef68';
 
 describe('Profile', () => {
-
   let instance;
   let flux;
   const TestUtils = React.addons.TestUtils;
@@ -20,11 +22,8 @@ describe('Profile', () => {
   beforeEach(() => {
     flux = new Flux();
 
-    const Stubbed = reactRouterStub(Profile, {flux}, {
-      getCurrentParams() {
-        return {seed};
-      }
-    });
+    const props = objectAssign({params: {seed}}, {flux}, injectLang(flux));
+    const Stubbed = reactRouterStub(Profile, props);
 
     instance = TestUtils.renderIntoDocument(React.createElement(Stubbed));
   });
@@ -61,5 +60,4 @@ describe('Profile', () => {
     };
     flux.getStore('users').listen(handleChange);
   });
-
 });

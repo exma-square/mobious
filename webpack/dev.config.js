@@ -1,21 +1,20 @@
-'use strict';
-
 import path from 'path';
 import webpack from 'webpack';
+import {isArray} from 'lodash';
 
 import writeStats from './utils/write-stats';
 import startKoa from './utils/start-koa';
 
-const PROTOCOL = (process.env.C9_HOSTNAME) ? 'https' : 'http';
-const HOST = process.env.C9_HOSTNAME || 'localhost';
-const PORT = (process.env.C9_HOSTNAME) ? '443' : '3001';
-const PUBLIC_PATH = `${PROTOCOL}://${HOST}:${PORT}/assets/`;
+const LOCAL_IP = require('dev-ip')();
 
-const WEBPACK_PORT = parseInt(process.env.PORT) + 1 || 3001;
+const PROTOCOL = (process.env.C9_HOSTNAME) ? 'https' : 'http';
+const HOST = process.env.C9_HOSTNAME || isArray(LOCAL_IP) && LOCAL_IP[0] || LOCAL_IP || 'localhost';
+const PORT = (process.env.C9_HOSTNAME) ? '443' : parseInt(process.env.PORT, 10) + 1 || 3001;
+const PUBLIC_PATH = `${PROTOCOL}://${HOST}:${PORT}/assets/`;
 
 export default {
   server: {
-    port: WEBPACK_PORT,
+    port: PORT,
     options: {
       publicPath: (process.env.C9_HOSTNAME) ? '/' : PUBLIC_PATH,
       hot: true,
@@ -34,7 +33,7 @@ export default {
     devtool: 'eval-source-map',
     entry: {
       app: [
-        `webpack-dev-server/client?http://localhost:${WEBPACK_PORT}`,
+        `webpack-dev-server/client?http://localhost:${PORT}`,
         'webpack/hot/only-dev-server',
         './app/index.js'
       ]
@@ -51,7 +50,7 @@ export default {
         {
           test: /\.js$|.jsx$/,
           exclude: /node_modules/,
-          loaders: ['eslint', 'jscs']
+          loader: 'eslint'
         }
       ],
       loaders: [
@@ -66,7 +65,7 @@ export default {
         {
           test: /\.js$|.jsx$/,
           exclude: /node_modules/,
-          loaders: ['react-hot', 'babel', 'flowcheck']
+          loaders: ['react-hot', 'babel']
         },
         {
           test: /\.scss$/,
@@ -90,8 +89,13 @@ export default {
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.OccurenceOrderPlugin(),
 
-      function () { this.plugin('done', writeStats); },
-      function () { this.plugin('done', startKoa); }
+      function() {
+        this.plugin('done', writeStats);
+      },
+
+      function() {
+        this.plugin('done', startKoa);
+      }
 
     ],
     resolve: {

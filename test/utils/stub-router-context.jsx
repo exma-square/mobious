@@ -1,5 +1,3 @@
-'use strict';
-
 import objectAssign from 'react/lib/Object.assign';
 import React from 'react';
 
@@ -7,17 +5,17 @@ export default (Component, props, stubs) => {
   function RouterStub() {}
 
   objectAssign(RouterStub, {
-    makePath () {},
-    makeHref () {},
-    transitionTo () {},
-    replaceWith () {},
-    goBack () {},
-    getCurrentPath () {},
-    getCurrentRoutes () {},
-    getCurrentPathname () {},
-    getCurrentParams () {},
-    getCurrentQuery () {},
-    isActive () {},
+    makePath() {},
+    makeHref() {},
+    transitionTo() {},
+    replaceWith() {},
+    goBack() {},
+    getCurrentPath() {},
+    getCurrentRoutes() {},
+    getCurrentPathname() {},
+    getCurrentParams() {},
+    getCurrentQuery() {},
+    isActive() {},
     getRouteAtDepth() {},
     setRouteComponentAtDepth() {}
   }, stubs);

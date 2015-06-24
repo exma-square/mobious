@@ -1,5 +1,3 @@
-'use strict';
-
 import chai from 'chai';
 import React from 'react/addons';
 import Flux from 'utils/flux';
@@ -7,12 +5,11 @@ import objectAssign from 'react/lib/Object.assign';
 
 import injectLang from '../../utils/inject-lang';
 
-import UserList from 'userManager/components/user/list';
+import Users from 'components/users';
 
 const should = chai.should();
 
-describe('UserList', () => {
-
+describe('Users', () => {
   let node;
   let instance;
   let flux;
@@ -22,14 +19,14 @@ describe('UserList', () => {
     flux = new Flux();
 
     const props = objectAssign({flux}, injectLang(flux));
-    const element = React.createElement(UserList, props);
+    const element = React.createElement(Users, props);
 
     node = window.document.createElement('div');
     instance = React.render(element, node);
   });
 
   afterEach(() => {
-    if (instance && instance.isMounted()) {
+    if (instance) {
       React.unmountComponentAtNode(node);
     }
   });
@@ -59,6 +56,16 @@ describe('UserList', () => {
   });
 
   it('should add an user after click on add button', (done) => {
+    const handleAddChange = () => {
+      // 11 users after add
+      let td = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'user--row');
+      td.length.should.eql(11);
+
+      // clean
+      flux.getStore('users').unlisten(handleAddChange);
+      return done();
+    };
+
     const handleFetchChange = () => {
       // 10 users after fetch
       let td = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'user--row');
@@ -75,16 +82,6 @@ describe('UserList', () => {
       setTimeout(() => {
         TestUtils.Simulate.click(addButton);
       }, 0);
-    };
-
-    const handleAddChange = () => {
-      // 11 users after add
-      let td = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'user--row');
-      td.length.should.eql(11);
-
-      // clean
-      flux.getStore('users').unlisten(handleAddChange);
-      return done();
     };
 
     flux.getStore('users').listen(handleFetchChange);
@@ -116,5 +113,4 @@ describe('UserList', () => {
     };
     flux.getStore('users').listen(handleChange);
   });
-
 });
