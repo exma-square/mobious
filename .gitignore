@@ -8,6 +8,3 @@ dist
 .sass-cache
 .env
 .c9
-
-db.development.sqlite
-app/plugins

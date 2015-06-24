@@ -45,6 +45,11 @@ use for general process
 ES6 Isomorphic Flux/ReactJS Boilerplate
 =======================================
 
+[![Build Status](https://travis-ci.org/iam4x/isomorphic-flux-boilerplate.svg?branch=new-alt-resolver)](https://travis-ci.org/iam4x/isomorphic-flux-boilerplate)[![Coverage Status](https://coveralls.io/repos/iam4x/isomorphic-flux-boilerplate/badge.svg)](https://coveralls.io/r/iam4x/isomorphic-flux-boilerplate)[![Dependency Status](https://david-dm.org/iam4x/isomorphic-flux-boilerplate.svg)](https://david-dm.org/iam4x/isomorphic-flux-boilerplate)[![devDependency Status](https://david-dm.org/iam4x/isomorphic-flux-boilerplate/dev-status.svg)](https://david-dm.org/iam4x/isomorphic-flux-boilerplate#info=devDependencies)[![NPM Version](http://img.shields.io/npm/v/isomorphic-flux-boilerplate.svg?style=flat)](https://www.npmjs.com/package/isomorphic-flux-boilerplate)
+
+ES6 Isomorphic Flux/ReactJS Boilerplate
+=======================================
+
 > A wonderfull boilerplate for **Flux/ReactJS** [isomorphic](http://nerds.airbnb.com/isomorphic-javascript-future-web-apps/) applications, running on **Koa**.
 
 **Demo:** http://isomorphic.iam4x.fr
@@ -55,15 +60,12 @@ Libraries Included
 -	[react](https://facebook.github.io/react/)
 -	[react-router](https://github.com/rackt/react-router)
 -	[react-hot-loader](https://github.com/gaearon/react-hot-loader)
--	[react-a11y](https://github.com/rackt/react-a11y)
 -	[react-intl](https://github.com/yahoo/react-intl)
 -	[alt](https://github.com/goatslacker/alt)
 -	[iso](https://github.com/goatslacker/iso)
 -	[koa](http://koajs.com/)
 -	[webpack](http://webpack.github.io/)
 -	[babeljs](https://babeljs.io/)
--	[flowtype](http://flowtype.org/)
--	[flowcheck](https://gcanti.github.io/flowcheck/)
 
 TL;DR
 -----
@@ -88,7 +90,7 @@ Run this boilerplate, you will see the server is fetching some fake users and wi
 Flux
 ----
 
-We use [alt](alt.js.org) instance as [Flux](http://facebook.github.io/react/blog/2014/05/06/flux.html) implementation.
+We use [alt](http://alt.js.org) instance as [Flux](http://facebook.github.io/react/blog/2014/05/06/flux.html) implementation.
 
 We need to use instances for isomorphic applications, to have a unique store/actions per requests on the server.
 
@@ -96,7 +98,7 @@ On the client, Flux is initialized in `app/main.js` and sent to our first React 
 
 On the server, it's similar but Flux is initialized in `server/router.jsx`. The instance is sent to `alt-resolver` for rendering components with the correct props.
 
-Learn more about [alt instances](alt.js.org/docs/altInstances) in the alt documentation.
+Learn more about [alt instances](http://alt.js.org/docs/altInstances) in the alt documentation.
 
 Internationalization (i18n)
 ---------------------------
@@ -138,9 +140,10 @@ fetch() {
 Call the fetch action from component in the `componentWillMount` method:
 
 ```
-propTypes: {
+static propTypes: {
   flux: React.PropTypes.object.isRequired
-},
+}
+
 componentWillMount() {
   const usersActions = this.props.flux.getActions('users');
   return usersActions.fetch();
@@ -159,7 +162,7 @@ How to `require()` images on server side
 On client with webpack, you can directly `require()` images for your images DOM element like:
 
 ```
-<img src={require('userManager/images/logo.png')} />
+<img src={require('images/logo.png')} />
 ```
 
 Webpack will load them through the `url-loader` and if it's too big it will sent through `file-loader` for minification/compilation. The results is an image with a new filename for cache busting.
@@ -172,10 +175,10 @@ import imageResolver from 'utils/image-resolver'
 let image;
 // On browser just require() the image as usual
 if (process.env.BROWSER) {
-  image = require('userManager/images/logo.png');
+  image = require('images/logo.png');
 }
 else {
-  image = imageResolver('userManager/images/logo.png');
+  image = imageResolver('images/logo.png');
 }
 
 ...
@@ -215,7 +218,9 @@ After that, you will just need to clone the repo and install dependancies:
 
 -	`$ npm run dev`
 
-Open your browser to `http://localhost:8080` and you will see the magic happens! Try to disable JavaScript in your browser, you will still be able to navigate between pages of the application. Enjoy the power of isomorphic applications!
+Open your browser to `http://localhost:3002` and you will see the magic happens! Try to disable JavaScript in your browser, you will still be able to navigate between pages of the application. Enjoy the power of isomorphic applications!
+
+(Note: ports 3000-3002 are needed, you can change this with `$ PORT=3050 npm run dev` it will run on 3050-3052)
 
 ### Run tests
 
@@ -265,25 +270,4 @@ You can also use `processes.json` to run the application with [PM2 Monitor](http
 
 ### Common errors
 
-```
-Error: `libsass` bindings not found. Try reinstalling `node-sass`
-```
-
--	Be sure you are running with iojs > 1.7.0 (check node version `node -v`\)
--	Delete node_modules `mv node_modules /tmp` (`mv` is much faster than `rm -rf`\)
--	Clear npm cache `npm cache clear`
--	Build `node-sass` for your system `$ npm install node-sass`
--	Re-install modules `npm install`
-
-This is an issue with `node-sass` it is reported almost everywhere on the internet.
-
-**Windows 7:**
-
-On windows for building `node-sass` before running the commands you need:
-
--	Install [python27](https://www.python.org/downloads/release/python-279/) and set it your path (http://stackoverflow.com/a/6318188\)
--	Install Visual Studio Express 2013 ([download](https://www.visualstudio.com/en-us/products/free-developer-offers-vs.aspx)\)
-
-**Windows 8:**
-
-There's an issue with [node-sass #870](https://github.com/sass/node-sass/issues/870) open.
+-	SASS compilation hang when importing same file more than once (see [#62](https://github.com/iam4x/isomorphic-flux-boilerplate/issues/62)\)
