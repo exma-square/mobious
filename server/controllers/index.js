@@ -14,10 +14,6 @@ export default class Routes {
       this.app = app;
       this.passport = passport;
 
-      this.isAuthenticated = (app) => {
-        console.log("app.isAuthenticated()", app.isAuthenticated());
-        return app.isAuthenticated();
-      }
     }
 
     setupPublicRoute() {
@@ -59,8 +55,7 @@ export default class Routes {
       var that = this;
 
       app.use(function*(next) {
-        console.log('this.isAuthenticated()', this.isAuthenticated());
-        if (that.isAuthenticated(this)) {
+        if (services.user.isAuthenticated(this)) {
           yield next
         } else {
           this.redirect('/auth/login')

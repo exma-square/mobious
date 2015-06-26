@@ -2,7 +2,6 @@
 
 export default async (cb) => {
 
-  console.log("=== run bootstrap ===");
   let picture = {
     "large":"http://api.randomuser.me/portraits/women/72.jpg",
     "medium":"http://api.randomuser.me/portraits/med/women/72.jpg",
@@ -49,7 +48,7 @@ export default async (cb) => {
     thumbCoverUrl: ''
   }
 
-
+  //建立新的 post，該 post 的建立者是 testUser
 
   try {
 

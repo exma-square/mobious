@@ -23,6 +23,7 @@ import config from './config/init';
 
 import Models from './models';
 import Controllers from './controllers';
+import Services from './services';
 
 
 
@@ -93,8 +94,11 @@ app.use(jade.middleware({
 
 
 // setup rest router
+var services = new Services();
+
+global.services = services;
+
 var controllers = new Controllers(app, passport);
-global.controllers = controllers;
 controllers.setupPublicRoute()
 controllers.setupAppRoute()
 
