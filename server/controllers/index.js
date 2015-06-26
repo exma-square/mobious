@@ -33,16 +33,11 @@ export default class Routes {
         assets = require('../webpack-stats.json');
       }
 
-      console.log('assets', assets);
-
       var publicRoute = new Router()
 
       publicRoute.get('/auth/login', function*() {
         this.render('login', {assets})
       })
-
-
-
 
       publicRoute.get('/auth/facebook',
         passport.authenticate('facebook')
@@ -58,7 +53,6 @@ export default class Routes {
       publicRoute.get('/rest/user/:id', UserController.get);
       publicRoute.get('/rest/user/', UserController.index);
       publicRoute.get('/rest/bean/', BeanController.index);
-
 
       app.use(publicRoute.middleware())
 

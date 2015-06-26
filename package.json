@@ -7,7 +7,8 @@
     "build": "./node_modules/.bin/webpack --progress --stats --config ./webpack/prod.config.js",
     "dev": "node --harmony ./webpack/dev-server.js",
     "test": "./node_modules/.bin/karma start --single-run",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "rest-test": "NODE_ENV=test ./node_modules/.bin/mocha --opts ./test/server/mocha.opts --compilers js:babel/register ./test/server/**/*.spec.js"
   },
   "repository": {
     "type": "git",
@@ -63,7 +64,7 @@
     "babel-eslint": "^3.1.9",
     "babel-loader": "^5.0.0",
     "browser-sync": "^2.7.11",
-    "chai": "^2.2.0",
+    "chai": "^3.0.0",
     "css-loader": "^0.14.5",
     "del": "^1.1.1",
     "dev-ip": "^1.0.1",
@@ -87,13 +88,14 @@
     "karma-mocha": "^0.2.0",
     "karma-sourcemap-loader": "^0.3.4",
     "karma-webpack": "^1.5.0",
-    "mocha": "^2.2.1",
+    "mocha": "^2.2.5",
     "node-sass": "^3.2.0",
     "node-watch": "^0.3.4",
     "object-assign": "^2.0.0",
     "react-hot-loader": "^1.1.4",
     "sass-loader": "^1.0.1",
     "style-loader": "^0.12.1",
+    "supertest": "^1.0.1",
     "url-loader": "^0.5.5",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"

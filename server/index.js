@@ -14,4 +14,4 @@ require('babel/register');
 require('utils/intl-polyfill')(require('./config/init').locales);
 
 // Start the server
-require('./koa.js');
+module.exports = require('./koa.js');
