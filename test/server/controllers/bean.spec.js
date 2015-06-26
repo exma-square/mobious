@@ -3,7 +3,7 @@
  * Dependencies
  */
 
-describe.only("bean", () => {
+describe("bean", () => {
 
   before((done)=>{
     sinon.stub(controllers, 'isAuthenticated', (app) =>{

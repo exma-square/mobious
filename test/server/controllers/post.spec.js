@@ -18,15 +18,15 @@ describe.only("post", () => {
   });
 
 
-  it("index all bean", (done) => {
+  it("index all post", (done) => {
 
-    request.get("/rest/bean/")
+    request.get("/rest/post/")
     .expect(200)
     .end((error, res) => {
-      let beans = res.body.beans;
+      let posts = res.body.posts;
 
-      beans.should.be.Array;
-      beans[0].id.should.greaterThan(0);
+      posts.should.be.Array;
+      posts[0].id.should.greaterThan(0);
 
       done(error);
     });
