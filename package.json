@@ -19,7 +19,7 @@
   "author": "iam4x",
   "license": "MIT",
   "dependencies": {
-    "alt": "0.16.7",
+    "alt": "0.16.10",
     "blocked": "^1.1.0",
     "classnames": "^2.0.0",
     "cookies-js": "^1.2.1",
@@ -80,7 +80,7 @@
     "isparta-loader": "^0.2.0",
     "json-loader": "^0.5.1",
     "karma": "^0.12.31",
-    "karma-chrome-launcher": "^0.1.7",
+    "karma-chrome-launcher": "^0.2.0",
     "karma-cli": "0.0.4",
     "karma-coverage": "^0.4.2",
     "karma-coveralls": "^1.0.1",
@@ -97,7 +97,7 @@
     "style-loader": "^0.12.1",
     "supertest": "^1.0.1",
     "url-loader": "^0.5.5",
-    "webpack": "^1.9.11",
+    "webpack": "1.9.11",
     "webpack-dev-server": "^1.9.0"
   },
   "tags": [
@@ -153,6 +153,7 @@
     "intl"
   ],
   "engines": {
-    "iojs": "^2.1.0"
+    "iojs": "^2.3.0",
+    "nodejs": "^0.12"
   }
 }
