@@ -13,7 +13,7 @@ class Flux extends Alt {
     this.addActions('locale', require('actions/locale'));
     this.addActions('users', require('userManager/actions/users'));
     this.addActions('page-title', require('actions/page-title'));
-
+    this.addActions('posts', require('postManager/actions/posts'));
     this.addActions('bean', require('beanManager/actions/bean'));
 
     // Register Stores
@@ -21,7 +21,7 @@ class Flux extends Alt {
     this.addStore('locale', require('stores/locale'));
     this.addStore('users', require('userManager/stores/users'));
     this.addStore('page-title', require('stores/page-title'));
-
+    this.addStore('posts', require('postManager/stores/posts'));
     this.addStore('bean', require('beanManager/stores/bean'));
   }
 

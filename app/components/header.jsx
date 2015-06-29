@@ -57,6 +57,11 @@ class Header extends Component {
               {this._getIntlMessage('beanManager.title')}
             </Link>
           </li>
+          <li>
+            <Link to='postList'>
+              {this._getIntlMessage('postManager.title')}
+            </Link>
+          </li>
         </ul>
         <hr />
       </header>

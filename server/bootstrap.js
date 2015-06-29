@@ -48,6 +48,12 @@ export default async (cb) => {
     thumbCoverUrl: ''
   }
 
+  let testPost = {
+    title: '這是一篇文章',
+    tags: '西捨',
+    content: '西捨帥帥'
+  }
+
   //建立新的 post，該 post 的建立者是 testUser
 
   try {
@@ -55,7 +61,7 @@ export default async (cb) => {
     await models.User.create(testUser)
     await models.Bean.create(newBeanBlack)
     await models.Bean.create(newBeanWhite)
-
+    await models.Post.create(testPost)
 
   } catch (e) {
 

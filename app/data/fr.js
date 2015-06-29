@@ -26,6 +26,10 @@ export default {
     beanManager: {
       title: 'Bean Manager',
       name: 'bean name'
+    },
+    postManager: {
+      title: 'Post Manager',
+      name: 'post name'
     }
   }
 };

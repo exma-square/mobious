@@ -22,6 +22,9 @@ export default (
     <Route
       name='beanList'
       handler={require(`./beanManager/components/list`)} />
+    <Route
+      name='postList'
+      handler={require(`./postManager/components/list`)} />
 
     <NotFoundRoute handler={require('./pages/not-found')} />
   </Route>
