@@ -20,8 +20,8 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '../dist'),
-    filename: '[name]-[chunkhash].js',
-    chunkFilename: '[name]-[chunkhash].js',
+    filename: '[name]-[hash].js',
+    chunkFilename: '[name]-[hash].js',
     publicPath: '/assets/'
   },
   module: {
@@ -59,7 +59,7 @@ module.exports = {
   plugins: [
 
     // extract css
-    new ExtractTextPlugin('[name]-[chunkhash].css'),
+    new ExtractTextPlugin('[name]-[hash].css'),
 
     // set env
     new webpack.DefinePlugin({

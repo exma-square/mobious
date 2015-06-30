@@ -61,6 +61,11 @@ app.use(logger());
 app.use(helmet.defaults());
 
 if (env === 'production') {
+  // set debug env to `koa` only
+  // must be set programmaticaly for windows
+  debug.enable('koa');
+
+  // load production middleware
   app.use(require('koa-conditional-get')());
   app.use(require('koa-etag')());
   app.use(require('koa-compressor')());
@@ -130,11 +135,8 @@ var liftApp = async () => {
   await bootstrap();
   app.listen(config.port);
 
-  console.log(`Application started on port ${config.port}`);
-  if (process.send) {
-    process.send('online');
-  }
-
+  if (process.send) process.send('online');
+  debug('koa')(`Application started on port ${config.port}`);
 
   return app;
 
