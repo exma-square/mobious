@@ -1,29 +1,27 @@
-'use strict';
-
-import React from 'react';
-import ListenerMixin from 'alt/mixins/ListenerMixin';
+import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
 
+if (process.env.BROWSER) {
+  require('userManager/styles/users.scss');
+}
 
-export default React.createClass({
-  displayName: 'userCreate',
-  mixins: [ListenerMixin, IntlMixin],
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-  propTypes: {
+class UserCreate extends Component {
+
+  static contextTypes = {
+    router: PropTypes.func
+  }
+
+  static propTypes = {
     flux: React.PropTypes.object.isRequired
-  },
+  }
 
-  getInitialState() {
-    return {
-      error: false
-    };
+  _getIntlMessage = IntlMixin.getIntlMessage
 
-  },
+  state = {
+    error: false
+  };
 
-
-  handleSubmit (event) {
+  handleSubmit(event) {
     event.preventDefault();
 
     let newUser = {
@@ -32,14 +30,10 @@ export default React.createClass({
     };
 
     this.props.flux.getActions('users').create(newUser);
+    this.context.router.transitionTo('users');
+  }
 
-    this.context.router.transitionTo('userList');
-
-
-
-  },
-
-  render () {
+  render() {
     return (
       <form onSubmit={this.handleSubmit.bind(this)}>
         <label><input ref="email" placeholder="email" defaultValue="joe@example.com"/></label>
@@ -51,4 +45,6 @@ export default React.createClass({
       </form>
     );
   }
-});
+}
+
+export default UserCreate;

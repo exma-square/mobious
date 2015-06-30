@@ -59,6 +59,11 @@ class Users extends Component {
       .transitionTo('profile', {id});
   }
 
+  _showCreateForm() {
+    this.context.router
+      .transitionTo('userCreate');
+  }
+
   _renderUsers() {
     return this.state.users.map((user, index) => {
       return (
@@ -106,7 +111,7 @@ class Users extends Component {
         <p className='text-center'>
           <button
             ref='add-button'
-            onClick={this.props.flux.getActions('users').add}>
+            onClick={this._showCreateForm.bind(this)}>
             {this._getIntlMessage('userManager.add')}
           </button>
         </p>

@@ -5,7 +5,7 @@ export default (
   <Route name='app' path='/' handler={require('./components/app')}>
     <DefaultRoute
       name='users'
-      handler={require('./userManager/components/users.jsx')} />
+      handler={require('./userManager/components/users')} />
     <Route
       name='guides'
       handler={require('./components/guides')} />
@@ -25,6 +25,9 @@ export default (
     <Route
       name='postList'
       handler={require(`./postManager/components/list`)} />
+    <Route
+      name='userCreate'
+      handler={require('./userManager/components/create')} />
 
     <NotFoundRoute handler={require('./pages/not-found')} />
   </Route>

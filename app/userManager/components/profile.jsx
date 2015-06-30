@@ -77,11 +77,15 @@ class Profile extends Component {
     if (this.state.user) {
       const user: Object = this.state.user;
       const picture = JSON.parse(user.picture);
+      let imgSrc = 'about:blank';
+
+      if (picture !== null) imgSrc = picture.medium;
+
       return (
         <div className='app--profile'>
           <h2>{user.username}</h2>
           <img
-            src={picture.medium}
+            src={imgSrc}
             alt='profile picture' />
         </div>
       );
