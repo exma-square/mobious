@@ -7,9 +7,11 @@ class UsersStore {
     this.users = [];
   }
 
-  static getBySeed(seed) {
+  static getBySeed(id) {
     const users: Array<Object> = this.getState().users;
-    return {user: users.find((user) => user.id.toString() === seed.toString())};
+    let singleUser = this.getState().user;
+    if (singleUser === null) singleUser = users.find((user) => user.id.toString() === id.toString());
+    return {user: singleUser};
   }
 
   onRemoveSuccess(id) {
@@ -55,16 +57,7 @@ class UsersStore {
   }
 
   onFetchBySeedSuccess(user) {
-    const users: Array<Object> = this.users.slice();
-    let occurrence: ?Object = users.find((u) => u.id === user.id);
-    if (occurrence) {
-      occurrence = user;
-    }
-    else if (user) {
-      users.push(user);
-    }
-
-    return this.setState({users});
+    return this.setState({user});
   }
 
 }
