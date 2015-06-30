@@ -70,7 +70,7 @@ class UsersActions {
         this.actions.fetchBySeedSuccess(user);
         this.alt.getActions('requests').success();
         return resolve();
-      }, 300);
+      });
     };
 
     this.alt.resolve(promise);

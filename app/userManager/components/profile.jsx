@@ -20,7 +20,7 @@ class Profile extends Component {
     .getBySeed(this.props.params.id)
 
   componentWillMount() {
-    this._setPageTitle();
+    // this._setPageTitle();
 
     this.props.flux
       .getActions('users')
@@ -76,11 +76,12 @@ class Profile extends Component {
   render() {
     if (this.state.user) {
       const user: Object = this.state.user;
+      const picture = JSON.parse(user.picture);
       return (
         <div className='app--profile'>
           <h2>{user.username}</h2>
           <img
-            src={user.picture.medium}
+            src={picture.medium}
             alt='profile picture' />
         </div>
       );

@@ -56,7 +56,7 @@ class UsersStore {
 
   onFetchBySeedSuccess(user) {
     const users: Array<Object> = this.users.slice();
-    let occurrence: ?Object = users.find((u) => u.seed === user.seed);
+    let occurrence: ?Object = users.find((u) => u.id === user.id);
     if (occurrence) {
       occurrence = user;
     }
