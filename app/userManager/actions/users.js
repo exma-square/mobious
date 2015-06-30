@@ -13,7 +13,7 @@ class UsersActions {
       // fake xhr
       this.alt.getActions('requests').start();
 
-      request.post(baseUrl + 'rest/user/')
+      request.post(`${baseUrl}rest/user`)
       .send(params)
       .end((error, res) => {
         if (error) return resolve(error);
@@ -28,14 +28,14 @@ class UsersActions {
   }
 
 
-  remove(id: number, index: number) {
+  remove(id: number) {
     const promise: Function = (resolve) => {
       let that = this;
       that.alt.getActions('requests').start();
 
-      request.del(baseUrl + 'rest/user/' + id)
+      request.del(`${baseUrl}rest/user/${id}`)
       .end(() => {
-        that.actions.removeSuccess(index);
+        that.actions.removeSuccess(id);
         that.alt.getActions('requests').success();
         return resolve();
       });
@@ -49,7 +49,7 @@ class UsersActions {
       let that = this;
       that.alt.getActions('requests').start();
 
-      request.get(baseUrl + 'rest/user')
+      request.get(`${baseUrl}rest/user`)
       // .set('Accept', 'application/json')
       .end((error, res) => {
         if (error) return resolve(error);
@@ -60,10 +60,10 @@ class UsersActions {
     };
     this.alt.resolve(promise);
   }
-  fetchBySeed(seed: string) {
+  fetchBySeed(id: string) {
     const promise = (resolve) => {
       this.alt.getActions('requests').start();
-      request.get(baseUrl + 'rest/user/' + seed)
+      request.get(`${baseUrl}rest/user/${id}`)
       .end((error, res) => {
         if (error) return resolve(error);
         const user: Object = res.body.user;

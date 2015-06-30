@@ -17,14 +17,14 @@ class Profile extends Component {
 
   state = this.props.flux
     .getStore('users')
-    .getBySeed(this.props.params.seed)
+    .getBySeed(this.props.params.id)
 
   componentWillMount() {
     this._setPageTitle();
 
     this.props.flux
       .getActions('users')
-      .fetchBySeed(this.props.params.seed);
+      .fetchBySeed(this.props.params.id);
   }
 
   componentDidMount() {
@@ -43,7 +43,7 @@ class Profile extends Component {
   _handleStoreChange() {
     const user: ?Object = this.props.flux
       .getStore('users')
-      .getBySeed(this.props.params.seed);
+      .getBySeed(this.props.params.id);
 
     return this.setState(user);
   }
@@ -53,8 +53,8 @@ class Profile extends Component {
     let title: string;
 
     if (this.state.user) {
-      const user: Object = this.state.user.user;
-      const fullName: string = this._getFullName(user.name);
+      const user: Object = this.state.user;
+      const fullName: string = this._getFullName(user.username);
 
       title = this._getIntlMessage('profile.page-title');
       title = this._formatMessage(title, {fullName});
@@ -75,10 +75,10 @@ class Profile extends Component {
 
   render() {
     if (this.state.user) {
-      const user: Object = this.state.user.user;
+      const user: Object = this.state.user;
       return (
         <div className='app--profile'>
-          <h2>{this._getFullName(user.name)}</h2>
+          <h2>{user.username}</h2>
           <img
             src={user.picture.medium}
             alt='profile picture' />

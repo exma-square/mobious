@@ -12,9 +12,14 @@ class UsersStore {
     return {user: users.find((user) => user.id.toString() === seed.toString())};
   }
 
-  onRemoveSuccess(index) {
+  onRemoveSuccess(id) {
     const users: Array<Object> = this.users.slice();
-    users.splice(index, 1);
+    let removeIndex = -1;
+    users.forEach((user, index) => {
+      if (user.id === id) removeIndex = index;
+    });
+
+    if (removeIndex >= 0) users.splice(removeIndex, 1);
 
     return this.setState({users});
   }

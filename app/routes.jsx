@@ -14,7 +14,7 @@ export default (
       handler={require('./components/protected')} />
     <Route
       name='profile'
-      path='profile/:seed'
+      path='profile/:id'
       handler={require('./userManager/components/profile')} />
     <Route
       name='login-info'

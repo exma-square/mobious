@@ -48,15 +48,15 @@ class Users extends Component {
     return this.setState(state);
   }
 
-  _removeUser(index: number) {
+  _removeUser(id: number) {
     this.props.flux
       .getActions('users')
-      .remove(index);
+      .remove(id);
   }
 
-  _showProfile(seed: string) {
+  _showProfile(id: string) {
     this.context.router
-      .transitionTo('profile', {seed});
+      .transitionTo('profile', {id});
   }
 
   _renderUsers() {
@@ -66,14 +66,14 @@ class Users extends Component {
           <td>{user.email}</td>
           <td className='text-center'>
             <button
-              onClick={this._showProfile.bind(this, user.seed)}>
+              onClick={this._showProfile.bind(this, user.id)}>
               Profile
             </button>
           </td>
           <td className='text-center'>
             <button
               className='user--remove'
-              onClick={this._removeUser.bind(this, index)}>
+              onClick={this._removeUser.bind(this, user.id)}>
               X
             </button>
           </td>
