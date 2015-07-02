@@ -2,6 +2,7 @@
 import UserController from './user';
 import BeanController from './bean';
 import PostController from './post';
+import AuthController from './auth';
 
 import Router from 'koa-router';
 import fs from 'fs';
@@ -52,6 +53,8 @@ export default class Routes {
       publicRoute.get('/rest/user/', UserController.index);
       publicRoute.get('/rest/bean/', BeanController.index);
       publicRoute.get('/rest/post/', PostController.index);
+      publicRoute.get('/rest/auth/status', AuthController.status);
+
 
       app.use(publicRoute.middleware())
 

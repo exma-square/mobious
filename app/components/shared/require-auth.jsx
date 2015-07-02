@@ -1,16 +1,34 @@
 import React, {Component} from 'react';
+import {baseUrl} from '../../../server/config/init';
+import request from 'superagent';
 
 const requireAuth = (ChildComponent) => {
   class Authenticated extends Component {
 
-    static willTransitionTo(transition) {
-      const nextPath = transition.path;
+    static async willTransitionTo(transition, params, query, callback) {
+      let getAuthStatus = async () => {
+        return await new Promise((resolve, reject) => {
+          request.get(`${baseUrl}rest/auth/status`)
+          .end((error, res) => {
+            if (error) return reject(error);
+            return resolve(res.body);
+          });
+        });
+      };
+
+      const nextPath = encodeURIComponent(transition.path);
+
+      let isAuthenticated = false;
+      let authStatus = await getAuthStatus();
 
       // assume user is not duthenticated
-      const isAuthenticated = false;
+      isAuthenticated = authStatus.isAuthenticated;
       if (!isAuthenticated) {
-        return transition.redirect('login-info', {}, {nextPath});
+        transition.redirect('login-info', {nextPath});
+        return callback();
       }
+
+      return callback();
     }
 
     render() {

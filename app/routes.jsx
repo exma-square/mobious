@@ -18,6 +18,7 @@ export default (
       handler={require('./userManager/components/profile')} />
     <Route
       name='login-info'
+      path='login-info/:nextPath'
       handler={require('./pages/login-info')} />
     <Route
       name='beanList'
