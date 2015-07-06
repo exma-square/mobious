@@ -25,4 +25,14 @@ passport.use(new FacebookStrategy({
 
     done(null, user)
   }
-))
+));
+
+var LocalStrategy = require('passport-local').Strategy
+passport.use(new LocalStrategy(function(username, password, done) {
+  // 這邊需要改寫成直接使用  orm 處理
+  if (username === 'test' && password === 'test') {
+    done(null, user)
+  } else {
+    done(null, false)
+  }
+}));

@@ -38,6 +38,18 @@ export default class Routes {
         this.render('login', {assets})
       })
 
+      publicRoute.post('/auth/login',
+        passport.authenticate('local', {
+          successRedirect: '/',
+          failureRedirect: '/auth/login'
+        })
+      )
+
+      publicRoute.get('/logout', function*(next) {
+        this.logout()
+        this.redirect('/')
+      })
+
       publicRoute.get('/auth/facebook',
         passport.authenticate('facebook')
       )
