@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
 
