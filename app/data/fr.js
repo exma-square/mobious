@@ -29,7 +29,8 @@ export default {
     },
     postManager: {
       title: 'Post Manager',
-      name: 'post name'
+      name: 'post name',
+      content: 'post content'
     }
   }
 };

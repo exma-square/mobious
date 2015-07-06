@@ -45,9 +45,7 @@ export default React.createClass({
           <thead>
             <tr>
               <th>
-                <Link to='postOne'>
                   {this.getIntlMessage('postManager.name')}
-                </Link>
               </th>
               <th>
                 {this.getIntlMessage('postManager.content')}
