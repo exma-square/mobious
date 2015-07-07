@@ -3,7 +3,7 @@ var passport = require('koa-passport')
 var user = { id: 1, username: 'test' }
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id)
+  done(null, user)
 })
 
 passport.deserializeUser(function(id, done) {
@@ -30,6 +30,10 @@ passport.use(new FacebookStrategy({
 var LocalStrategy = require('passport-local').Strategy
 passport.use(new LocalStrategy(function(username, password, done) {
   // 這邊需要改寫成直接使用  orm 處理
+  console.log("==== passport LocalStrategy ====");
+
+  console.log("=== username ===", username);
+  console.log("=== password ===", password);
   if (username === 'test' && password === 'test') {
     done(null, user)
   } else {

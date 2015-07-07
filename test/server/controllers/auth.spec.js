@@ -4,7 +4,7 @@ describe.only('auth', () => {
 
     before(async (done) => {
 
-      let createTestUser = {
+      let testUser = {
         'username': 'test',
         'password': 'test',
         'gender': 'male',
@@ -13,22 +13,20 @@ describe.only('auth', () => {
         'cell': '(657)-919-3511',
         'picture': ''
       }
-
       await models.User.create(testUser);
-      console.log("=====");
       done();
 
     });
 
-    it('do login should success.', async (done) => {
-      let loginUser = {
+    it('do login should be success.', async (done) => {
+      let loginUserFormData = {
         'username': 'test',
         'password': 'test'
       };
 
       let doLogin = await new Promise((resolve, reject) => {
         request.post('/auth/login')
-        .send(loginUser)
+        .send(loginUserFormData)
         .expect(302)
         .end((error, res) => {
           if (error) return reject(error);
@@ -50,13 +48,13 @@ describe.only('auth', () => {
 
       isAuthenticated.should.be.true;
 
-      // sessionUser.should.be.Object;
-      // sessionUser.id.should.be.Number;
-      // sessionUser.should.be.equals("test@test.com");
-      //
-      done();
-
-
+      try {
+        sessionUser.should.be.Object;
+        sessionUser.should.have.contain.keys('id', 'username', 'email');
+        done();
+      } catch (e) {
+        done(e);
+      }
     });
   });
 });
