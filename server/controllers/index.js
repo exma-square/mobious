@@ -45,6 +45,8 @@ export default class Routes {
         })
       )
 
+      publicRoute.get('/auth/status', AuthController.status);
+
       publicRoute.get('/logout', function*(next) {
         this.logout()
         this.redirect('/')
@@ -65,7 +67,7 @@ export default class Routes {
       publicRoute.get('/rest/user/', UserController.index);
       publicRoute.get('/rest/bean/', BeanController.index);
       publicRoute.get('/rest/post/', PostController.index);
-      publicRoute.get('/rest/auth/status', AuthController.status);
+
 
 
       app.use(publicRoute.middleware())

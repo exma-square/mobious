@@ -3,10 +3,32 @@ mobious framework
 
 base on [isomorphic-flux-boilerplate](https://github.com/iam4x/isomorphic-flux-boilerplate)
 
-controllers
+-	[sequelizejs - ORM](http://docs.sequelizejs.com/en/latest/)
+
+server side
 ===========
 
+bootstarp
+---------
+
+create test data.
+
+define test data: server/bootstarp.js
+
+models
+------
+
+define models: server/models/XXX.js
+
+controllers
+-----------
+
 define router: server/controllers.index.js
+
+run spec
+--------
+
+command: `npm run rest-test`
 
 Isomorphic app module useage
 ============================
@@ -17,16 +39,6 @@ path
 -	app/#{module_name}
 
 ex: app/userManager
-
-flux
-----
-
--	app/#{module_name}/flux
-
-i18n load
----------
-
--	app/#{module_name}/intl-loader
 
 Isomorphic app share resource
 =============================
@@ -41,6 +53,8 @@ app/utils
 ---------
 
 use for general process
+
+> below information is Reference.
 
 ES6 Isomorphic Flux/ReactJS Boilerplate
 =======================================

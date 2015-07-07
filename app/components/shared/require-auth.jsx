@@ -8,7 +8,7 @@ const requireAuth = (ChildComponent) => {
     static async willTransitionTo(transition, params, query, callback) {
       let getAuthStatus = async () => {
         return await new Promise((resolve, reject) => {
-          request.get(`${baseUrl}rest/auth/status`)
+          request.get(`${baseUrl}auth/status`)
           .end((error, res) => {
             if (error) return reject(error);
             return resolve(res.body);

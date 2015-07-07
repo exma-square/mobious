@@ -7,7 +7,7 @@ export default class User {
       }
 
       this.getSessionUser = (app) => {
-        return app.session.passport;
+        return app.session.passport.user;
       }
     }
 
