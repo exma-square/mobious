@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {baseUrl} from '../../../server/config/init';
 import request from 'superagent';
 
-const requireAuth = (ChildComponent) => {
+const requireAuth = (role, ChildComponent) => {
   class Authenticated extends Component {
 
     static async willTransitionTo(transition, params, query, callback) {
@@ -18,12 +18,31 @@ const requireAuth = (ChildComponent) => {
 
       const nextPath = encodeURIComponent(transition.path);
 
-      let isAuthenticated = false;
-      let authStatus = await getAuthStatus();
 
-      // assume user is not duthenticated
-      isAuthenticated = authStatus.isAuthenticated;
+      let authStatus = await getAuthStatus();
+      let isAuthenticated = authStatus.isAuthenticated;
+
       if (!isAuthenticated) {
+        transition.redirect('login-info', {nextPath});
+        return callback();
+      }
+
+      let sessionUser = authStatus.sessionUser;
+
+      if (!sessionUser) {
+        transition.redirect('login-info', {nextPath});
+        return callback();
+      }
+
+      if (!role) return callback();
+
+      if (sessionUser.Roles.length === 0) {
+        transition.redirect('login-info', {nextPath});
+        return callback();
+      }
+
+      let authority = sessionUser.Roles[0].authority;
+      if (authority !== role) {
         transition.redirect('login-info', {nextPath});
         return callback();
       }

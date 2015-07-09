@@ -29,11 +29,22 @@ passport.use(new FacebookStrategy({
 
 var LocalStrategy = require('passport-local').Strategy
 passport.use(new LocalStrategy(async (username, password, done) => {
-  let loginInfo = {where: {username, password}};
-  let logedUser = (await models.User.findOne(loginInfo)).dataValues;
-  if (logedUser) {
-    done(null, logedUser)
-  } else {
-    done(null, false)
+  let loginInfo = {
+    where: {username, password},
+    include: [models.Role]
+  };
+  try {
+    let logedUser = (await models.User.findOne(loginInfo)).dataValues;
+
+    console.log('logedUser', logedUser);
+
+    if (logedUser) {
+      done(null, logedUser)
+    } else {
+      done(null, false);
+    }
+  } catch (e) {
+    console.log(e);
+    done(null, false);
   }
 }));
