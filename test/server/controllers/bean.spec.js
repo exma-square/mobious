@@ -6,17 +6,16 @@
 describe("bean", () => {
 
   before((done)=>{
-    sinon.stub(controllers, 'isAuthenticated', (app) =>{
-      return true
+    sinon.stub(services.user, 'isAuthenticated', (app) =>{
+      return true;
     });
     done();
   });
 
   after((done) =>{
-    controllers.isAuthenticated.restore();
+    services.user.isAuthenticated.restore();
     done();
   });
-
 
   it("index all bean", (done) => {
 
