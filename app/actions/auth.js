@@ -9,7 +9,7 @@ class AuthActions {
   fetchStatus() {
     const promise = (resolve) => {
       this.alt.getActions('requests').start();
-      request.get(`${baseUrl}rest/auth/status`)
+      request.get(`${baseUrl}auth/status`)
       .end((error, res) => {
         if (error) return resolve(error);
         const status: Object = res.body.status;
