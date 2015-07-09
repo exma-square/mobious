@@ -30,10 +30,6 @@ passport.use(new FacebookStrategy({
 var LocalStrategy = require('passport-local').Strategy
 passport.use(new LocalStrategy(function(username, password, done) {
   // 這邊需要改寫成直接使用  orm 處理
-  console.log("==== passport LocalStrategy ====");
-
-  console.log("=== username ===", username);
-  console.log("=== password ===", password);
   if (username === 'test' && password === 'test') {
     done(null, user)
   } else {

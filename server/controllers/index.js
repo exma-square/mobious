@@ -38,7 +38,21 @@ export default class Routes {
         this.render('login', {assets})
       })
 
-      publicRoute.post('/auth/login',
+      publicRoute.post('/auth/login', function*(next) {
+        let ctx = this
+        yield passport.authenticate('local', function*(err, user, info) {
+          if (err) throw err
+          if (user === false) {
+            ctx.status = 401
+            ctx.body = { success: false }
+          } else {
+            yield ctx.logIn(user);
+            ctx.body = { success: true }
+          }
+        }).call(this, next)
+      });
+
+      publicRoute.get('/auth/login_easy',
         passport.authenticate('local', {
           successRedirect: '/',
           failureRedirect: '/auth/login'
