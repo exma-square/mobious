@@ -49,7 +49,8 @@ class PostsActions {
       request.get(baseUrl + 'rest/post/' + `${id}`)
       .end((error, res) => {
         if (error) return resolve(error);
-        const post: Object = res.body.posts;
+        const post: Object = res.body.post;
+        console.log('res.body', res.body);
         this.actions.fetchOneSuccess(post);
         this.alt.getActions('requests').success();
         return resolve();
