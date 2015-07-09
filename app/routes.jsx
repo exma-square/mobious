@@ -27,6 +27,10 @@ export default (
       name='postList'
       handler={require(`./postManager/components/list`)} />
     <Route
+      name='postOne'
+      path='/post/:id'
+      handler={require(`./postManager/components/single`)} />
+    <Route
       name='userCreate'
       handler={require('./userManager/components/create')} />
 

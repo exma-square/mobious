@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
 
@@ -7,6 +8,7 @@ if (process.env.BROWSER) {
 }
 
 export default React.createClass({
+
   mixins: [ListenerMixin, IntlMixin],
   contextTypes: {
     router: React.PropTypes.func
@@ -26,12 +28,18 @@ export default React.createClass({
   handleStoreChange() {
     this.setState(this.getInitialState());
   },
-
   renderPosts() {
     return this.state.posts.map((post, index) => {
       return (
         <tr className='post--row' key={index}>
-          <td>{post.title}</td>
+          <td>
+            {post.id}
+          </td>
+          <td>
+            <Link to='postOne' params={{id: post.id}}>
+              {post.title}
+            </Link>
+          </td>
         </tr>
       );
     });
@@ -43,7 +51,12 @@ export default React.createClass({
         <table className='app--beans'>
           <thead>
             <tr>
-              <th>{this.getIntlMessage('postManager.name')}</th>
+              <th>
+                post id
+              </th>
+              <th>
+                {this.getIntlMessage('postManager.name')}
+              </th>
             </tr>
           </thead>
           <tbody>

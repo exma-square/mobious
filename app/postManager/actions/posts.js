@@ -4,7 +4,7 @@ import request from 'superagent';
 class PostsActions {
   constructor() {
     this.generateActions(
-      'fetchSuccess', 'createSuccess',
+      'fetchSuccess', 'createSuccess', 'fetchOneSuccess'
     );
   }
   create(params) {
@@ -40,6 +40,23 @@ class PostsActions {
         return resolve();
       });
     };
+    this.alt.resolve(promise);
+  }
+
+  fetchOne(id: string) {
+    const promise = (resolve) => {
+      this.alt.getActions('requests').start();
+      request.get(baseUrl + 'rest/post/' + `${id}`)
+      .end((error, res) => {
+        if (error) return resolve(error);
+        const post: Object = res.body.post;
+        console.log('res.body', res.body);
+        this.actions.fetchOneSuccess(post);
+        this.alt.getActions('requests').success();
+        return resolve();
+      });
+    };
+
     this.alt.resolve(promise);
   }
 

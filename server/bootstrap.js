@@ -76,6 +76,13 @@ export default async (cb) => {
     content: '西捨帥帥'
   }
 
+  let testPost2 = {
+    title: '這是兩篇文章',
+    tags: '蹤影',
+    content: '蹤影帥帥'
+  }
+
+
   let adminRole = {
     authority: 'admin'
   };
@@ -99,6 +106,7 @@ export default async (cb) => {
     await models.Bean.create(newBeanBlack)
     await models.Bean.create(newBeanWhite)
     await models.Post.create(testPost)
+    await models.Post.create(testPost2)
 
   } catch (e) {
 

@@ -29,5 +29,20 @@ describe("post", () => {
 
   });
 
+  it("find single post", (done) => {
+
+    request.get("/rest/post/1")
+    .expect(200)
+    .end((error, res) => {
+
+      models.User.findById('1').then((result) =>{
+        (result !== null).should.true
+        done(error);
+      });
+
+    });
+
+  });
+
 
 });

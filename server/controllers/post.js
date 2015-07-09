@@ -11,7 +11,7 @@ exports.get = function *() {
 
   let postId = this.params.id;
 
-  let post = yield models.Post.findOne(userId);
+  let post = yield models.Post.findById(postId);
 
   this.body = {post}
 };

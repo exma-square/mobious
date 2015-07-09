@@ -52,12 +52,6 @@ export default class Routes {
         }).call(this, next)
       });
 
-      publicRoute.get('/auth/login_easy',
-        passport.authenticate('local', {
-          successRedirect: '/',
-          failureRedirect: '/auth/login'
-        })
-      )
 
       publicRoute.get('/auth/status', AuthController.status);
 
@@ -81,7 +75,8 @@ export default class Routes {
       publicRoute.get('/rest/user/', UserController.index);
       publicRoute.get('/rest/bean/', BeanController.index);
       publicRoute.get('/rest/post/', PostController.index);
-
+      publicRoute.get('/rest/post/:id', PostController.get);
+      publicRoute.get('/rest/auth/status', AuthController.status);
 
 
       app.use(publicRoute.middleware())
