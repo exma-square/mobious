@@ -53,6 +53,7 @@ export default class Routes {
       publicRoute.get('/rest/user/', UserController.index);
       publicRoute.get('/rest/bean/', BeanController.index);
       publicRoute.get('/rest/post/', PostController.index);
+      publicRoute.get('/rest/post/:id', PostController.get);
       publicRoute.get('/rest/auth/status', AuthController.status);
 
 
@@ -74,7 +75,7 @@ export default class Routes {
 
       this.router.post('/rest/user/', UserController.create);
       this.router.delete('/rest/user/:id', UserController.delete);
-
+      
       this.app.use(this.router.middleware())
 
 

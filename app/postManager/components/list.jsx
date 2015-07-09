@@ -32,8 +32,14 @@ export default React.createClass({
     return this.state.posts.map((post, index) => {
       return (
         <tr className='post--row' key={index}>
-          <td>{post.title}</td>
-          <td>{post.content}</td>
+          <td>
+            {post.id}
+          </td>
+          <td>
+            <Link to='postOne' params={{id: post.id}}>
+              {post.title}
+            </Link>
+          </td>
         </tr>
       );
     });
@@ -46,12 +52,10 @@ export default React.createClass({
           <thead>
             <tr>
               <th>
-                <Link to='postOne'>
-                  {this.getIntlMessage('postManager.name')}
-                </Link>
+                post id
               </th>
               <th>
-                {this.getIntlMessage('postManager.content')}
+                {this.getIntlMessage('postManager.name')}
               </th>
             </tr>
           </thead>

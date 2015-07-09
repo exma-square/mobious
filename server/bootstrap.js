@@ -54,6 +54,13 @@ export default async (cb) => {
     content: '西捨帥帥'
   }
 
+  let testPost2 = {
+    title: '這是兩篇文章',
+    tags: '蹤影',
+    content: '蹤影帥帥'
+  }
+
+
   //建立新的 post，該 post 的建立者是 testUser
 
   try {
@@ -62,6 +69,7 @@ export default async (cb) => {
     await models.Bean.create(newBeanBlack)
     await models.Bean.create(newBeanWhite)
     await models.Post.create(testPost)
+    await models.Post.create(testPost2)
 
   } catch (e) {
 
