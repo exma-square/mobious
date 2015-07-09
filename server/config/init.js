@@ -12,8 +12,6 @@ try {
   let domain = config.domain || 'localhost';
 
   config.baseUrl = `http://${domain}:${port}/`;
-
-  console.log('config.baseUrl', config.baseUrl);
 }
 catch (error) {
   debug('dev')(`No specific configuration for env ${env}`);

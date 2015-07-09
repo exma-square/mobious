@@ -24,15 +24,18 @@ describe.only('auth', () => {
         'password': 'test'
       };
 
-      let doLogin = await new Promise((resolve, reject) => {
+      let loginResult = await new Promise((resolve, reject) => {
         request.post('/auth/login')
         .send(loginUserFormData)
-        .expect(302)
+        .expect(200)
         .end((error, res) => {
+
           if (error) return reject(error);
-          return resolve("OK");
+          return resolve(res.body);
         })
       });
+
+      loginResult.success.should.be.true;
 
       let authResult = await new Promise((resolve, reject) => {
         request.get('/auth/status')
