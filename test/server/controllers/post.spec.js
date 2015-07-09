@@ -1,9 +1,5 @@
-"use strict";
-/**
- * Dependencies
- */
 
-describe.only("post", () => {
+describe("post", () => {
 
   before((done)=>{
     sinon.stub(services.user, 'isAuthenticated', (app) =>{

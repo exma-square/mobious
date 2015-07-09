@@ -38,6 +38,28 @@ export default class Routes {
         this.render('login', {assets})
       })
 
+      publicRoute.post('/auth/login', function*(next) {
+        let ctx = this
+        yield passport.authenticate('local', function*(err, user, info) {
+          if (err) throw err
+          if (user === false) {
+            ctx.status = 401
+            ctx.body = { success: false }
+          } else {
+            yield ctx.logIn(user);
+            ctx.body = { success: true }
+          }
+        }).call(this, next)
+      });
+
+
+      publicRoute.get('/auth/status', AuthController.status);
+
+      publicRoute.get('/logout', function*(next) {
+        this.logout()
+        this.redirect('/')
+      })
+
       publicRoute.get('/auth/facebook',
         passport.authenticate('facebook')
       )
@@ -75,7 +97,7 @@ export default class Routes {
 
       this.router.post('/rest/user/', UserController.create);
       this.router.delete('/rest/user/:id', UserController.delete);
-      
+
       this.app.use(this.router.middleware())
 
 

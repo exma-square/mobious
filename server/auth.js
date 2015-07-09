@@ -3,7 +3,7 @@ var passport = require('koa-passport')
 var user = { id: 1, username: 'test' }
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id)
+  done(null, user)
 })
 
 passport.deserializeUser(function(id, done) {
@@ -25,4 +25,26 @@ passport.use(new FacebookStrategy({
 
     done(null, user)
   }
-))
+));
+
+var LocalStrategy = require('passport-local').Strategy
+passport.use(new LocalStrategy(async (username, password, done) => {
+  let loginInfo = {
+    where: {username, password},
+    include: [models.Role]
+  };
+  try {
+    let logedUser = (await models.User.findOne(loginInfo)).dataValues;
+
+    console.log('logedUser', logedUser);
+
+    if (logedUser) {
+      done(null, logedUser)
+    } else {
+      done(null, false);
+    }
+  } catch (e) {
+    console.log(e);
+    done(null, false);
+  }
+}));
