@@ -8,15 +8,37 @@ export default async (cb) => {
     "thumbnail":"http://api.randomuser.me/portraits/thumb/women/72.jpg"
   }
 
-  let testUser = {
-    "username":"smlsun",
-    "password":"smlsun",
+  let visitorUser = {
+    "username":"visitor",
+    "password":"visitor",
     "gender":"male",
-    "email":"smlsun@smlsun.com",
+    "email":"visitor@visitor.com",
     "phone":"(951)-385-6121",
     "cell":"(657)-919-3511",
     "picture":JSON.stringify(picture)
   }
+
+
+  let editorUser = {
+    "username":"editor",
+    "password":"editor",
+    "gender":"male",
+    "email":"editor@editor.com",
+    "phone":"(951)-385-6121",
+    "cell":"(657)-919-3511",
+    "picture":JSON.stringify(picture)
+  }
+
+  let adminUser = {
+    "username":"admin",
+    "password":"admin",
+    "gender":"male",
+    "email":"admin@admin.com",
+    "phone":"(951)-385-6121",
+    "cell":"(657)-919-3511",
+    "picture":JSON.stringify(picture)
+  }
+
 
   let newBeanBlack = {
     name: '黑珍珠',
@@ -54,11 +76,26 @@ export default async (cb) => {
     content: '西捨帥帥'
   }
 
-  //建立新的 post，該 post 的建立者是 testUser
+  let adminRole = {
+    authority: 'admin'
+  };
+
+  let editorRole = {
+    authority: 'editor'
+  };
+
 
   try {
+    let createdVisitor = await models.User.create(visitorUser);
+    let createdEditor = await models.User.create(editorUser);
+    let createdAdmin = await models.User.create(adminUser);
 
-    await models.User.create(testUser)
+    let createdEditorRole = await models.Role.create(editorRole);
+    let createdAdminRole = await models.Role.create(adminRole);
+
+    await createdEditor.setRoles(createdEditorRole);
+    await createdAdmin.setRoles(createdAdminRole);
+
     await models.Bean.create(newBeanBlack)
     await models.Bean.create(newBeanWhite)
     await models.Post.create(testPost)
