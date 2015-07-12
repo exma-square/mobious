@@ -50,7 +50,6 @@ class PostsActions {
       .end((error, res) => {
         if (error) return resolve(error);
         const post: Object = res.body.post;
-        console.log('res.body', res.body);
         this.actions.fetchOneSuccess(post);
         this.alt.getActions('requests').success();
         return resolve();
