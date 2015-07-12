@@ -5,6 +5,7 @@ describe("post", () => {
     sinon.stub(services.user, 'isAuthenticated', (app) =>{
       return true;
     });
+
     done();
   });
 
@@ -29,17 +30,22 @@ describe("post", () => {
 
   });
 
-  it("find single post", (done) => {
+  it("find single post", async (done) => {
 
-    request.get("/rest/post/1")
+    let TestPost = {
+      'title'  : 'article1',
+      'tags'   : 'lot of tags',
+      'content': 'QAQ'
+    }
+    let SinglePost = await models.Post.create(TestPost);
+
+    request.get('/rest/post/' + SinglePost.dataValues.id)
     .expect(200)
     .end((error, res) => {
 
-      models.User.findById('1').then((result) =>{
-        (result !== null).should.true
-        done(error);
-      });
+      res.id != null;
 
+      done(error);
     });
 
   });
