@@ -6,6 +6,8 @@ import imageResolver from 'utils/image-resolver';
 import Spinner from 'components/shared/spinner';
 import LangPicker from 'components/shared/lang-picker';
 
+import Accordion from 'react-foundation-apps/lib/accordion';
+
 // Load styles for the header
 // and load the `react-logo.png` image
 // for the `<img src='' />` element
@@ -63,6 +65,18 @@ class Header extends Component {
             </Link>
           </li>
         </ul>
+
+        <Accordion>
+          <Accordion.Item title='First item title'>
+             First item content
+          </Accordion.Item>
+          <Accordion.Item title='Second item title'>
+            Second item content
+          </Accordion.Item>
+          <Accordion.Item title='Third item title'>
+            Third item content
+          </Accordion.Item>
+        </Accordion>
         <hr />
       </header>
     );
