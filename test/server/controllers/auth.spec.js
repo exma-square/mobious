@@ -1,4 +1,4 @@
-describe.only('auth', () => {
+describe('auth', () => {
 
   describe('local login spec', () => {
 
