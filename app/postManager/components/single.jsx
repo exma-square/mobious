@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
-
+import AlloyEditor from 'alloyeditor/dist/alloy-editor/alloy-editor-all-min.js';
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
   require('postManager/styles/alloy-editor-ocean-min.css');
@@ -53,7 +53,7 @@ class Single extends Component {
       body = (
         <div className='app--beans'>
           <h2>{post.title}</h2>
-          <p>{post.content}</p>
+          <p id='postContent'>{post.content}</p>
         </div>
       );
     }
@@ -68,5 +68,5 @@ class Single extends Component {
   }
 
 }
-
+AlloyEditor.editable('postContent');
 export default Single;
