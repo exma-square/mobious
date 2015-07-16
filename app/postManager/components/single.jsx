@@ -4,6 +4,7 @@ import {IntlMixin} from 'react-intl';
 
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
+  require('postManager/styles/alloy-editor-ocean-min.css');
 }
 
 // export default React.createClass({
