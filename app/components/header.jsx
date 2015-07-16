@@ -8,15 +8,13 @@ import LangPicker from 'components/shared/lang-picker';
 
 import {Accordion} from 'react-foundation-apps/dist/react-foundation-apps.js';
 
-console.log('Accordion', Accordion);
-
 // Load styles for the header
 // and load the `react-logo.png` image
 // for the `<img src='' />` element
 let reactLogo;
 if (process.env.BROWSER) {
+  require('react-foundation-apps/bower_components/foundation-apps/dist/css/foundation-apps.css');
   require('styles/header.scss');
-  require('react-foundation-apps/bower_components/foundation-apps/scss/foundation.scss');
   reactLogo = require('images/react-logo.png');
 }
 else {

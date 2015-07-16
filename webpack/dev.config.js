@@ -68,7 +68,7 @@ export default {
           loaders: ['react-hot', 'babel']
         },
         {
-          test: /\.scss$/,
+          test: /\.scss|.css$/,
           loader: 'style!css?sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
         }
       ]
