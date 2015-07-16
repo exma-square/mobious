@@ -6,7 +6,9 @@ import imageResolver from 'utils/image-resolver';
 import Spinner from 'components/shared/spinner';
 import LangPicker from 'components/shared/lang-picker';
 
-import Accordion from 'react-foundation-apps/lib/accordion';
+import {Accordion} from 'react-foundation-apps/dist/react-foundation-apps.js';
+
+console.log('Accordion', Accordion);
 
 // Load styles for the header
 // and load the `react-logo.png` image
@@ -14,6 +16,7 @@ import Accordion from 'react-foundation-apps/lib/accordion';
 let reactLogo;
 if (process.env.BROWSER) {
   require('styles/header.scss');
+  require('react-foundation-apps/bower_components/foundation-apps/scss/foundation.scss');
   reactLogo = require('images/react-logo.png');
 }
 else {
@@ -65,7 +68,6 @@ class Header extends Component {
             </Link>
           </li>
         </ul>
-
         <Accordion>
           <Accordion.Item title='First item title'>
              First item content
@@ -77,6 +79,7 @@ class Header extends Component {
             Third item content
           </Accordion.Item>
         </Accordion>
+
         <hr />
       </header>
     );
