@@ -5,8 +5,8 @@ import {IntlMixin} from 'react-intl';
 import imageResolver from 'utils/image-resolver';
 import Spinner from 'components/shared/spinner';
 import LangPicker from 'components/shared/lang-picker';
-import Button from 'react-bootstrap/lib/Button';
-
+import Navbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
 
 // Load styles for the header
 // and load the `react-logo.png` image
@@ -33,6 +33,35 @@ class Header extends Component {
   render() {
     return (
       <header className='app--header'>
+        <Navbar brand='Mobius'>
+          <Nav>
+            <li>
+              <Link to='app'>
+                  {this._getIntlMessage('header.users')}
+              </Link>
+            </li>
+            <li>
+              <Link to='guides'>
+                  {this._getIntlMessage('header.guides')}
+              </Link>
+            </li>
+            <li>
+              <Link to='protected'>
+                  {this._getIntlMessage('header.protected')}
+              </Link>
+            </li>
+            <li>
+              <Link to='beanList'>
+                  {this._getIntlMessage('beanManager.title')}
+              </Link>
+            </li>
+            <li>
+              <Link to='postList'>
+                  {this._getIntlMessage('postManager.title')}
+              </Link>
+            </li>
+          </Nav>
+        </Navbar>
         <Spinner store={this.props.flux.getStore('requests')} />
         <LangPicker
           store={this.props.flux.getStore('locale')}
@@ -68,12 +97,6 @@ class Header extends Component {
           </li>
         </ul>
         <hr />
-          <Button>Default</Button>
-          <Button bsStyle='primary'>Primary</Button>
-          <Button bsStyle='success'>Success</Button>
-          <Button bsStyle='info'>Info</Button>
-          <Button bsStyle='warning'>Warning</Button>
-          <Button bsStyle='danger'>Danger</Button><Button bsStyle='link'>Link</Button>
       </header>
     );
   }
