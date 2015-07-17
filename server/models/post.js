@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         Post.belongsTo(models.User);
-        Post.hasMany(models.Comment);
       }
     }
   });
