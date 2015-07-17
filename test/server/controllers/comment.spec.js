@@ -2,41 +2,32 @@ describe.only('comment', () => {
 
   before(async (done) => {
 
-    let OwnerPost = {
-      'title': 'OwnerPost',
-      'tags': '',
-      'content': 'for testComment to add-on'
-    }
-
     let testComment = {
+      'author' : 'test comment author',
       'content': 'test index content'
     }
 
-    let createdPost = await models.Post.create(OwnerPost);
     let createdComment = await models.Comment.create(testComment);
-    await createdPost.setComments(createdComment);
-
     done();
   });
 
-  it('list all comments.', async (done) => {
+  it("index all comments", async (done) => {
 
-    let listCommentResult = await new Promise((resolve, reject) => {
-      request.get('/comment/index')
+    let indexCommentResult = await new Promise((resolve, reject) => {
+      request.get("/rest/comment/")
       .expect(200)
       .end((error, res) => {
         if (error) return reject(error);
-        return resolve(res.body);
-      })
+        return resolve(res.body.comments);
+      });
     });
+    let Comments = indexCommentResult;
+    // console.log(Comments[0]);
 
-    let Comments = res.body.comments;
-    // listCommentResult.success.should.be.true;
-
-    // done();
     try {
-      Comments.should.be.Object;
-      Comments.should.have.contain.keys('id', 'content');
+      Comments.should.be.Array;
+      Comments[0].id.should.be.greaterThan(0);
+      Comments[0].should.have.contain.keys('id', 'author', 'content');
       done();
     } catch (e) {
       done(e);
