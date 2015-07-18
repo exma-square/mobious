@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
-import AlloyEditor from 'alloyeditor/dist/alloy-editor/alloy-editor-all-min.js';
+
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
   require('postManager/styles/alloy-editor-ocean-min.css');
+  require('postManager/alloy-editor/alloy-editor-all-min.js');
 }
 
 // export default React.createClass({
@@ -68,5 +69,5 @@ class Single extends Component {
   }
 
 }
-AlloyEditor.editable('postContent');
+
 export default Single;

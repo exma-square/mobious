@@ -69,7 +69,7 @@ export default {
         },
         {
           test: /\.scss|.css$/,
-          loader: 'style!css?sourceMap!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap'
+          loader: 'style!css?sass'
         }
       ]
     },
