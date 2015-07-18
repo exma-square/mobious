@@ -4,9 +4,9 @@ import {IntlMixin} from 'react-intl';
 
 if (process.env.BROWSER) {
   window.React = React;
+  window.CKEDITOR_BASEPATH = '/alloyeditor/';
   require('alloyeditor/dist/alloy-editor/alloy-editor-all.js');
   // require('postManager/styles/post.scss');
-  window.AlloyEditor.editable('postContent');
   require('alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean.css');
 }
 // export default React.createClass({
@@ -33,6 +33,8 @@ class Single extends Component {
     this.props.flux
       .getStore('posts')
       .listen(this._handleStoreChange);
+
+    window.AlloyEditor.editable('postContent');
   }
 
 
