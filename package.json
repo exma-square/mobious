@@ -19,6 +19,7 @@
   "author": "iam4x",
   "license": "MIT",
   "dependencies": {
+    "alloyeditor": "^0.3.7",
     "alt": "0.16.10",
     "blocked": "^1.1.0",
     "bootstrap-sass": "^3.3.5",
