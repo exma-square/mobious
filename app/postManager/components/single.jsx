@@ -3,11 +3,12 @@ import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
 
 if (process.env.BROWSER) {
-  require('postManager/styles/post.scss');
-  require('postManager/styles/alloy-editor-ocean-min.css');
-  require('postManager/alloy-editor/alloy-editor-all-min.js');
+  window.React = React;
+  require('alloyeditor/dist/alloy-editor/alloy-editor-all.js');
+  // require('postManager/styles/post.scss');
+  window.AlloyEditor.editable('postContent');
+  require('alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean.css');
 }
-
 // export default React.createClass({
 class Single extends Component {
 
