@@ -5,17 +5,14 @@ import {IntlMixin} from 'react-intl';
 import imageResolver from 'utils/image-resolver';
 import Spinner from 'components/shared/spinner';
 import LangPicker from 'components/shared/lang-picker';
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
-
+import {Navbar, Nav} from 'react-bootstrap';
 // Load styles for the header
 // and load the `react-logo.png` image
 // for the `<img src='' />` element
-require('styles/vendor/bootstrap.scss');
-
 let reactLogo;
 if (process.env.BROWSER) {
-  require('styles/header.scss');
+  require('styles/application.scss');
+  // require('styles/header.scss');
   reactLogo = require('images/react-logo.png');
 }
 else {
