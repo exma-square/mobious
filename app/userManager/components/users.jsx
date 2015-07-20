@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
 
 if (process.env.BROWSER) {
@@ -7,12 +8,8 @@ if (process.env.BROWSER) {
 
 class Users extends Component {
 
-  static contextTypes = {
-    router: PropTypes.func
-  }
-
   static propTypes = {
-    flux: React.PropTypes.object.isRequired
+    flux: PropTypes.object.isRequired
   }
 
   _getIntlMessage = IntlMixin.getIntlMessage
@@ -43,48 +40,36 @@ class Users extends Component {
       .unlisten(this._handleStoreChange);
   }
 
-  _handleStoreChange = this._handleStoreChange.bind(this)
-  _handleStoreChange(state: Object) {
+  _handleStoreChange = (state) => {
     return this.setState(state);
   }
 
-  _removeUser(id: number) {
+  _removeUser(id) {
     this.props.flux
       .getActions('users')
       .remove(id);
   }
 
-  _showProfile(id: string) {
-    this.context.router
-      .transitionTo('profile', {id});
-  }
-
   _showCreateForm() {
     this.context.router
-      .transitionTo('userCreate');
+      .transitionTo('/userCreate');
   }
-
-  _renderUsers() {
-    return this.state.users.map((user, index) => {
-      return (
-        <tr className='user--row' key={index}>
-          <td>{user.email}</td>
-          <td className='text-center'>
-            <button
-              onClick={this._showProfile.bind(this, user.id)}>
-              Profile
-            </button>
-          </td>
-          <td className='text-center'>
-            <button
-              className='user--remove'
-              onClick={this._removeUser.bind(this, user.id)}>
-              X
-            </button>
-          </td>
-        </tr>
-      );
-    });
+  renderUser = (user, index) => {
+    return (
+      <tr className='user--row' key={index}>
+        <td>{user.email}</td>
+        <td className='text-center'>
+          <Link to={`/profile/${user.id}`}>Profile</Link>
+        </td>
+        <td className='text-center'>
+          <button
+            className='user--remove'
+            onClick={this._removeUser.bind(this, user.id)}>
+            X
+          </button>
+        </td>
+      </tr>
+    );
   }
 
   render() {
@@ -105,7 +90,10 @@ class Users extends Component {
             </tr>
           </thead>
           <tbody>
-            {this._renderUsers()}
+            {
+              this.state.users
+                .map(this.renderUser)
+            }
           </tbody>
         </table>
         <p className='text-center'>

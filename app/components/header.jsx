@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
@@ -29,6 +31,20 @@ class Header extends Component {
 
   _getIntlMessage = IntlMixin.getIntlMessage
 
+  state = {
+    spinner: false
+  }
+
+  componentDidMount() {
+    this.props.flux
+      .getStore('requests')
+      .listen(this._handleRequestStoreChange);
+  }
+
+  _handleRequestStoreChange = ({inProgress}) => {
+    return this.setState({spinner: inProgress});
+  }
+
   render() {
     return (
       <header className='app-header'>
@@ -38,36 +54,36 @@ class Header extends Component {
                        </Link>}>
           <Nav>
             <li>
-              <Link to='app'>
+              <Link to='/'>
                   {this._getIntlMessage('header.users')}
               </Link>
             </li>
             <li>
-              <Link to='guides'>
+              <Link to='/guides'>
                   {this._getIntlMessage('header.guides')}
               </Link>
             </li>
             <li>
-              <Link to='protected'>
+              <Link to='/protected'>
                   {this._getIntlMessage('header.protected')}
               </Link>
             </li>
             <li>
-              <Link to='beanList'>
+              <Link to='/beanList'>
                   {this._getIntlMessage('beanManager.title')}
               </Link>
             </li>
             <li>
-              <Link to='postList'>
+              <Link to='/postList'>
                   {this._getIntlMessage('postManager.title')}
               </Link>
             </li>
           </Nav>
           <LangPicker
-            store={this.props.flux.getStore('locale')}
-            actions={this.props.flux.getActions('locale')}/>
+          activeLocale={this.props.locales[0]}
+          onChange={this.props.flux.getActions('locale').switchLocale} />
         </Navbar>
-        <Spinner store={this.props.flux.getStore('requests')} />
+        <Spinner active={this.state.spinner} />
       </header>
     );
   }

@@ -9,7 +9,7 @@ class UsersActions {
     );
   }
   create(params) {
-    const promise: Function = (resolve) => {
+    const promise = (resolve) => {
       // fake xhr
       this.alt.getActions('requests').start();
 
@@ -29,7 +29,7 @@ class UsersActions {
 
 
   remove(id: number) {
-    const promise: Function = (resolve) => {
+    const promise = (resolve) => {
       let that = this;
       that.alt.getActions('requests').start();
 
@@ -45,7 +45,7 @@ class UsersActions {
 
 
   fetch() {
-    const promise: Function = (resolve) => {
+    const promise = (resolve) => {
       let that = this;
       that.alt.getActions('requests').start();
 
