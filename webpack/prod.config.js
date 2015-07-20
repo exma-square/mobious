@@ -13,7 +13,7 @@ var config = Object.assign({}, baseConfig);
 
 config.module.loaders = config.module.loaders.concat([
   {
-    test: /\.(woff|eot|ttf)$/,
+    test: /\.(woff|woff2|eot|ttf)$/,
     loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]'
   },
   {
@@ -21,7 +21,7 @@ config.module.loaders = config.module.loaders.concat([
     loader: 'url?limit=10000&name=[sha512:hash:base64:7].[ext]!image?optimizationLevel=7&progressive&interlaced'
   },
   {
-    test: /\.scss$/,
+    test: /\.scss|.css$/,
     loader: ExtractTextPlugin.extract('style', 'css?sourceMap!autoprefixer?browsers=last 2 version!sass')
   }
 ]);
