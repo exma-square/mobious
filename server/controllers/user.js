@@ -43,8 +43,7 @@ exports.delete = function *() {
 
   try {
     let user = yield models.User.findById(userId);
-
-    result = user.destroy()
+    result = yield user.destroy()
   } catch (e) {
     console.error("delete user error", e);
   }

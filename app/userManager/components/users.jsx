@@ -50,10 +50,6 @@ class Users extends Component {
       .remove(id);
   }
 
-  _showCreateForm() {
-    this.context.router
-      .transitionTo('/userCreate');
-  }
   renderUser = (user, index) => {
     return (
       <tr className='user--row' key={index}>
@@ -97,11 +93,7 @@ class Users extends Component {
           </tbody>
         </table>
         <p className='text-center'>
-          <button
-            ref='add-button'
-            onClick={this._showCreateForm.bind(this)}>
-            {this._getIntlMessage('userManager.add')}
-          </button>
+          <Link to='/userCreate'>{this._getIntlMessage('userManager.add')}</Link>
         </p>
       </div>
     );
