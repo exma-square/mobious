@@ -99,10 +99,7 @@ class Users extends Component {
         </Table>
         <p className='text-center'>
           <Link to='/userCreate'>
-            <Button
-              bsStyle='success'
-              ref='add-button'
-              onClick={this._showCreateForm.bind(this)}>
+            <Button bsStyle='success'>
               {this._getIntlMessage('userManager.add')}
             </Button>
           </Link>
@@ -110,7 +107,6 @@ class Users extends Component {
       </div>
     );
   }
-
 }
 
 export default Users;

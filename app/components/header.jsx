@@ -68,11 +68,11 @@ class Header extends Component {
                   {this._getIntlMessage('header.protected')}
               </Link>
             </li>
-            <li>
+            {/*<li>
               <Link to='/beanList'>
                   {this._getIntlMessage('beanManager.title')}
               </Link>
-            </li>
+            </li>*/}
             <li>
               <Link to='/postList'>
                   {this._getIntlMessage('postManager.title')}
