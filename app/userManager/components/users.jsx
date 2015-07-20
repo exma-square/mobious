@@ -43,48 +43,46 @@ class Users extends Component {
       .unlisten(this._handleStoreChange);
   }
 
-  _handleStoreChange = this._handleStoreChange.bind(this)
-  _handleStoreChange(state: Object) {
+  _handleStoreChange = ::this._handleStoreChange
+  _handleStoreChange(state) {
     return this.setState(state);
   }
 
-  _removeUser(id: number) {
+  _removeUser(id) {
     this.props.flux
       .getActions('users')
       .remove(id);
   }
 
-  _showProfile(id: string) {
+  _showProfile(id) {
     this.context.router
-      .transitionTo('profile', {id});
+      .transitionTo(`/profile/${id}`);
   }
 
   _showCreateForm() {
     this.context.router
-      .transitionTo('userCreate');
+      .transitionTo('/userCreate');
   }
-
-  _renderUsers() {
-    return this.state.users.map((user, index) => {
-      return (
-        <tr className='user--row' key={index}>
-          <td>{user.email}</td>
-          <td className='text-center'>
-            <button
-              onClick={this._showProfile.bind(this, user.id)}>
-              Profile
-            </button>
-          </td>
-          <td className='text-center'>
-            <button
-              className='user--remove'
-              onClick={this._removeUser.bind(this, user.id)}>
-              X
-            </button>
-          </td>
-        </tr>
-      );
-    });
+  renderUser = ::this.renderUser
+  renderUser(user, index) {
+    return (
+      <tr className='user--row' key={index}>
+        <td>{user.email}</td>
+        <td className='text-center'>
+          <button
+            onClick={this._showProfile.bind(this, user.id)}>
+            Profile
+          </button>
+        </td>
+        <td className='text-center'>
+          <button
+            className='user--remove'
+            onClick={this._removeUser.bind(this, user.id)}>
+            X
+          </button>
+        </td>
+      </tr>
+    );
   }
 
   render() {
@@ -105,7 +103,10 @@ class Users extends Component {
             </tr>
           </thead>
           <tbody>
-            {this._renderUsers()}
+            {
+              this.state.users
+                .map(this.renderUser)
+            }
           </tbody>
         </table>
         <p className='text-center'>

@@ -33,8 +33,6 @@ class Single extends Component {
     this.props.flux
       .getStore('posts')
       .listen(this._handleStoreChange);
-
-    window.AlloyEditor.editable('postContent');
   }
 
 
@@ -44,7 +42,8 @@ class Single extends Component {
       .getStore('posts')
       .getBySeed(this.props.params.id);
 
-    return this.setState(post);
+    this.setState(post);
+    window.AlloyEditor.editable('postContent');
   }
 
   render() {

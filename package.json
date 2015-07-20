@@ -56,7 +56,7 @@
     "react": "^0.13.1",
     "react-bootstrap": "^0.23.7",
     "react-intl": "^1.2.0",
-    "react-router": "^0.13.2",
+    "react-router": "^1.0.0-beta3",
     "sequelize": "^3.0.0",
     "sqlite3": "^3.0.8",
     "superagent": "^1.2.0"
