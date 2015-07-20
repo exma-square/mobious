@@ -4,7 +4,6 @@ import request from 'superagent';
 
 const requireAuth = (role, ChildComponent) => {
   class Authenticated extends Component {
-
     static async willTransitionTo(transition, params, query, callback) {
       let getAuthStatus = async () => {
         return await new Promise((resolve, reject) => {
@@ -22,28 +21,30 @@ const requireAuth = (role, ChildComponent) => {
       let authStatus = await getAuthStatus();
       let isAuthenticated = authStatus.isAuthenticated;
 
+      console.log('isAuthenticated', isAuthenticated);
+
       if (!isAuthenticated) {
-        transition.redirect('login-info', {nextPath});
+        transition.redirect('/login-info', {nextPath});
         return callback();
       }
 
       let sessionUser = authStatus.sessionUser;
 
       if (!sessionUser) {
-        transition.redirect('login-info', {nextPath});
+        transition.redirect('/login-info', {nextPath});
         return callback();
       }
 
       if (!role) return callback();
 
       if (sessionUser.Roles.length === 0) {
-        transition.redirect('login-info', {nextPath});
+        transition.redirect('/login-info', {nextPath});
         return callback();
       }
 
       let authority = sessionUser.Roles[0].authority;
       if (authority !== role) {
-        transition.redirect('login-info', {nextPath});
+        transition.redirect('/login-info', {nextPath});
         return callback();
       }
 

@@ -1,4 +1,5 @@
 import debug from 'debug';
+import noop from 'lodash/utility/noop';
 
 import React from 'react';
 import Iso from 'iso';
@@ -6,12 +7,19 @@ import Iso from 'iso';
 import ErrorPage from 'pages/server-error';
 
 class AltResolver {
-  constructor() {
-    this._toResolve = [];
-  }
+
+  _toResolve = []
+  _firstClientSideRender = !(process.env.NODE_ENV === 'test')
 
   resolve(promise: Function, later = false) {
     if (process.env.BROWSER && !later) {
+      // Prevent first app mount to re-resolve same
+      // promises that server already did
+      if (this._firstClientSideRender) {
+        this._firstClientSideRender = false;
+        return noop();
+      }
+
       return new Promise(promise);
     }
 
@@ -28,7 +36,7 @@ class AltResolver {
       return null;
     }
 
-    let content: string;
+    let content;
     try {
       // Fire first render to collect XHR promises
       debug('dev')('first render');
@@ -42,8 +50,8 @@ class AltResolver {
 
       debug('dev')('second render');
       // Get the new content with promises resolved
-      const app: string = React.renderToString(Handler);
-      const {title}: string = flux.getStore('page-title').getState();
+      const app = React.renderToString(Handler);
+      const {title} = flux.getStore('page-title').getState();
 
       // Render the html with state in it
       content = {body: Iso.render(app, flux.flush()), title};
@@ -53,8 +61,8 @@ class AltResolver {
       debug('koa')('`rendering error`');
       debug('koa')(error);
 
-      const app: string = React.renderToString(React.createElement(ErrorPage));
-      const {title}: string = flux.getStore('page-title').getState();
+      const app = React.renderToString(React.createElement(ErrorPage));
+      const {title} = flux.getStore('page-title').getState();
 
       content = {body: Iso.render(app, flux.flush()), title};
     }

@@ -40,8 +40,7 @@ class Users extends Component {
       .unlisten(this._handleStoreChange);
   }
 
-  _handleStoreChange = ::this._handleStoreChange
-  _handleStoreChange(state) {
+  _handleStoreChange = (state) => {
     return this.setState(state);
   }
 
@@ -55,8 +54,7 @@ class Users extends Component {
     this.context.router
       .transitionTo('/userCreate');
   }
-  renderUser = ::this.renderUser
-  renderUser(user, index) {
+  renderUser = (user, index) => {
     return (
       <tr className='user--row' key={index}>
         <td>{user.email}</td>
