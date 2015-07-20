@@ -1,8 +1,13 @@
+import {generateRoute} from 'utils/localized-routes';
+
 export default {
   path: '',
   component: require('./components/app'),
   childRoutes: [
-    {path: '/', component: require('./userManager/components/users')},
+    ...generateRoute({
+      paths: ['/', '/users'],
+      component: require('./userManager/components/users')
+    }),
     {path: '/guides', component: require('./components/guides')},
     {path: '/protected', component: require('./components/protected')},
     {path: '/profile/:id', component: require('./userManager/components/profile')},

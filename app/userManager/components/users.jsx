@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
 
 if (process.env.BROWSER) {
@@ -7,12 +8,8 @@ if (process.env.BROWSER) {
 
 class Users extends Component {
 
-  static contextTypes = {
-    router: PropTypes.func
-  }
-
   static propTypes = {
-    flux: React.PropTypes.object.isRequired
+    flux: PropTypes.object.isRequired
   }
 
   _getIntlMessage = IntlMixin.getIntlMessage
@@ -54,11 +51,6 @@ class Users extends Component {
       .remove(id);
   }
 
-  _showProfile(id) {
-    this.context.router
-      .transitionTo(`/profile/${id}`);
-  }
-
   _showCreateForm() {
     this.context.router
       .transitionTo('/userCreate');
@@ -69,10 +61,7 @@ class Users extends Component {
       <tr className='user--row' key={index}>
         <td>{user.email}</td>
         <td className='text-center'>
-          <button
-            onClick={this._showProfile.bind(this, user.id)}>
-            Profile
-          </button>
+          <Link to={`/profile/${user.id}`}>Profile</Link>
         </td>
         <td className='text-center'>
           <button

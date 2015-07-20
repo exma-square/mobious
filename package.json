@@ -4,9 +4,10 @@
   "description": "An ES7 isomorphic Flux/ReactJS boilerplate",
   "main": "server/index.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --progress --stats --config ./webpack/prod.config.js",
+    "build": "webpack --progress --stats --config ./webpack/prod.config.js",
     "dev": "node --harmony ./webpack/dev-server.js",
-    "test": "./node_modules/.bin/karma start --single-run",
+    "test": "karma start --single-run",
+    "dev-test": "karma start",
     "postinstall": "npm run build",
     "rest-test": "NODE_ENV=test ./node_modules/.bin/mocha --opts ./test/server/mocha.opts --compilers js:babel/register ./test/server/**/*.spec.js"
   },
@@ -69,6 +70,7 @@
     "babel-loader": "^5.0.0",
     "browser-sync": "^2.7.11",
     "chai": "^3.0.0",
+    "karma-chai-plugins": "^0.6.0",
     "css-loader": "^0.14.5",
     "del": "^1.1.1",
     "dev-ip": "^1.0.1",

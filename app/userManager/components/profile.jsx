@@ -17,14 +17,14 @@ class Profile extends Component {
 
   state = this.props.flux
     .getStore('users')
-    .getBySeed(this.props.params.seed)
+    .getBySeed(this.props.params.id)
 
   componentWillMount() {
     this._setPageTitle();
 
     this.props.flux
       .getActions('users')
-      .fetchBySeed(this.props.params.seed);
+      .fetchBySeed(this.props.params.id);
   }
 
   componentDidMount() {
@@ -43,17 +43,18 @@ class Profile extends Component {
   _handleStoreChange() {
     const user = this.props.flux
       .getStore('users')
-      .getBySeed(this.props.params.seed);
+      .getBySeed(this.props.params.id);
 
-    return this.setState(user);
+    this.setState(user);
+    this._setPageTitle();
   }
 
   _setPageTitle = ::this._setPageTitle
   _setPageTitle() {
     let title;
     if (this.state.user) {
-      const user = this.state.user.user;
-      const fullName = this._getFullName(user.name);
+      const user = this.state.user;
+      const fullName = user.username;
 
       title = this._getIntlMessage('profile.page-title');
       title = this._formatMessage(title, {fullName});
@@ -65,7 +66,7 @@ class Profile extends Component {
     // Set page title
     this.props.flux
       .getActions('page-title')
-      .set(title);
+      .set.defer(title);
   }
 
   _getFullName({first, last}) {
@@ -74,12 +75,17 @@ class Profile extends Component {
 
   render() {
     if (this.state.user) {
-      const user = this.state.user.user;
+      const user: Object = this.state.user;
+      const picture = JSON.parse(user.picture);
+      let imgSrc = 'about:blank';
+
+      if (picture !== null) imgSrc = picture.medium;
+
       return (
         <div className='app--profile'>
-          <h2>{this._getFullName(user.name)}</h2>
+          <h2>{user.username}</h2>
           <img
-            src={user.picture.medium}
+            src={imgSrc}
             alt='profile picture' />
         </div>
       );
