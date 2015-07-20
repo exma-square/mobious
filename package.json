@@ -4,9 +4,10 @@
   "description": "An ES7 isomorphic Flux/ReactJS boilerplate",
   "main": "server/index.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --progress --stats --config ./webpack/prod.config.js",
+    "build": "webpack --progress --stats --config ./webpack/prod.config.js",
     "dev": "node --harmony ./webpack/dev-server.js",
-    "test": "./node_modules/.bin/karma start --single-run",
+    "test": "karma start --single-run",
+    "dev-test": "karma start",
     "postinstall": "npm run build",
     "rest-test": "NODE_ENV=test ./node_modules/.bin/mocha --opts ./test/server/mocha.opts --compilers js:babel/register ./test/server/**/*.spec.js"
   },
@@ -21,6 +22,7 @@
   "dependencies": {
     "alloyeditor": "^0.3.7",
     "alt": "0.16.10",
+    "babel": "^5.6.14",
     "blocked": "^1.1.0",
     "bootstrap-sass": "^3.3.5",
     "classnames": "^2.0.0",
@@ -56,19 +58,19 @@
     "react": "^0.13.1",
     "react-bootstrap": "^0.23.7",
     "react-intl": "^1.2.0",
-    "react-router": "^0.13.2",
+    "react-router": "^1.0.0-beta3",
     "sequelize": "^3.0.0",
     "sqlite3": "^3.0.8",
     "superagent": "^1.2.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^2.0.0",
-    "babel": "^5.5.8",
     "babel-core": "^5.5.8",
     "babel-eslint": "^3.1.9",
     "babel-loader": "^5.0.0",
     "browser-sync": "^2.7.11",
     "chai": "^3.0.0",
+    "karma-chai-plugins": "^0.6.0",
     "css-loader": "^0.14.5",
     "del": "^1.1.1",
     "dev-ip": "^1.0.1",

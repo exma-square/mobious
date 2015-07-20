@@ -1,39 +1,20 @@
-import React from 'react';
-import {Route, DefaultRoute, NotFoundRoute} from 'react-router';
+import {generateRoute} from 'utils/localized-routes';
 
-export default (
-  <Route name='app' path='/' handler={require('./components/app')}>
-    <DefaultRoute
-      name='users'
-      handler={require('./userManager/components/users')} />
-    <Route
-      name='guides'
-      handler={require('./components/guides')} />
-    <Route
-      name='protected'
-      handler={require('./components/protected')} />
-    <Route
-      name='profile'
-      path='profile/:id'
-      handler={require('./userManager/components/profile')} />
-    <Route
-      name='login-info'
-      path='login-info/:nextPath'
-      handler={require('./pages/login-info')} />
-    <Route
-      name='beanList'
-      handler={require(`./beanManager/components/list`)} />
-    <Route
-      name='postList'
-      handler={require(`./postManager/components/list`)} />
-    <Route
-      name='postOne'
-      path='/post/:id'
-      handler={require(`./postManager/components/single`)} />
-    <Route
-      name='userCreate'
-      handler={require('./userManager/components/create')} />
-
-    <NotFoundRoute handler={require('./pages/not-found')} />
-  </Route>
-);
+export default {
+  path: '',
+  component: require('./components/app'),
+  childRoutes: [
+    ...generateRoute({
+      paths: ['/', '/users'],
+      component: require('./userManager/components/users')
+    }),
+    {path: '/guides', component: require('./components/guides')},
+    {path: '/protected', component: require('./components/protected')},
+    {path: '/profile/:id', component: require('./userManager/components/profile')},
+    {path: '/login-info', component: require('./pages/login-info')},
+    {path: '/beanList', component: require('./beanManager/components/list')},
+    {path: '/postList', component: require('./postManager/components/list')},
+    {path: '/postOne/:id', component: require('./postManager/components/single')},
+    {path: '/userCreate', component: require('./userManager/components/create')}
+  ]
+};

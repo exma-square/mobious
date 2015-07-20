@@ -30,7 +30,7 @@ class UserCreate extends Component {
     };
 
     this.props.flux.getActions('users').create(newUser);
-    this.context.router.transitionTo('users');
+    this.context.router.transitionTo('/');
   }
 
   render() {
