@@ -1,11 +1,19 @@
 $black: #000;
 
-.app--users {
-  margin: 0 auto;
-
-  td,
-  th {
-    padding: 5px 10px;
+.app-users {
+  max-width: 400px;
+  margin-left: 50%;
+  position: relative;
+  left:-200px;
+  tr{
+  	td:first-child{
+  		width: 250px;
+  	}
+		td,th {
+	    padding: 5px 10px;
+	    vertical-align: middle !important;
+	    text-align: center;
+  	}
   }
 
   thead {

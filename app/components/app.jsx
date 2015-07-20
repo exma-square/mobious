@@ -65,13 +65,12 @@ class App extends Component {
         <Header
           {...this.state.i18n}
           flux={this.props.flux} />
-        <hr />
         {
           React.Children
             .map(this.props.children, this.renderChild)
         }
-        <hr />
-        <Footer />
+        <hr/>
+        <Footer/>
       </div>
     );
   }

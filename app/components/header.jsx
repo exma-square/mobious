@@ -48,7 +48,7 @@ class Header extends Component {
   render() {
     return (
       <header className='app-header'>
-        <Navbar brand={<Link to='app' className='app-logo'>
+        <Navbar brand={<Link to='/' className='app-logo'>
                          <Img src={reactLogo} alt='react-logo' width={75} height={75}/>
                          <span>mobious</span>
                        </Link>}>

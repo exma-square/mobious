@@ -1,6 +1,9 @@
+/* eslint-disable */
+
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
+import {Button,Table} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
   require('userManager/styles/users.scss');
@@ -59,14 +62,16 @@ class Users extends Component {
       <tr className='user--row' key={index}>
         <td>{user.email}</td>
         <td className='text-center'>
-          <Link to={`/profile/${user.id}`}>Profile</Link>
+          <Link to={`/profile/${user.id}`}><Button>Profile</Button></Link>
         </td>
         <td className='text-center'>
-          <button
+          <Button
+            bsStyle='danger'
+            bsSize='small'
             className='user--remove'
             onClick={this._removeUser.bind(this, user.id)}>
             X
-          </button>
+          </Button>
         </td>
       </tr>
     );
@@ -78,7 +83,7 @@ class Users extends Component {
         <h1 className='text-center'>
           {this._getIntlMessage('userManager.title')}
         </h1>
-        <table className='app--users'>
+        <Table striped hover className="app-users">
           <thead>
             <tr>
               <th>
@@ -95,13 +100,14 @@ class Users extends Component {
                 .map(this.renderUser)
             }
           </tbody>
-        </table>
+        </Table>
         <p className='text-center'>
-          <button
+          <Button
+            bsStyle='success'
             ref='add-button'
             onClick={this._showCreateForm.bind(this)}>
             {this._getIntlMessage('userManager.add')}
-          </button>
+          </Button>
         </p>
       </div>
     );
