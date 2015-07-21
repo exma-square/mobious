@@ -1,14 +1,19 @@
-$black: #000;
-
-.app--users {
-  margin: 0 auto;
-
-  td,
-  th {
-    padding: 5px 10px;
+.app-posts {
+  .panel-footer{
+    text-align: center;
   }
+  .table{
+    margin-bottom: 0px !important;
+    tr{
+  		td,th {
+  	    padding: 5px 10px;
+  	    vertical-align: middle !important;
 
-  thead {
-    border-bottom: 1px solid $black;
+  	    &:first-child{
+	    		width: 20%;
+	    		text-align: center;
+	    	}
+    	}
+    }
   }
 }

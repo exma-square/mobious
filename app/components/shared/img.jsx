@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 
 class Img extends Component {
-  static propTypes: {
+  static propTypes = {
     circle: PropTypes.bool,
     rounded: PropTypes.bool,
     responsive: PropTypes.bool,
@@ -11,11 +11,9 @@ class Img extends Component {
     width: PropTypes.number
   }
 
-  getDefaultProps() {
-    return {
-       height: null,
-       width: null
-    };
+  static defaultProps = {
+    height: null,
+    width: null
   }
 
   render() {

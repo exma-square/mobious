@@ -1,7 +1,9 @@
+/* eslint-disable */
 import React from 'react';
 import {Link} from 'react-router';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
+import {Table, Panel, Grid, Row, Col} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
@@ -46,24 +48,24 @@ export default React.createClass({
   },
   render() {
     return (
-      <div>
-        <h1 className='text-center'>{this.getIntlMessage('postManager.title')}</h1>
-        <table className='app--beans'>
-          <thead>
-            <tr>
-              <th>
-                post id
-              </th>
-              <th>
-                {this.getIntlMessage('postManager.name')}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.renderPosts()}
-          </tbody>
-        </table>
-      </div>
+      <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
+        <Panel className='app-posts'
+               header={<h3>{this.getIntlMessage('postManager.title')}</h3>}>
+          <Table striped responsive>
+            <thead>
+              <tr>
+                <th>Post ID</th>
+                <th colSpan='2'>
+                  {this.getIntlMessage('postManager.name')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderPosts()}
+            </tbody>
+          </Table>
+        </Panel>
+      </Col>
     );
   }
 });

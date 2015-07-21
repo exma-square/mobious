@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
+import {Panel, Col} from 'react-bootstrap';
 
 class Guides extends Component {
 
@@ -17,10 +18,11 @@ class Guides extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Guides</h1>
-        <p>Coming soon...</p>
-      </div>
+      <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
+        <Panel header={<h3>Guides</h3>}>
+          <p>Coming soon...</p>
+        </Panel>
+      </Col>
     );
   }
 

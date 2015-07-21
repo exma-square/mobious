@@ -20,7 +20,7 @@ export default {
       title: 'Some random users',
       email: 'Email address',
       actions: 'Actions',
-      add: 'Add random user',
+      add: 'Add User',
       profile: 'Profile'
     },
     beanManager: {
@@ -29,8 +29,8 @@ export default {
     },
     postManager: {
       title: 'Post Manager',
-      name: 'post name',
-      content: 'post content'
+      name: 'Post Name',
+      content: 'Post Content'
     }
   }
 };

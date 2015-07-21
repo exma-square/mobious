@@ -1,22 +1,24 @@
-$black: #000;
-
 .app-users {
-  max-width: 400px;
-  margin-left: 50%;
-  position: relative;
-  left:-200px;
-  tr{
-  	td:first-child{
-  		width: 250px;
-  	}
-		td,th {
-	    padding: 5px 10px;
-	    vertical-align: middle !important;
-	    text-align: center;
-  	}
+  .panel-footer{
+    text-align: center;
+  }
+  .table{
+    margin-bottom: 0px !important;
+    tr{
+  		td,th {
+  	    padding: 5px 10px;
+  	    vertical-align: middle !important;
+  	    text-align: center;
+
+        &:first-child{
+          width: 60%;
+        }
+    	}
+    }
   }
 
-  thead {
-    border-bottom: 1px solid $black;
+  .user-remove{
+    margin-left: 15px;
   }
 }
+
