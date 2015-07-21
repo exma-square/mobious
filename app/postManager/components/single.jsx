@@ -21,7 +21,6 @@ class Single extends Component {
     .getBySeed(this.props.params.id)
 
   componentWillMount() {
-    console.log('this.props.params.id', this.props.params.id);
     return this.props.flux.getActions('posts').fetchOne(this.props.params.id);
   }
 
@@ -43,7 +42,6 @@ class Single extends Component {
   }
 
   render() {
-    console.log('this.state.post', this.state.post);
     const post: Object = this.state.post;
 
     let body = null;

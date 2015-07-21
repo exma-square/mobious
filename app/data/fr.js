@@ -31,6 +31,9 @@ export default {
       title: 'Post Manager',
       name: 'post name',
       content: 'post content'
+    },
+    commentManager: {
+      title: '留言版'
     }
   }
 };

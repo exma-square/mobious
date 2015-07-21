@@ -33,6 +33,9 @@ export default (
     <Route
       name='userCreate'
       handler={require('./userManager/components/create')} />
+    <Route
+        name='commentList'
+        handler={require(`./commentManager/components/list`)} />
 
     <NotFoundRoute handler={require('./pages/not-found')} />
   </Route>

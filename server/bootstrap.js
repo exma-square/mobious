@@ -70,7 +70,7 @@ export default async (cb) => {
     thumbCoverUrl: ''
   }
 
-  let testPost = {
+  let testPost1 = {
     title: '這是一篇文章',
     tags: '西捨',
     content: '西捨帥帥'
@@ -119,6 +119,9 @@ export default async (cb) => {
 
     await models.Bean.create(newBeanBlack);
     await models.Bean.create(newBeanWhite);
+
+    let createdPost1 = await models.Post.create(testPost1);
+    let createdPost2 = await models.Post.create(testPost2);
 
     let createdCom1 = await models.Comment.create(Comment1);
     let createdCom2 = await models.Comment.create(Comment2);

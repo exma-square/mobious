@@ -1,7 +1,7 @@
 import {baseUrl} from '../../../server/config/init';
 import request from 'superagent';
 
-class PostsActions {
+class CommentActions {
   constructor() {
     this.generateActions(
       'fetchSuccess', 'createSuccess', 'fetchOneSuccess'
@@ -12,13 +12,13 @@ class PostsActions {
       // fake xhr
       this.alt.getActions('requests').start();
 
-      request.post(baseUrl + 'rest/post/')
+      request.post(baseUrl + 'rest/comment/')
       .send(params)
       .end((error, res) => {
         if (error) return resolve(error);
 
-        let createdPost = res.body.post;
-        this.actions.createSuccess(createdPost);
+        let createdComment = res.body.comment;
+        this.actions.createSuccess(createdComment);
         this.alt.getActions('requests').success();
         return resolve();
       }, 300);
@@ -31,11 +31,11 @@ class PostsActions {
       let that = this;
       that.alt.getActions('requests').start();
 
-      request.get(baseUrl + 'rest/post')
+      request.get(baseUrl + 'rest/comment/')
       // .set('Accept', 'application/json')
       .end((error, res) => {
         if (error) return resolve(error);
-        that.actions.fetchSuccess(res.body.posts);
+        that.actions.fetchSuccess(res.body.comments);
         that.alt.getActions('requests').success();
         return resolve();
       });
@@ -46,11 +46,11 @@ class PostsActions {
   fetchOne(id: string) {
     const promise = (resolve) => {
       this.alt.getActions('requests').start();
-      request.get(baseUrl + 'rest/post/' + `${id}`)
+      request.get(baseUrl + 'rest/comment/' + `${id}`)
       .end((error, res) => {
         if (error) return resolve(error);
-        const post: Object = res.body.post;
-        this.actions.fetchOneSuccess(post);
+        const comment: Object = res.body.comment;
+        this.actions.fetchOneSuccess(comment);
         this.alt.getActions('requests').success();
         return resolve();
       });
@@ -62,4 +62,4 @@ class PostsActions {
 
 }
 
-export default PostsActions;
+export default CommentActions;

@@ -16,6 +16,7 @@ class Flux extends Alt {
     this.addActions('posts', require('postManager/actions/posts'));
     this.addActions('bean', require('beanManager/actions/bean'));
     this.addActions('auth', require('actions/auth'));
+    this.addActions('comment', require('commentManager/actions/comment'));
 
     // Register Stores
     this.addStore('requests', require('stores/requests'));
@@ -25,6 +26,7 @@ class Flux extends Alt {
     this.addStore('posts', require('postManager/stores/posts'));
     this.addStore('bean', require('beanManager/stores/bean'));
     this.addStore('auth', require('stores/auth'));
+    this.addStore('comment', require('commentManager/stores/comment'));
   }
 
   resolve(result) {

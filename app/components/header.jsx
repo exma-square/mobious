@@ -62,6 +62,11 @@ class Header extends Component {
               {this._getIntlMessage('postManager.title')}
             </Link>
           </li>
+          <li>
+            <Link to='commentList'>
+              {this._getIntlMessage('commentManager.title')}
+            </Link>
+          </li>
         </ul>
         <hr />
       </header>
