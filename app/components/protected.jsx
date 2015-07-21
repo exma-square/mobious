@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
-import requireAuth from 'components/shared/require-auth';
 import {Panel, Col} from 'react-bootstrap';
 
-const Protected = requireAuth('admin', class Protected extends Component {
+const Protected = class Protected extends Component {
 
   static propTypes = {
     flux: PropTypes.object.isRequired
@@ -27,6 +26,6 @@ const Protected = requireAuth('admin', class Protected extends Component {
     );
   }
 
-});
+};
 
 export default Protected;
