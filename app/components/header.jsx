@@ -16,7 +16,7 @@ import {Navbar, Nav} from 'react-bootstrap';
 let reactLogo;
 if (process.env.BROWSER) {
   require('styles/application.scss');
-  require('styles/header.scss');
+  // require('styles/header.scss');
   reactLogo = require('images/react-logo.png');
 }
 else {
