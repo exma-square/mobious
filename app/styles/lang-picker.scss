@@ -5,9 +5,9 @@ $white: #fff;
 
 .lang--picker {
   @extend %reset-list;
-  bottom: 9px;
+  top: 15px;
   position: absolute;
-  right: 9px;
+  right: 15px;
 
   li {
     display: inline-block;

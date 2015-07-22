@@ -1,31 +1,23 @@
 @import 'mixins/hide-text';
 @import 'mixins/reset-list';
 
-.app--header {
+.app-header {
   position: relative;
+  margin-bottom: 40px;
+  .app-logo {
+    padding:0px 0px;
+    position: relative;
+    top:-3px;
+    margin-right: 20px;
 
-  .app--logo {
-    display: block;
-    height: 200px;
-    margin: 0 auto;
-    width: 200px;
-
-    img {
-      width: 100%;
-    }
-  }
-
-  .app--navbar {
-    @extend %reset-list;
-    text-align: center;
-
-    li {
-      display: inline-block;
-      margin-right: 10px;
+    img{
+      display: inline;
     }
 
-    li:last-child {
-      margin-right: 0;
+    span{
+      position: relative;
+      top: -8px;
+      margin-left: 5px;
     }
   }
 }

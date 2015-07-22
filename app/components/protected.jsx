@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
+import {Panel, Col} from 'react-bootstrap';
 
 const Protected = class Protected extends Component {
 
@@ -17,10 +18,11 @@ const Protected = class Protected extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Protected</h1>
-        <p>secret mesaage</p>
-      </div>
+      <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
+        <Panel header={<h3>Protected</h3>}>
+          <p>secret mesaage</p>
+        </Panel>
+      </Col>
     );
   }
 

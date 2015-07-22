@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react/addons';
 
 import Header from 'components/header';
 import Footer from 'components/footer';
+import {Grid, Row} from 'react-bootstrap';
+
 
 if (process.env.BROWSER) {
   require('styles/main.scss');
@@ -55,23 +57,21 @@ class App extends Component {
   // we need to clone them and add them the correct
   // locale and messages sent from the Locale Store
   renderChild = (child) => {
-    return React.addons
-      .cloneWithProps(child, {...this.state.i18n});
+    return React.addons.cloneWithProps(child, {...this.state.i18n});
   }
 
   render() {
     return (
       <div>
-        <Header
-          {...this.state.i18n}
-          flux={this.props.flux} />
-        <hr />
-        {
-          React.Children
-            .map(this.props.children, this.renderChild)
-        }
-        <hr />
-        <Footer />
+        <Header {...this.state.i18n} flux={this.props.flux}/>
+        <div className="container">
+          <Grid>
+            <Row>
+              {React.Children.map(this.props.children, this.renderChild)}
+            </Row>
+          </Grid>
+        </div>
+        <Footer/>
       </div>
     );
   }

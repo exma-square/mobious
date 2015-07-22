@@ -1,14 +1,24 @@
-$black: #000;
-
-.app--users {
-  margin: 0 auto;
-
-  td,
-  th {
-    padding: 5px 10px;
+.app-users {
+  .panel-footer {
+    text-align: center;
   }
 
-  thead {
-    border-bottom: 1px solid $black;
+  .table {
+    margin-bottom: 0px !important;
+
+    tr {
+  		td, th {
+  	    padding: 5px 10px;
+  	    vertical-align: middle !important;
+  	    text-align: center;
+        &:first-child{
+          width: 60%;
+        }
+    	}
+    }
+  }
+
+  .user-remove{
+    margin-left: 15px;
   }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
@@ -5,6 +7,7 @@ import {IntlMixin} from 'react-intl';
 import imageResolver from 'utils/image-resolver';
 import Spinner from 'components/shared/spinner';
 import LangPicker from 'components/shared/lang-picker';
+import Img from 'components/shared/img';
 
 import {Navbar, Nav} from 'react-bootstrap';
 // Load styles for the header
@@ -13,7 +16,7 @@ import {Navbar, Nav} from 'react-bootstrap';
 let reactLogo;
 if (process.env.BROWSER) {
   require('styles/application.scss');
-  // require('styles/header.scss');
+  require('styles/header.scss');
   reactLogo = require('images/react-logo.png');
 }
 else {
@@ -44,8 +47,11 @@ class Header extends Component {
 
   render() {
     return (
-      <header className='app--header'>
-        <Navbar brand='Mobius'>
+      <header className='app-header'>
+        <Navbar brand={<Link to='/' className='app-logo'>
+                         <Img src={reactLogo} alt='react-logo' width={75} height={75}/>
+                         <span>mobious</span>
+                       </Link>}>
           <Nav>
             <li>
               <Link to='/'>
@@ -63,8 +69,8 @@ class Header extends Component {
               </Link>
             </li>
             <li>
-              <Link to='/beanList'>
-                  {this._getIntlMessage('beanManager.title')}
+              <Link to='/commentList'>
+                  {this._getIntlMessage('commentManager.title')}
               </Link>
             </li>
             <li>
@@ -73,51 +79,11 @@ class Header extends Component {
               </Link>
             </li>
           </Nav>
-        </Navbar>
-        {/* Spinner in the top right corner */}
-        <Spinner active={this.state.spinner} />
-        {/* LangPicker on the right side */}
-        <LangPicker
+          <LangPicker
           activeLocale={this.props.locales[0]}
           onChange={this.props.flux.getActions('locale').switchLocale} />
-        {/* React Logo in header */}
-        <Link to='/' className='app--logo'>
-          <img src={reactLogo} alt='react-logo' />
-        </Link>
-        {/* Links in the navbar */}
-        <ul className='app--navbar un-select'>
-          <li>
-            <Link to='/'>
-              {this._getIntlMessage('header.users')}
-            </Link>
-          </li>
-          <li>
-            <Link to='/guides'>
-              {this._getIntlMessage('header.guides')}
-            </Link>
-          </li>
-          <li>
-            <Link to='/protected'>
-              {this._getIntlMessage('header.protected')}
-            </Link>
-          </li>
-          <li>
-            <Link to='/beanList'>
-              {this._getIntlMessage('beanManager.title')}
-            </Link>
-          </li>
-          <li>
-            <Link to='/postList'>
-              {this._getIntlMessage('postManager.title')}
-            </Link>
-          </li>
-          <li>
-            <Link to='commentList'>
-              {this._getIntlMessage('commentManager.title')}
-            </Link>
-          </li>
-        </ul>
-        <hr />
+        </Navbar>
+        <Spinner active={this.state.spinner} />
       </header>
     );
   }
