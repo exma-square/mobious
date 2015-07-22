@@ -71,6 +71,7 @@ class Users extends Component {
   }
 
   render() {
+
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className="app-users"
@@ -80,7 +81,7 @@ class Users extends Component {
                            {this._getIntlMessage('userManager.add')}
                          </Button>
                        </Link>}>
-          <Table striped responsive>
+          <Table responsive>
             <thead>
               <tr>
                 <th>

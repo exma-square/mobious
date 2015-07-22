@@ -1,15 +1,16 @@
 .app-users {
-  .panel-footer{
+  .panel-footer {
     text-align: center;
   }
-  .table{
+
+  .table {
     margin-bottom: 0px !important;
-    tr{
-  		td,th {
+
+    tr {
+  		td, th {
   	    padding: 5px 10px;
   	    vertical-align: middle !important;
   	    text-align: center;
-
         &:first-child{
           width: 60%;
         }
