@@ -20,6 +20,7 @@ export default {
     {path: '/beanList', component: require('./beanManager/components/list')},
     {path: '/postList', component: require('./postManager/components/list')},
     {path: '/postOne/:id', component: require('./postManager/components/single')},
-    {path: '/userCreate', component: require('./userManager/components/create')}
+    {path: '/userCreate', component: require('./userManager/components/create')},
+    {path: '/commentList', component: require('./commentManager/components/list')}
   ]
 };

@@ -21,8 +21,6 @@ const requireAuth = (role, ChildComponent) => {
       let authStatus = await getAuthStatus();
       let isAuthenticated = authStatus.isAuthenticated;
 
-      console.log('isAuthenticated', isAuthenticated);
-
       if (!isAuthenticated) {
         transition.to('/login-info', {nextPath});
         return callback();
