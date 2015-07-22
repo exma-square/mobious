@@ -36,7 +36,7 @@ export default React.createClass({
             {post.id}
           </td>
           <td>
-            <Link to='postOne' params={{id: post.id}}>
+            <Link to={`/postOne/${post.id}`} >
               {post.title}
             </Link>
           </td>

@@ -9,24 +9,28 @@ class Flux extends Alt {
     this._resolver = new AltResolver();
 
     // Register Actions
-    this.addActions('requests', require('actions/requests'));
-    this.addActions('locale', require('actions/locale'));
     this.addActions('users', require('userManager/actions/users'));
-    this.addActions('page-title', require('actions/page-title'));
     this.addActions('posts', require('postManager/actions/posts'));
     this.addActions('bean', require('beanManager/actions/bean'));
     this.addActions('auth', require('actions/auth'));
     this.addActions('comment', require('commentManager/actions/comment'));
 
     // Register Stores
-    this.addStore('requests', require('stores/requests'));
-    this.addStore('locale', require('stores/locale'));
     this.addStore('users', require('userManager/stores/users'));
-    this.addStore('page-title', require('stores/page-title'));
     this.addStore('posts', require('postManager/stores/posts'));
     this.addStore('bean', require('beanManager/stores/bean'));
     this.addStore('auth', require('stores/auth'));
     this.addStore('comment', require('commentManager/stores/comment'));
+
+    ['requests', 'locale', 'page-title', 'auth']
+      .map(this.registerCouple);
+  }
+
+  registerCouple = ::this.registerCouple
+  registerCouple(name) {
+    this.addActions(name, require(`actions/${name}`));
+    this.addStore(name, require(`stores/${name}`));
+
   }
 
   resolve(result) {
