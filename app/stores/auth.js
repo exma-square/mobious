@@ -8,6 +8,11 @@ class AuthStore {
     debug('dev')('=== login result ===', result);
   }
 
+  onfetchStatusSuccess(authStatus) {
+    return this.setState({authStatus});
+  }
+
+
 }
 
 export default AuthStore;

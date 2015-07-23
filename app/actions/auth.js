@@ -3,7 +3,7 @@ import request from 'superagent';
 
 class AuthActions {
   constructor() {
-    this.generateActions('localLoginSuccess');
+    this.generateActions('localLoginSuccess', 'fetchStatusSuccess');
   }
 
   localLogin(params) {
@@ -22,6 +22,20 @@ class AuthActions {
     this.alt.resolve(promise);
   }
 
+  fetchStatus() {
+    const promise = (resolve) => {
+      this.alt.getActions('requests').start();
+      request.get(`${baseUrl}auth/status`)
+      .end((error, res) => {
+        if (error) return resolve(error);
+        this.actions.fetchStatusSuccess(res.body);
+        this.alt.getActions('requests').success();
+        return resolve(res.body);
+      });
+    };
+
+    this.alt.resolve(promise);
+  }
 }
 
 export default AuthActions;

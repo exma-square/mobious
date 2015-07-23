@@ -16,36 +16,22 @@ export default function requireAuth(role, ChildComponent) {
         });
       };
 
-      const nextPath = encodeURIComponent(transition.path);
+      // const nextPath = encodeURIComponent(transition.path);
+      let authStatus = authStatus = await getAuthStatus();
 
-
-      let authStatus = await getAuthStatus();
-      let isAuthenticated = authStatus.isAuthenticated;
-
-      if (!isAuthenticated) {
-        transition.to('/login-info', {nextPath});
-        return callback();
-      }
-
-      let sessionUser = authStatus.sessionUser;
-
-      if (!sessionUser) {
-        transition.to('/login-info', {nextPath});
+      if (!authStatus.isAuthenticated) {
+        transition.to('/login-info');
         return callback();
       }
 
       if (!role) return callback();
 
-      if (sessionUser.Roles.length === 0) {
-        transition.to('/login-info', {nextPath});
+      if (authStatus.authority !== role) {
+        transition.to('/login-info');
         return callback();
       }
 
-      let authority = sessionUser.Roles[0].authority;
-      if (authority !== role) {
-        transition.to('/login-info', {nextPath});
-        return callback();
-      }
+      // this.state.authStatus = authStatus;
 
       return callback();
     }
