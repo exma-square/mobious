@@ -40,7 +40,7 @@ export default class Routes {
       })
 
       publicRoute.post('/auth/login', function*(next) {
-        let ctx = this
+        let ctx = this;
         yield passport.authenticate('local', function*(err, user, info) {
           if (err) throw err
           if (user === false) {
@@ -48,7 +48,8 @@ export default class Routes {
             ctx.body = { success: false }
           } else {
             yield ctx.logIn(user);
-            ctx.body = { success: true }
+            let authStatus = services.user.getAuthStatus(ctx);
+            ctx.body = authStatus
           }
         }).call(this, next)
       });

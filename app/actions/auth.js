@@ -13,7 +13,7 @@ class AuthActions {
       .send(params)
       .end((error, res) => {
         if (error) return resolve(error);
-        this.actions.localLoginSuccess(res.body);
+        this.actions.fetchStatusSuccess(res.body);
         this.alt.getActions('requests').success();
         return resolve();
       });

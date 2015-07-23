@@ -15,16 +15,34 @@ const Protected = requireAuth('admin', class Protected extends Component {
     this.props.flux
       .getActions('page-title')
       .set(this._getIntlMessage('protected.page-title'));
+
+    this.state = this.props.flux
+        .getActions('auth')
+        .fetchStatus();
+  }
+  componentDidMount() {
+    this.props.flux
+        .getStore('auth')
+        .listen((state) => {
+          this.setState(state);
+        });
   }
 
   render() {
-    let authStatus = this.props.authStatus;
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel header={<h3>Protected</h3>}>
           <p>secret mesaage</p>
-          <p>{`login user's email is ${authStatus.sessionUser.email}`}</p>
-          <p>{`login user's authority is ${authStatus.authority}`}</p>
+          {() => {
+            if (this.state !== undefined) {
+              return (
+                <div>
+                  <p>{`login user's email is ${this.state.authStatus.sessionUser.email}`}</p>
+                  <p>{`login user's authority is ${this.state.authStatus.authority}`}</p>
+                </div>
+              );
+            }
+          }()}
         </Panel>
       </Col>
     );

@@ -8,8 +8,12 @@ class AuthStore {
     debug('dev')('=== login result ===', result);
   }
 
-  onfetchStatusSuccess(authStatus) {
+  onFetchStatusSuccess(authStatus) {
     return this.setState({authStatus});
+  }
+
+  onGetAuthStatus() {
+    return this.getState();
   }
 
 

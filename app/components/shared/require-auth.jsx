@@ -31,15 +31,10 @@ export default function requireAuth(role, ChildComponent) {
         transition.to('/login-info');
         return callback();
       }
-
-      console.log('authStatus', authStatus);
-      global.authStatus = authStatus;
-
       return callback();
     }
 
     render() {
-      this.props.authStatus = global.authStatus;
       return <ChildComponent {...this.props} {...this.state} />;
     }
   }

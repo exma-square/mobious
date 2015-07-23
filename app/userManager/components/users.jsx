@@ -17,9 +17,14 @@ class Users extends Component {
 
   _getIntlMessage = IntlMixin.getIntlMessage
 
-  state = this.props.flux
+  state = {
+    users: this.props.flux
     .getStore('users')
-    .getState();
+    .getState().users,
+    authStatus: this.props.flux
+    .getStore('auth')
+    .getState().authStatus
+  };
 
   componentWillMount() {
     this.props.flux
@@ -29,11 +34,19 @@ class Users extends Component {
     this.props.flux
       .getActions('users')
       .fetch();
+
+    this.props.flux
+      .getActions('auth')
+      .fetchStatus();
+
   }
 
   componentDidMount() {
     this.props.flux
       .getStore('users')
+      .listen(this._handleStoreChange);
+    this.props.flux
+      .getStore('auth')
       .listen(this._handleStoreChange);
   }
 
@@ -41,6 +54,10 @@ class Users extends Component {
     this.props.flux
       .getStore('users')
       .unlisten(this._handleStoreChange);
+    this.props.flux
+      .getStore('auth')
+      .unlisten(this._handleStoreChange);
+
   }
 
   _handleStoreChange = (state) => {
@@ -71,16 +88,20 @@ class Users extends Component {
   }
 
   render() {
-
+    console.log('this.state', this.state);
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className="app-users"
                header={<h3>{this._getIntlMessage('userManager.title')}</h3>}
-               footer={<Link to='/userCreate'>
-                        <Button bsStyle='success'>
-                           {this._getIntlMessage('userManager.add')}
-                         </Button>
-                       </Link>}>
+               footer={() => {
+                 if (this.state.authStatus.authority === 'admin') {
+                   return (<Link to='/userCreate'>
+                    <Button bsStyle='success'>
+                       {this._getIntlMessage('userManager.add')}
+                     </Button>
+                    </Link>)
+                  }
+                }()}>
           <Table responsive>
             <thead>
               <tr>

@@ -35,6 +35,7 @@ class Header extends Component {
   }
 
   componentDidMount() {
+    global.flux = this.props.flux;
     this.props.flux
       .getStore('requests')
       .listen(this._handleRequestStoreChange);

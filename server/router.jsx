@@ -34,11 +34,14 @@ export default function *(next) {
 
   // Populate store with locale
 
-  // let authStatus = services.user.getAuthStatus(this);
+  let authStatus = services.user.getAuthStatus(this);
 
   flux
     .getActions('locale')
     .switchLocaleSuccess({locale, messages});
+  flux
+    .getActions('auth')
+    .fetchStatusSuccess(authStatus);
 
   debug('dev')(`locale of request: ${locale}`);
 
