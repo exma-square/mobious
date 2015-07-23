@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {baseUrl} from '../../../server/config/init';
 import request from 'superagent';
 
-const requireAuth = (role, ChildComponent) => {
+export default function requireAuth(role, ChildComponent) {
   class Authenticated extends Component {
+
     static async onEnter(next, transition, callback) {
       let getAuthStatus = async () => {
         return await new Promise((resolve, reject) => {
@@ -50,11 +51,9 @@ const requireAuth = (role, ChildComponent) => {
     }
 
     render() {
-      return <ChildComponent {...this.props} />;
+      return <ChildComponent {...this.props} {...this.state} />;
     }
   }
 
   return Authenticated;
-};
-
-export default requireAuth;
+}
