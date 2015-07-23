@@ -18,10 +18,13 @@ const Protected = requireAuth('admin', class Protected extends Component {
   }
 
   render() {
+    let authStatus = this.props.authStatus;
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel header={<h3>Protected</h3>}>
           <p>secret mesaage</p>
+          <p>{`login user's email is ${authStatus.sessionUser.email}`}</p>
+          <p>{`login user's authority is ${authStatus.authority}`}</p>
         </Panel>
       </Col>
     );

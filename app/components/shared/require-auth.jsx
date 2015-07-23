@@ -18,6 +18,7 @@ export default function requireAuth(role, ChildComponent) {
 
       // const nextPath = encodeURIComponent(transition.path);
       let authStatus = authStatus = await getAuthStatus();
+      // global.authStatus = authStatus;
 
       if (!authStatus.isAuthenticated) {
         transition.to('/login-info');
@@ -31,12 +32,14 @@ export default function requireAuth(role, ChildComponent) {
         return callback();
       }
 
-      // this.state.authStatus = authStatus;
+      console.log('authStatus', authStatus);
+      global.authStatus = authStatus;
 
       return callback();
     }
 
     render() {
+      this.props.authStatus = global.authStatus;
       return <ChildComponent {...this.props} {...this.state} />;
     }
   }
