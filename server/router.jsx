@@ -33,6 +33,9 @@ export default function *(next) {
   const {messages} = require(`data/${locale}`);
 
   // Populate store with locale
+
+  // let authStatus = services.user.getAuthStatus(this);
+
   flux
     .getActions('locale')
     .switchLocaleSuccess({locale, messages});

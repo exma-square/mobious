@@ -17,7 +17,7 @@ export default function requireAuth(role, ChildComponent) {
       };
 
       // const nextPath = encodeURIComponent(transition.path);
-      let authStatus = authStatus = await getAuthStatus();
+      let authStatus = await getAuthStatus();
       // global.authStatus = authStatus;
 
       if (!authStatus.isAuthenticated) {
