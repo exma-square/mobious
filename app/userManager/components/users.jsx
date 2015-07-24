@@ -78,10 +78,16 @@ class Users extends Component {
           <Link to={`/profile/${user.id}`}>
             <Button>Profile</Button>
           </Link>
-          <Button bsStyle='danger' bsSize='small' className='user-remove'
+          {() => {
+            if (this.state.authStatus.authority === 'admin') {
+              return (
+                <Button bsStyle='danger' bsSize='small' className='user-remove'
                   onClick={this._removeUser.bind(this, user.id)}>
                   X
-          </Button>
+                </Button>
+              )
+            }
+          }()}
         </td>
       </tr>
     );
@@ -92,16 +98,19 @@ class Users extends Component {
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className="app-users"
-               header={<h3>{this._getIntlMessage('userManager.title')}</h3>}
-               footer={() => {
-                 if (this.state.authStatus.authority === 'admin') {
-                   return (<Link to='/userCreate'>
-                    <Button bsStyle='success'>
-                       {this._getIntlMessage('userManager.add')}
-                     </Button>
-                    </Link>)
-                  }
-                }()}>
+          header={<h3>{this._getIntlMessage('userManager.title')}</h3>}
+          footer={() => {
+            if (this.state.authStatus.authority === 'admin') {
+              return (
+                <Link to='/userCreate'>
+                  <Button bsStyle='success'>
+                    {this._getIntlMessage('userManager.add')}
+                  </Button>
+                </Link>
+              )
+            }
+          }()}
+        >
           <Table responsive>
             <thead>
               <tr>
