@@ -16,16 +16,7 @@ const Protected = requireAuth('admin', class Protected extends Component {
       .getActions('page-title')
       .set(this._getIntlMessage('protected.page-title'));
 
-    this.state = this.props.flux
-        .getActions('auth')
-        .fetchStatus();
-  }
-  componentDidMount() {
-    this.props.flux
-        .getStore('auth')
-        .listen((state) => {
-          this.setState(state);
-        });
+    this.state = this.props.flux.getStore('auth').getState();
   }
 
   render() {

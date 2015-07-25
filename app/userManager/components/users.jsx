@@ -34,19 +34,11 @@ class Users extends Component {
     this.props.flux
       .getActions('users')
       .fetch();
-
-    this.props.flux
-      .getActions('auth')
-      .fetchStatus();
-
   }
 
   componentDidMount() {
     this.props.flux
       .getStore('users')
-      .listen(this._handleStoreChange);
-    this.props.flux
-      .getStore('auth')
       .listen(this._handleStoreChange);
   }
 
@@ -54,13 +46,11 @@ class Users extends Component {
     this.props.flux
       .getStore('users')
       .unlisten(this._handleStoreChange);
-    this.props.flux
-      .getStore('auth')
-      .unlisten(this._handleStoreChange);
 
   }
 
   _handleStoreChange = (state) => {
+    state.authStatus = this.props.flux.getStore('auth').getState().authStatus
     return this.setState(state);
   }
 
