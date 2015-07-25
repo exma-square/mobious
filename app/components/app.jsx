@@ -62,6 +62,8 @@ class App extends Component {
   }
 
   render() {
+    console.log('app render');
+    global.flux = this.props.flux;
     return (
       <div>
         <Header {...this.state.i18n} flux={this.props.flux}/>
