@@ -6,19 +6,13 @@ export default function requireAuth(role, ChildComponent) {
   class Authenticated extends Component {
 
     static async onEnter(next, transition, callback) {
-      let getAuthStatus = async () => {
-        return await new Promise((resolve, reject) => {
-          request.get(`${baseUrl}auth/status`)
-          .end((error, res) => {
-            if (error) return reject(error);
-            return resolve(res.body);
-          });
+      let authStatus = await new Promise((resolve, reject) => {
+        request.get(`${baseUrl}auth/status`)
+        .end((error, res) => {
+          if (error) return reject(error);
+          return resolve(res.body);
         });
-      };
-
-      // const nextPath = encodeURIComponent(transition.path);
-      let authStatus = await getAuthStatus();
-      // global.authStatus = authStatus;
+      });
 
       if (!authStatus.isAuthenticated) {
         transition.to('/login-info');

@@ -94,7 +94,6 @@ class Users extends Component {
   }
 
   render() {
-    console.log('this.state', this.state);
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className="app-users"
