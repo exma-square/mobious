@@ -2,11 +2,17 @@ class CommentStore {
 
   constructor() {
     this.bindActions(this.alt.getActions('comment'));
-    this.comment = [];
+    this.comments = [];
   }
 
-  onFetchSuccess(comment) {
-    return this.setState({comment});
+  onFetchSuccess(comments) {
+    return this.setState({comments});
+  }
+
+  onCreateSuccess(comment) {
+    const comments: Array<Object> = this.comments.slice();
+    comments.push(comment);
+    return this.setState({comments});
   }
 
   // static getBySeed(id) {
