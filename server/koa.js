@@ -58,7 +58,7 @@ app.use(responseTime());
 app.use(logger());
 
 // various security headers
-app.use(helmet.defaults());
+app.use(helmet());
 
 if (env === 'production') {
   // set debug env to `koa` only
@@ -70,16 +70,6 @@ if (env === 'production') {
   app.use(require('koa-etag')());
   app.use(require('koa-compressor')());
 
-  // Cache pages
-  const cache = require('lru-cache')({maxAge: 3000});
-  app.use(require('koa-cash')({
-    get: function* (key) {
-      return cache.get(key);
-    },
-    set: function* (key, value) {
-      cache.set(key, value);
-    }
-  }));
 }
 
 if (env === 'development') {

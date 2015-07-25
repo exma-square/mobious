@@ -10,7 +10,9 @@ class LoginInfo extends Component {
   }
 
   static propTypes = {
-    flux: React.PropTypes.object.isRequired
+    flux: React.PropTypes.object.isRequired,
+    locales: PropTypes.array.isRequired,
+    params: React.PropTypes.object.isRequired
   }
 
   _getIntlMessage = IntlMixin.getIntlMessage

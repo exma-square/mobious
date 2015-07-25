@@ -25,7 +25,8 @@ else {
 class Header extends Component {
 
   static propTypes: {
-    flux: PropTypes.object.isRequired
+    flux: PropTypes.object.isRequired,
+    locales: PropTypes.array.isRequired
   }
 
   _getIntlMessage = IntlMixin.getIntlMessage
@@ -46,6 +47,9 @@ class Header extends Component {
   }
 
   render() {
+    const {locales, flux} = this.props;
+    const [activeLocale] = locales;
+
     return (
       <header className='app-header'>
         <Navbar brand={<Link to='/' className='app-logo'>
@@ -80,8 +84,8 @@ class Header extends Component {
             </li>
           </Nav>
           <LangPicker
-          activeLocale={this.props.locales[0]}
-          onChange={this.props.flux.getActions('locale').switchLocale} />
+          activeLocale={activeLocale}
+          onChange={flux.getActions('locale').switchLocale} />
         </Navbar>
         <Spinner active={this.state.spinner} />
       </header>

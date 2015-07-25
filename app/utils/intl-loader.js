@@ -6,14 +6,15 @@ import debug from 'debug';
 if (process.env.BROWSER) window.ReactIntl = require('react-intl');
 
 const loaders = {
-  en(callback: Function, force = false) {
+
+  en(callback, force = false) {
     if (!window.Intl || force) {
       require.ensure([
-        'intl/Intl',
+        'intl',
         'intl/locale-data/jsonp/en.js',
         'data/en'
       ], (require) => {
-        require('intl/Intl');
+        require('intl');
         require('intl/locale-data/jsonp/en.js');
         const lang = require('data/en');
         return callback(lang);
@@ -30,14 +31,15 @@ const loaders = {
       });
     }
   },
-  fr(callback: Function, force = false) {
+
+  fr(callback, force = false) {
     if (!window.Intl || force) {
       require.ensure([
-        'intl/Intl',
+        'intl',
         'intl/locale-data/jsonp/fr.js',
         'data/fr'
       ], (require) => {
-        require('intl/Intl');
+        require('intl');
         require('intl/locale-data/jsonp/fr.js');
         const lang = require('data/fr');
         return callback(lang);
@@ -54,10 +56,10 @@ const loaders = {
       });
     }
   }
+
 };
 
 export default (locale, force) => {
   debug('dev')(`loading lang ${locale}`);
-  const promise: Promise = new Promise((resolve) => loaders[locale](resolve, force));
-  return promise;
+  return new Promise((resolve) => loaders[locale](resolve, force));
 };

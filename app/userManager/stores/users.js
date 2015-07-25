@@ -42,7 +42,6 @@ class UsersStore {
 
     const merged: Array<Object> = this.users.slice();
     users.forEach((user) => {
-      // update the most recent data into store
       let match: ?Object = merged.find((u) => u.seed === user.seed) || null;
       if (match) {
         match = user;
