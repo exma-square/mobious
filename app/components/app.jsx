@@ -62,7 +62,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('app render');
     global.flux = this.props.flux;
     return (
       <div>

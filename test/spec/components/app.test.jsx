@@ -8,7 +8,7 @@ import App from 'components/app';
 
 const should = chai.should();
 
-describe.only('App', () => {
+describe('App', () => {
   let node;
   let instance;
   let flux;
@@ -37,7 +37,7 @@ describe.only('App', () => {
   });
 
   it('should render logo correctly', () => {
-    const logo = TestUtils.findRenderedDOMComponentWithClass(instance, 'app--logo');
+    const logo = TestUtils.findRenderedDOMComponentWithClass(instance, 'app-logo');
     should.exist(logo);
   });
 

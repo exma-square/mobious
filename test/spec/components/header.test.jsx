@@ -29,11 +29,6 @@ describe('Header', () => {
     if (instance) React.unmountComponentAtNode(node);
   });
 
-  it('should render links correctly', () => {
-    const links = TestUtils.findRenderedDOMComponentWithClass(instance, 'app--navbar');
-    links.props.children.length.should.eql(3);
-  });
-
   it('should render lang picker correctly', () => {
     const langs = TestUtils.findRenderedDOMComponentWithClass(instance, 'lang--picker');
     langs.props.children.length.should.eql(2);

@@ -32,7 +32,7 @@ class AltResolver {
   async render(Handler, flux, force = false) {
     if (process.env.BROWSER && !force) {
       debug('dev')('`altResolver.render` should not be used in browser, something went wrong');
-      // return null;
+      return null;
     }
 
     let content;
