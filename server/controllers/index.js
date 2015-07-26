@@ -81,6 +81,8 @@ export default class Routes {
       publicRoute.get('/rest/post/:id', PostController.get);
       publicRoute.get('/rest/auth/status', AuthController.status);
 
+      publicRoute.post('/rest/comment/', CommentController.create);
+
 
       app.use(publicRoute.middleware())
 
