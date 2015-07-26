@@ -8,7 +8,7 @@ import App from 'components/app';
 
 const should = chai.should();
 
-describe('App', () => {
+describe.only('App', () => {
   let node;
   let instance;
   let flux;

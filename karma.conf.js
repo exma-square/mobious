@@ -45,11 +45,11 @@ module.exports = function (config) {
             exclude: /node_modules|test/
           },
           {
-            test: /\.scss$/,
+            test: /\.scss|.css$/,
             loader: 'style!css!sass'
           },
           {
-            test: /\.(jpe?g|png|gif|svg|woff|eot|ttf)$/,
+            test: /\.(jpe?g|png|gif|svg|woff|woff2|eot|ttf)$/,
             loader: 'file?name=[sha512:hash:base64:7].[ext]'
           },
           {
