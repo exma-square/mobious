@@ -1,38 +1,62 @@
-/* eslint-disable */
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
-import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
-import {Table, Panel, Grid, Row, Col} from 'react-bootstrap';
+import {Table, Panel, Col} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
 }
 
-export default React.createClass({
+class PostList extends Component {
+  static propTypes = {
+    flux: PropTypes.object.isRequired
+  }
 
-  mixins: [ListenerMixin, IntlMixin],
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-  propTypes: {
-    flux: React.PropTypes.object.isRequired
-  },
-  getInitialState() {
-    return this.props.flux.getStore('posts').getState();
-  },
+  _getIntlMessage = IntlMixin.getIntlMessage
+
+  state = {
+    posts: this.props.flux
+    .getStore('posts')
+    .getState().posts,
+    authStatus: this.props.flux
+    .getStore('auth')
+    .getState().authStatus
+  };
+
   componentWillMount() {
-    return this.props.flux.getActions('posts').fetch();
-  },
+    this.props.flux
+      .getActions('page-title')
+      .set(this._getIntlMessage('postManager.page-title'));
+
+    this.props.flux
+      .getActions('posts')
+      .fetch();
+
+    this.props.flux
+      .getActions('auth')
+      .fetchStatus();
+  }
   componentDidMount() {
-    this.listenTo(this.props.flux.getStore('posts'), this.handleStoreChange);
-  },
-  handleStoreChange() {
-    this.setState(this.getInitialState());
-  },
-  renderPosts() {
-    return this.state.posts.map((post, index) => {
-      return (
+    this.props.flux
+      .getStore('posts')
+      .listen(this._handleStoreChange);
+    this.props.flux
+      .getStore('auth')
+      .listen(this._handleStoreChange);
+  }
+  componentWillUnmount() {
+    this.props.flux
+      .getStore('posts')
+      .unlisten(this._handleStoreChange);
+    this.props.flux
+      .getStore('auth')
+      .unlisten(this._handleStoreChange);
+  }
+  _handleStoreChange = (state) => {
+    return this.setState(state);
+  }
+  renderPosts = (post, index) => {
+    return (
         <tr className='post--row' key={index}>
           <td>
             {post.id}
@@ -42,30 +66,44 @@ export default React.createClass({
               {post.title}
             </Link>
           </td>
+          {this.renderEdit(post)}
         </tr>
       );
-    });
-  },
+  }
+  renderEdit(post) {
+    if (this.state.authStatus.authority !== 'admin') {
+      return (
+        <td>
+          <Link to={`/postEdit/${post.id}`} >
+            Edit
+          </Link>
+        </td>
+      );
+    }
+  }
   render() {
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className='app-posts'
-               header={<h3>{this.getIntlMessage('postManager.title')}</h3>}>
+               header={<h3>{this._getIntlMessage('postManager.title')}</h3>}>
           <Table striped responsive>
             <thead>
               <tr>
                 <th>Post ID</th>
-                <th colSpan='2'>
-                  {this.getIntlMessage('postManager.name')}
+                <th>
+                  {this._getIntlMessage('postManager.name')}
                 </th>
+                <th>Edit</th>
               </tr>
             </thead>
             <tbody>
-              {this.renderPosts()}
+              {this.state.posts.map(this.renderPosts)}
             </tbody>
           </Table>
         </Panel>
       </Col>
     );
   }
-});
+}
+
+export default PostList;

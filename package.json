@@ -48,6 +48,7 @@
     "koa-response-time": "^1.0.2",
     "koa-router": "^4.3.2",
     "koa-static-cache": "^3.1.0",
+    "latest-version": "^1.0.1",
     "lodash": "^3.6.0",
     "lru-cache": "^2.6.2",
     "modularized-normalize-scss": "git://github.com/hail2u/normalize.scss.git",

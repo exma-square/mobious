@@ -2,13 +2,6 @@ import React, {Component} from 'react';
 import ListenerMixin from 'alt/mixins/ListenerMixin';
 import {IntlMixin} from 'react-intl';
 
-if (process.env.BROWSER) {
-  window.React = React;
-  window.CKEDITOR_BASEPATH = '/alloyeditor/';
-  require('alloyeditor/dist/alloy-editor/alloy-editor-all.js');
-  // require('postManager/styles/post.scss');
-  require('alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean.css');
-}
 // export default React.createClass({
 class Single extends Component {
 
@@ -42,7 +35,6 @@ class Single extends Component {
       .getBySeed(this.props.params.id);
 
     this.setState(post);
-    window.AlloyEditor.editable('postContent');
   }
 
   render() {
@@ -54,14 +46,14 @@ class Single extends Component {
       body = (
         <div className='app--beans'>
           <h2>{post.title}</h2>
-          <p id='postContent'>{post.content}</p>
+          <p>{post.content}</p>
         </div>
       );
     }
     else {
       body = (
         <div className='app--beans'>
-          <p id='postContent'></p>
+          <p ></p>
         </div>
       );
     }
