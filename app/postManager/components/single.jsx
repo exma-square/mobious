@@ -1,24 +1,23 @@
-import React, {Component} from 'react';
-import ListenerMixin from 'alt/mixins/ListenerMixin';
+import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
 
 if (process.env.BROWSER) {
   window.React = React;
   window.CKEDITOR_BASEPATH = '/alloyeditor/';
   require('alloyeditor/dist/alloy-editor/alloy-editor-all.js');
-  // require('postManager/styles/post.scss');
   require('alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean.css');
 }
-// export default React.createClass({
+
 class Single extends Component {
 
-  mixins: [ListenerMixin, IntlMixin]
-  contextTypes: {
-    router: React.PropTypes.func
+  static propTypes = {
+    flux: PropTypes.object.isRequired,
+    params: PropTypes.object.isRequired
   }
-  static propTypes: {
-    flux: React.PropTypes.object.isRequired
-  }
+
+  _getIntlMessage = IntlMixin.getIntlMessage
+
+
   state = this.props.flux
     .getStore('posts')
     .getBySeed(this.props.params.id)
@@ -32,41 +31,38 @@ class Single extends Component {
     this.props.flux
       .getStore('posts')
       .listen(this._handleStoreChange);
+
+    setTimeout(this._initAlloyEditor, 500);
   }
 
 
-  _handleStoreChange = this._handleStoreChange.bind(this)
-  _handleStoreChange() {
-    const post: ?Object = this.props.flux
-      .getStore('posts')
-      .getBySeed(this.props.params.id);
+  _handleStoreChange = (state) => {
+    this.setState(state);
+  }
 
-    this.setState(post);
+  _initAlloyEditor = () => {
     window.AlloyEditor.editable('postContent');
   }
 
   render() {
-    const post: Object = this.state.post;
-
-    let body = null;
-
-    if (post) {
-      body = (
-        <div className='app--beans'>
-          <h2>{post.title}</h2>
-          <p id='postContent'>{post.content}</p>
-        </div>
-      );
-    }
-    else {
-      body = (
-        <div className='app--beans'>
-          <p id='postContent'></p>
-        </div>
-      );
-    }
-
-    return body;
+    return (
+     <div className='app--beans'>
+        <h2>
+          {() => {
+            if (this.state.post !== undefined) {
+              return this.state.post.title;
+            }
+          }()}
+        </h2>
+        <p id='postContent'>
+          {() => {
+            if (this.state.post !== undefined) {
+              return this.state.post.content;
+            }
+          }()}
+        </p>
+      </div>
+    );
   }
 
 }
