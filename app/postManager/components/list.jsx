@@ -1,8 +1,7 @@
-/* eslint-disable */
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
-import {Table, Panel, Grid, Row, Col} from 'react-bootstrap';
+import {Table, Panel, Col} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
@@ -26,10 +25,9 @@ class Posts extends Component {
   };
 
   componentWillMount() {
-    // this.props.flux
-    //   .getActions('page-title')
-    //   .set(this._getIntlMessage('postManager.page-title'));
-
+    this.props.flux
+      .getActions('page-title')
+      .set(this._getIntlMessage('postManager.page-title'));
     this.props.flux
       .getActions('posts')
       .fetch();
@@ -41,18 +39,17 @@ class Posts extends Component {
       .listen(this._handleStoreChange);
   }
 
+
   componentWillUnmount() {
     this.props.flux
       .getStore('posts')
       .unlisten(this._handleStoreChange);
-
   }
 
   _handleStoreChange = (state) => {
-    state.authStatus = this.props.flux.getStore('auth').getState().authStatus
+    state.authStatus = this.props.flux.getStore('auth').getState().authStatus;
     return this.setState(state);
   }
-
   renderPost = (post, index) => {
     return (
       <tr className='post--row' key={index}>
@@ -68,6 +65,32 @@ class Posts extends Component {
     );
   }
 
+  renderPost = (post, index) => {
+    return (
+        <tr className='post--row' key={index}>
+          <td>
+            {post.id}
+          </td>
+          <td>
+            <Link to={`/postOne/${post.id}`} >
+              {post.title}
+            </Link>
+          </td>
+          {this.renderEdit(post)}
+        </tr>
+      );
+  }
+  renderEdit(post) {
+    if (this.state.authStatus.authority === 'editor') {
+      return (
+        <td>
+          <Link to={`/postEdit/${post.id}`} >
+            Edit
+          </Link>
+        </td>
+      );
+    }
+  }
   render() {
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
@@ -77,9 +100,16 @@ class Posts extends Component {
             <thead>
               <tr>
                 <th>Post ID</th>
-                <th colSpan='2'>
+                <th>
                   {this._getIntlMessage('postManager.name')}
                 </th>
+                  {() => {
+                    if (this.state.authStatus.authority === 'editor') {
+                      return (
+                      <th>Edit</th>
+                      );
+                    }
+                  }()}
               </tr>
             </thead>
             <tbody>

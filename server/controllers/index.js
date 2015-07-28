@@ -1,4 +1,3 @@
-
 import UserController from './user';
 import BeanController from './bean';
 import PostController from './post';
@@ -101,6 +100,8 @@ export default class Routes {
     setupAppRoute() {
 
       this.router.post('/rest/user/', UserController.create);
+      this.router.post('/rest/post/', PostController.create);
+      this.router.put('/rest/post/', PostController.update);
       this.router.delete('/rest/user/:id', UserController.delete);
 
       this.app.use(this.router.middleware())

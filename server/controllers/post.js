@@ -1,5 +1,3 @@
-
-
 exports.index = function *() {
 
   let posts = yield models.Post.findAll()
@@ -24,7 +22,7 @@ exports.create = function *() {
   let result = null;
 
   try {
-    result = yield models.User.create(newPost);
+    result = yield models.Post.create(newPost);
   } catch (e) {
     console.error("create post error", e);
   }
@@ -32,6 +30,23 @@ exports.create = function *() {
   let post = result;
 
   this.body = {post}
+};
+
+exports.update = function *() {
+  
+  let editPost = this.request.body;
+
+  let result = null;
+
+  try {
+    let post = yield models.Post.findById(editPost.id);
+    post.title=editPost.title;
+    post.content=editPost.content;
+    result = post.save();
+  } catch (e) {
+    console.error("delete post error", e);
+  }
+  this.body = {result}
 };
 
 

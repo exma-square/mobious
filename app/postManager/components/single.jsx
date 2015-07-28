@@ -1,13 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
 
-if (process.env.BROWSER) {
-  window.React = React;
-  window.CKEDITOR_BASEPATH = '/alloyeditor/';
-  require('alloyeditor/dist/alloy-editor/alloy-editor-all.js');
-  require('alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean.css');
-}
-
 class Single extends Component {
 
   static propTypes = {
@@ -64,7 +57,6 @@ class Single extends Component {
       </div>
     );
   }
-
 }
 
 export default Single;

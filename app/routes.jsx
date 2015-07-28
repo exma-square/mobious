@@ -40,6 +40,10 @@ export default (
       component: require('./postManager/components/single')
     })}
     {generateRoute({
+      paths: ['/postEdit/:id'],
+      component: require('./postManager/components/edit')
+    })}
+    {generateRoute({
       paths: ['/userCreate'],
       component: require('./userManager/components/create')
     })}

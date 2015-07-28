@@ -28,6 +28,7 @@ export default {
       name: 'bean name'
     },
     postManager: {
+      'page-title': 'Posts',
       title: 'Post Manager',
       name: 'Post Name',
       content: 'Post Content'
