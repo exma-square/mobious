@@ -11,9 +11,6 @@ class Alloyeditor extends Component {
   static propTypes = {
     content: PropTypes.string
   }
-  state={
-    content: this.props.content
-  }
 
   componentDidMount() {
     setTimeout(this._initAlloyEditor, 500);
@@ -25,7 +22,7 @@ class Alloyeditor extends Component {
 
   render() {
     return (
-      <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.state.content }} >
+      <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.props.content }} >
       </div>
     );
   }
