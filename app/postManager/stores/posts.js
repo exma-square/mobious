@@ -12,8 +12,8 @@ class PostStore {
     return this.setState({posts});
   }
 
-  onUpdateSuccess(posts) {
-    return this.setState({posts});
+  onUpdateSuccess(post) {
+    return this.setState({post});
   }
 
   onFetchSuccess(posts) {

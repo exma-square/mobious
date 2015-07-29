@@ -33,16 +33,16 @@ exports.create = function *() {
 };
 
 exports.update = function *() {
-  
+
   let editPost = this.request.body;
 
   let result = null;
-
+  
   try {
     let post = yield models.Post.findById(editPost.id);
     post.title=editPost.title;
     post.content=editPost.content;
-    result = post.save();
+    result = yield post.save();
   } catch (e) {
     console.error("delete post error", e);
   }

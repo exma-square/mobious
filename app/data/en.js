@@ -31,6 +31,7 @@ export default {
       'page-title': 'Posts',
       title: 'Post Manager',
       name: 'Post Name',
+      edit: 'Edit',
       content: 'Post Content'
     },
     commentManager: {

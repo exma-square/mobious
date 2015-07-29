@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
-import {Table, Panel, Col} from 'react-bootstrap';
+import {Table, Panel, Col, Glyphicon} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
@@ -39,7 +39,6 @@ class Posts extends Component {
       .listen(this._handleStoreChange);
   }
 
-
   componentWillUnmount() {
     this.props.flux
       .getStore('posts')
@@ -49,20 +48,6 @@ class Posts extends Component {
   _handleStoreChange = (state) => {
     state.authStatus = this.props.flux.getStore('auth').getState().authStatus;
     return this.setState(state);
-  }
-  renderPost = (post, index) => {
-    return (
-      <tr className='post--row' key={index}>
-        <td>
-          {post.id}
-        </td>
-        <td>
-          <Link to={`/postOne/${post.id}`} >
-            {post.title}
-          </Link>
-        </td>
-      </tr>
-    );
   }
 
   renderPost = (post, index) => {
@@ -80,17 +65,19 @@ class Posts extends Component {
         </tr>
       );
   }
+
   renderEdit(post) {
     if (this.state.authStatus.authority === 'editor') {
       return (
         <td>
           <Link to={`/postEdit/${post.id}`} >
-            Edit
+            <Glyphicon glyph='pencil' />
           </Link>
         </td>
       );
     }
   }
+
   render() {
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
@@ -106,7 +93,9 @@ class Posts extends Component {
                   {() => {
                     if (this.state.authStatus.authority === 'editor') {
                       return (
-                      <th>Edit</th>
+                      <th>
+                        {this._getIntlMessage('postManager.edit')}
+                      </th>
                       );
                     }
                   }()}
