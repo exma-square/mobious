@@ -36,12 +36,15 @@ exports.update = function *() {
 
   let editPost = this.request.body;
 
+  let UserId = services.user.getAuthStatus(this).sessionUser.id;
+
   let result = null;
-  
+
   try {
     let post = yield models.Post.findById(editPost.id);
     post.title=editPost.title;
     post.content=editPost.content;
+    post.UserId = UserId;
     result = yield post.save();
   } catch (e) {
     console.error("delete post error", e);
