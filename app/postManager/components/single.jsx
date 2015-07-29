@@ -24,17 +24,11 @@ class Single extends Component {
     this.props.flux
       .getStore('posts')
       .listen(this._handleStoreChange);
-
-    setTimeout(this._initAlloyEditor, 500);
   }
 
 
   _handleStoreChange = (state) => {
     this.setState(state);
-  }
-
-  _initAlloyEditor = () => {
-    window.AlloyEditor.editable('postContent');
   }
 
   render() {
@@ -47,13 +41,14 @@ class Single extends Component {
             }
           }()}
         </h2>
-        <p id='postContent'>
           {() => {
             if (this.state.post !== undefined) {
-              return this.state.post.content;
+              return (
+                <div id='postContent' dangerouslySetInnerHTML={{__html: this.state.post.content }}>
+                </div>
+              );
             }
           }()}
-        </p>
       </div>
     );
   }

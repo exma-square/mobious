@@ -16,12 +16,16 @@ class Alloyeditor extends Component {
   }
 
   componentDidMount() {
+    setTimeout(this._initAlloyEditor, 500);
+  }
+
+  _initAlloyEditor = () => {
     window.AlloyEditor.editable('AlloyeditorContent');
   }
 
   render() {
     return (
-      <div id='AlloyeditorContent' ref='content' value={this.state.content}>{this.state.content}
+      <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.state.content }} >
       </div>
     );
   }
