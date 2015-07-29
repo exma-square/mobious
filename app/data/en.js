@@ -28,8 +28,10 @@ export default {
       name: 'bean name'
     },
     postManager: {
+      'page-title': 'Posts',
       title: 'Post Manager',
       name: 'Post Name',
+      edit: 'Edit',
       content: 'Post Content'
     },
     commentManager: {

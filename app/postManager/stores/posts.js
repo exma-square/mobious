@@ -5,6 +5,17 @@ class PostStore {
     this.posts = [];
   }
 
+  onCreateSuccess(post) {
+    const posts: Array<Object> = this.posts.slice();
+    posts.push(post);
+
+    return this.setState({posts});
+  }
+
+  onUpdateSuccess(post) {
+    return this.setState({post});
+  }
+
   onFetchSuccess(posts) {
     return this.setState({posts});
   }
