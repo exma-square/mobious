@@ -8,8 +8,12 @@ exports.index = function *() {
 exports.get = function *() {
 
   let postId = this.params.id;
-
-  let post = yield models.Post.findById(postId);
+  let post = yield models.Post.find({
+    where: {
+      id: postId
+    },
+    include: [ { model: models.Tag ,attributes: ['name']} ]
+  });
 
   this.body = {post}
 };

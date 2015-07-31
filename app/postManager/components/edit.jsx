@@ -1,9 +1,16 @@
 import React, {Component, PropTypes} from 'react';
+import ReactAddons from 'react/addons';
 import {Button, Input} from 'react-bootstrap';
 import Alloyeditor from 'components/shared/alloyeditor';
+import TagsInput from 'react-tagsinput';
+
+if (process.env.BROWSER) {
+  require('react-tagsinput/react-tagsinput.css');
+}
 
 class Edit extends Component {
- mixins: [React.addons.LinkedStateMixin]
+
+  _linkState = ReactAddons.addons.LinkedStateMixin.linkState;
 
   static contextTypes = {
     router: PropTypes.func
@@ -46,9 +53,14 @@ class Edit extends Component {
     this.context.router.transitionTo('/postList');
   }
 
-  _handleChange = (event) => {
+  _handleTitle = (event) => {
     let state = this.state;
     state.post.title = event.target.value;
+    this.setState(state);
+  }
+  _handleTags = (event) => {
+    let state = this.state;
+    state.post.Tags = event;
     this.setState(state);
   }
 
@@ -58,7 +70,8 @@ class Edit extends Component {
       body = (
         <div>
           <input type='hidden' ref='id' value={this.state.post.id}></input>
-          <Input type='text' ref='title' value={this.state.post.title} onChange={this._handleChange}/>
+          <TagsInput ref='tags' value={this.state.post.Tags} onChange={this._handleTags}/>
+          <Input type='text' ref='title' value={this.state.post.title} onChange={this._handleTitle}/>
           <Alloyeditor content={this.state.post.content} ref='content' />
           <Button bsStyle='success' type="button" onClick={this._handleSubmit} >Update</Button>
         </div>

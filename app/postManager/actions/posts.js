@@ -68,6 +68,11 @@ class PostsActions {
       .end((error, res) => {
         if (error) return resolve(error);
         // const post: Object = res.body.post;
+        let tagNames = res.body.post.Tags.map((tag => {
+          return tag.name;
+        }));
+        res.body.post.Tags = tagNames;
+
         this.actions.fetchOneSuccess(res.body.post);
         this.alt.getActions('requests').success();
         return resolve();
