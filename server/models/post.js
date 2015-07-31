@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         Post.belongsTo(models.User),
-        Post.hasMany(models.Tag,{joinTableModel:models.Tag});
+        Post.hasMany(models.Tag);
       }
     }
   });

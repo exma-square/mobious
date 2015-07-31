@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import ReactAddons from 'react/addons';
 import {Button, Input} from 'react-bootstrap';
 import Alloyeditor from 'components/shared/alloyeditor';
 import TagsInput from 'react-tagsinput';
@@ -9,8 +8,6 @@ if (process.env.BROWSER) {
 }
 
 class Edit extends Component {
-
-  _linkState = ReactAddons.addons.LinkedStateMixin.linkState;
 
   static contextTypes = {
     router: PropTypes.func
