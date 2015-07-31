@@ -4,7 +4,7 @@ import request from 'superagent';
 class PostsActions {
   constructor() {
     this.generateActions(
-      'fetchSuccess', 'createSuccess', 'fetchOneSuccess', 'updateSuccess'
+      'fetchSuccess', 'createSuccess', 'fetchOneSuccess', 'updateSuccess', 'updateImg'
     );
   }
   create(params) {
@@ -72,6 +72,17 @@ class PostsActions {
         this.alt.getActions('requests').success();
         return resolve();
       });
+    };
+
+    this.alt.resolve(promise);
+  }
+
+  uploadImg(url: string, files: Array) {
+    const promise = (resolve) => {
+      files.forEach((file) => {
+        this.actions.updateImg(file.preview);
+      });
+      return resolve();
     };
 
     this.alt.resolve(promise);

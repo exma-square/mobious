@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Button, Input} from 'react-bootstrap';
 import Alloyeditor from 'components/shared/alloyeditor';
+import DropImg from 'components/shared/dropImg';
 
 class Edit extends Component {
  mixins: [React.addons.LinkedStateMixin]
@@ -13,9 +14,14 @@ class Edit extends Component {
     flux: React.PropTypes.object.isRequired
   }
 
-  state = this.props.flux
+  state = {
+    post: this.props.flux
     .getStore('posts')
-    .getBySeed(this.props.params.id)
+    .getBySeed(this.props.params.id).post,
+    preview: this.props.flux
+    .getStore('posts')
+    .getState().preview
+  };
 
   componentWillMount() {
     this.props.flux
@@ -57,6 +63,8 @@ class Edit extends Component {
     if (this.state.post !== undefined) {
       body = (
         <form id='edit-post-form' onSubmit={this._handleSubmit} className='app--beans'>
+          <DropImg apiUrl={'file/upload'} flux={this.props.flux} />
+          <img src={this.state.preview} />
           <input type='hidden' ref='id' value={this.state.post.id}></input>
           <Input type='text' ref='title' value={this.state.post.title} onChange={this._handleChange}/>
           <Alloyeditor content={this.state.post.content} ref='content' />

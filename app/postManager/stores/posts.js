@@ -3,6 +3,8 @@ class PostStore {
   constructor() {
     this.bindActions(this.alt.getActions('posts'));
     this.posts = [];
+    this.post = [];
+    this.view = [];
   }
 
   onCreateSuccess(post) {
@@ -29,6 +31,10 @@ class PostStore {
 
   onFetchOneSuccess(post) {
     return this.setState({post});
+  }
+
+  updateImg(preview) {
+    return this.setState({preview});
   }
 
 
