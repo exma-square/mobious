@@ -31,6 +31,7 @@ export default {
       'page-title': 'Posts',
       title: 'Post Manager',
       name: 'post name',
+      add: 'Ajouter un poste',
       edit: 'Edit',
       content: 'post content'
     },

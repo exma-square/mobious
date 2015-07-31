@@ -72,13 +72,11 @@ export default async (cb) => {
 
   let testPost1 = {
     title: '這是一篇文章',
-    tags: '西捨',
     content: '西捨帥帥'
   }
 
   let testPost2 = {
     title: '這是兩篇文章',
-    tags: '蹤影',
     content: '蹤影帥帥'
   }
 
@@ -105,6 +103,10 @@ export default async (cb) => {
     authority: 'editor'
   };
 
+  let tag1 = {
+    name: 'Ian is handsome boy'
+  };
+
 
   try {
     let createdVisitor = await models.User.create(visitorUser);
@@ -122,6 +124,10 @@ export default async (cb) => {
 
     let createdPost1 = await models.Post.create(testPost1);
     let createdPost2 = await models.Post.create(testPost2);
+
+    let createTag = await models.Tag.create(tag1);
+
+    await createdPost1.setTags(createTag);
 
     let createdCom1 = await models.Comment.create(Comment1);
     let createdCom2 = await models.Comment.create(Comment2);
