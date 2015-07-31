@@ -2,18 +2,9 @@
   .panel-footer{
     text-align: center;
   }
-  .table{
-    margin-bottom: 0px !important;
-    tr{
-  		td,th {
-  	    padding: 5px 10px;
-  	    vertical-align: middle !important;
-
-  	    &:first-child{
-	    		width: 20%;
-	    		text-align: center;
-	    	}
-    	}
+  .thumbnail{
+    button{
+      margin-right: 7px;
     }
   }
 }

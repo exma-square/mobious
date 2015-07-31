@@ -30,7 +30,9 @@ export default {
     postManager: {
       title: 'Post Manager',
       name: 'Post Name',
-      content: 'Post Content'
+      content: 'Post Content',
+      read: 'Read',
+      edit: 'Edit'
     },
     commentManager: {
       title: '留言版'
