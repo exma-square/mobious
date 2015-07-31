@@ -17,13 +17,19 @@ class Alloyeditor extends Component {
   }
 
   _initAlloyEditor = () => {
-    window.AlloyEditor.editable('AlloyeditorContent');
+    window.AlloyEditor.editable('AlloyeditorContent', {
+    uiNode: 'uiNode'});
   }
 
   render() {
     return (
-      <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.props.content }} >
+      <div>
+        <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.props.content }} >
+        </div>
+        <div id='uiNode'></div>
       </div>
+
+
     );
   }
 
