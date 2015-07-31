@@ -79,7 +79,7 @@ export default class Routes {
       publicRoute.get('/rest/comment/', CommentController.index);
       publicRoute.get('/rest/post/:id', PostController.get);
       publicRoute.get('/rest/auth/status', AuthController.status);
-
+      publicRoute.post('/rest/post/fileUpload/', PostController.upload);
       publicRoute.post('/rest/comment/', CommentController.create);
 
 
