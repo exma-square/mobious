@@ -24,7 +24,7 @@ class Alloyeditor extends Component {
   render() {
     return (
       <div>
-        <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.props.content }} >
+        <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.props.content }} data-placeholder='content....'>
         </div>
         <div id='uiNode'></div>
       </div>
