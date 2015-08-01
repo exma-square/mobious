@@ -103,14 +103,16 @@ controllers.setupAppRoute()
 const cacheOpts: Object = {maxAge: 86400000, gzip: true};
 
 // Proxy asset folder to webpack development server in development mode
+app.use(mount('/alloyeditor', staticCache(path.join(__dirname, '../node_modules/alloyeditor/dist/alloy-editor'), cacheOpts)));
+app.use(mount('/assets', staticCache(path.join(__dirname, '../.tmp'), cacheOpts)));
+
+
 if (env === 'development') {
   var webpackConfig: Object = require('./../webpack/dev.config');
   app.use(mount('/assets', require('koa-proxy')({ host: `http://localhost:${webpackConfig.server.port}` })));
-  app.use(mount('/alloyeditor', staticCache(path.join(__dirname, '../node_modules/alloyeditor/dist/alloy-editor'), cacheOpts)));
 }
 else {
   app.use(mount('/assets', staticCache(path.join(__dirname, '../dist'), cacheOpts)));
-  app.use(mount('/alloyeditor', staticCache(path.join(__dirname, '../node_modules/alloyeditor/dist/alloy-editor'), cacheOpts)));
 }
 
 

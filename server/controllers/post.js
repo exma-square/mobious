@@ -1,7 +1,7 @@
 import parse from 'co-busboy';
-import fs from 'fs';
-
-
+import fs from 'fs-extra';
+var os = require('os');
+var path = require('path');
 exports.index = function *() {
 
   let posts = yield models.Post.findAll()
@@ -58,33 +58,31 @@ exports.update = function *() {
 
 
 exports.upload = function* (next) {
-/*
-Code taken from https://github.com/koajs/examples/blob/master/upload/index.js
-*/
+
+  // ignore non-POSTs
   if ('POST' != this.method) return yield next;
 
   try {
-
+    // multipart upload
     var parts = parse(this);
     var part;
-    console.log(parts);
-    let fileNames = {};
+    var dir = '.tmp/images/post/';
+
+    fs.ensureDirSync(dir);
 
     while (part = yield parts) {
-      var stream = fs.createWriteStream('/tmp/upload/' + part.filename);
+      var stream = fs.createWriteStream(path.join(dir, '1.png'));
       part.pipe(stream);
-      console.log('uploading %s -> %s', part.filename, stream.path);
-
-      fileNames[part.filename] = stream.path;
     }
-  } catch (e) {
-      console.log(e);
-  }
 
-  this.body = {fileNames}
-  // yield* this.render('index', {
-  //   fileNames: fileNames
-  // });
+    this.body = {success: true};
+
+  } catch (e) {
+
+    console.log(e.stack);
+    this.body = {success: false};
+
+  }
 };
 
 
