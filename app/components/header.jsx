@@ -78,7 +78,7 @@ class Header extends Component {
             </li>
             <li>
               <Link to='/postList'>
-                  {this._getIntlMessage('postManager.title')}
+                  {this._getIntlMessage('header.posts')}
               </Link>
             </li>
           </Nav>

@@ -1,9 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {Button, Input} from 'react-bootstrap';
+import {IntlMixin} from 'react-intl';
 import Alloyeditor from 'components/shared/alloyeditor';
 
 class Edit extends Component {
- mixins: [React.addons.LinkedStateMixin]
+
+  _getIntlMessage = IntlMixin.getIntlMessage
 
   static contextTypes = {
     router: PropTypes.func
@@ -56,10 +58,10 @@ class Edit extends Component {
     let body = null;
     if (this.state.post !== undefined) {
       body = (
-        <div>
+        <div className='form-horizontal'>
           <input type='hidden' ref='id' value={this.state.post.id}></input>
-          <Input type='text' ref='title' value={this.state.post.title} onChange={this._handleChange}/>
-          <Alloyeditor content={this.state.post.content} ref='content' />
+          <Input label={this._getIntlMessage('post.title')} labelClassName='col-xs-1' wrapperClassName='col-xs-10' type='text' ref='title' value={this.state.post.title} onChange={this._handleChange} />
+          <Alloyeditor label={this._getIntlMessage('post.content')} labelClassName='col-xs-1' wrapperClassName='col-xs-10' content={this.state.post.content} ref='content' />
           <Button bsStyle='success' type="button" onClick={this._handleSubmit} >Update</Button>
         </div>
       );
