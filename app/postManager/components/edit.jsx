@@ -56,12 +56,12 @@ class Edit extends Component {
     let body = null;
     if (this.state.post !== undefined) {
       body = (
-        <form id='edit-post-form' onSubmit={this._handleSubmit} className='app--beans'>
+        <div>
           <input type='hidden' ref='id' value={this.state.post.id}></input>
           <Input type='text' ref='title' value={this.state.post.title} onChange={this._handleChange}/>
           <Alloyeditor content={this.state.post.content} ref='content' />
-          <Button bsStyle='success' type="submit" form='edit-post-form'>Update</Button>
-        </form>
+          <Button bsStyle='success' type="button" onClick={this._handleSubmit} >Update</Button>
+        </div>
       );
     }
     else {
