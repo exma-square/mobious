@@ -64,18 +64,22 @@ exports.upload = function* (next) {
 
   try {
     // multipart upload
-    var parts = parse(this);
-    var part;
-    var dir = '.tmp/images/post/';
-
+    // console.log(this);
+    let parts = parse(this, {
+      autoFields: true
+    });
+    let part;
+    let dir = '.tmp/images/post/';
     fs.ensureDirSync(dir);
+    let filename = Math.random() + '.jpg';
 
     while (part = yield parts) {
-      var stream = fs.createWriteStream(path.join(dir, '1.png'));
+      // console.log(part.filename);
+      var stream = fs.createWriteStream(path.join(dir, filename));
       part.pipe(stream);
     }
-
-    this.body = {success: true};
+    console.log('uploading %s -> %s', filename, stream.path);
+    this.body = {success: true, path: stream.path};
 
   } catch (e) {
 

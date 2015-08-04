@@ -79,9 +79,19 @@ class PostsActions {
 
   uploadImg(url: string, files: Array) {
     const promise = (resolve) => {
+      this.alt.getActions('requests').start();
       files.forEach((file) => {
+        console.log('file name is', file.name);
+        request.post(url)
+        .field('filename', file.name )
+        .attach('file', file)
+        .end(function(err, res) {
+          if (err) return resolve(err);
+          console.log('image response is', res);
+        });
         this.actions.updateImg(file.preview);
       });
+
       return resolve();
     };
 
