@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
+import {Label} from 'react-bootstrap';
 
 class Single extends Component {
 
@@ -12,8 +13,8 @@ class Single extends Component {
 
 
   state = this.props.flux
-    .getStore('posts')
-    .getBySeed(this.props.params.id)
+  .getStore('posts')
+  .getBySeed(this.props.params.id)
 
   componentWillMount() {
     return this.props.flux.getActions('posts').fetchOne(this.props.params.id);
@@ -22,36 +23,43 @@ class Single extends Component {
 
   componentDidMount() {
     this.props.flux
-      .getStore('posts')
-      .listen(this._handleStoreChange);
+    .getStore('posts')
+    .listen(this._handleStoreChange);
   }
 
 
   _handleStoreChange = (state) => {
     this.setState(state);
   }
-
-  render() {
+  renderTags = (tag) => {
     return (
-     <div className='app--beans'>
-        <h2>
-          {() => {
-            if (this.state.post !== undefined) {
-              return this.state.post.title;
-            }
-          }()}
-        </h2>
+      <span>
+        <Label bsStyle='success'>{tag}</Label>&nbsp;
+        </span>
+      );
+  }
+    render() {
+      return (
+        <div className='app--beans'>
+
           {() => {
             if (this.state.post !== undefined) {
               return (
-                <div id='postContent' dangerouslySetInnerHTML={{__html: this.state.post.content }}>
+                <div>
+                  <h2>
+                    {this.state.post.title}
+                  </h2>
+                  {this.state.post.Tags.map(this.renderTags)}
+                  <div id='postContent' dangerouslySetInnerHTML={{__html: this.state.post.content }}>
+                  </div>
+
                 </div>
               );
             }
           }()}
-      </div>
-    );
+        </div>
+      );
+    }
   }
-}
 
 export default Single;

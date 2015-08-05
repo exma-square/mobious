@@ -67,7 +67,10 @@ class PostsActions {
       request.get(baseUrl + 'rest/post/' + `${id}`)
       .end((error, res) => {
         if (error) return resolve(error);
-        // const post: Object = res.body.post;
+        let tagNames = res.body.post.Tags.map((tag => {
+          return tag.name;
+        }));
+        res.body.post.Tags = tagNames.sort();
         this.actions.fetchOneSuccess(res.body.post);
         this.alt.getActions('requests').success();
         return resolve();

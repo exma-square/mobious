@@ -32,6 +32,7 @@ export default {
       'page-title': 'Posts',
       title: 'Post Manager',
       name: 'Post Name',
+      add: 'Add Post',
       edit: 'Edit',
       content: 'Post Content'
     },
@@ -39,7 +40,8 @@ export default {
       'page-title': 'Post',
       title: 'Title',
       content: 'Content',
-      tag: 'Tag'
+      tags: 'Tags',
+      tagPlaceholder: 'Add Tags'
     },
     commentManager: {
       title: '留言版'
