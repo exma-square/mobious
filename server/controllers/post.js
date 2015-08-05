@@ -36,15 +36,18 @@ exports.create = function *() {
   this.body = {post}
 };
 
-exports.update = function *() {
+exports.update = async function() {
+  console.log('=============');
 
   let editPost = this.request.body;
   let UserId = services.user.getAuthStatus(this).sessionUser.id;
+  // let UserId = 1;
   let result = null;
 
   try {
-    
-    let post = yield models.Post.find({
+
+
+    let post = await models.Post.find({
       where: {
         id: editPost.id
       },
@@ -79,7 +82,7 @@ exports.update = function *() {
     post.title=editPost.title;
     post.content=editPost.content;
     post.UserId = UserId;
-    result = yield post.save();
+    result = await post.save();
   } catch (e) {
     console.error("delete post error", e);
   }
