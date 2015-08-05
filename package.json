@@ -51,6 +51,7 @@
     "koa-response-time": "^1.0.2",
     "koa-router": "^5.1.2",
     "koa-static-cache": "^3.1.2",
+    "koa-static": "^1.4.9",
     "lodash": "^3.10.0",
     "modularized-normalize-scss": "git://github.com/hail2u/normalize.scss.git",
     "passport-facebook": "^2.0.0",

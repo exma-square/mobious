@@ -6,6 +6,7 @@ import debug from 'debug';
 import koa from 'koa';
 import jade from 'koa-jade';
 import mount from 'koa-mount';
+import serve from 'koa-static';
 import helmet from 'koa-helmet';
 import logger from 'koa-logger';
 import favicon from 'koa-favicon';
@@ -104,7 +105,7 @@ const cacheOpts: Object = {maxAge: 86400000, gzip: true};
 
 // Proxy asset folder to webpack development server in development mode
 app.use(mount('/alloyeditor', staticCache(path.join(__dirname, '../node_modules/alloyeditor/dist/alloy-editor'), cacheOpts)));
-app.use(mount('/assets', staticCache(path.join(__dirname, '../.tmp'), cacheOpts)));
+app.use(mount('/assets', serve(path.join(__dirname, '../.tmp'), cacheOpts)));
 
 
 if (env === 'development') {
