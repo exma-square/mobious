@@ -39,13 +39,43 @@ exports.create = function *() {
 exports.update = function *() {
 
   let editPost = this.request.body;
-
   let UserId = services.user.getAuthStatus(this).sessionUser.id;
-
   let result = null;
 
   try {
-    let post = yield models.Post.findById(editPost.id);
+    
+    let post = yield models.Post.find({
+      where: {
+        id: editPost.id
+      },
+      include: [ { model: models.Tag } ]
+    });
+
+    // Remove Tag
+    post.Tags.forEach((tag,index) =>  {
+      let state = editPost.tags.indexOf(tag.name);
+      if(state === -1){
+        // New Post Data not have this tag, Remove Tag.
+        models.Tag.destroy({
+          where:{
+            id:tag.id
+          }});
+      }else {
+        // Is exist remove in editTag
+        editPost.tags.splice(state,1);
+      }
+    });
+
+    // Create Tag
+    editPost.tags.forEach(tag =>{
+      // Create new Tag
+      models.Tag.create({
+        name:tag,
+        PostId:post.id
+      });
+    });
+
+    // Post
     post.title=editPost.title;
     post.content=editPost.content;
     post.UserId = UserId;

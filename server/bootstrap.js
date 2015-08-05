@@ -104,15 +104,15 @@ export default async (cb) => {
   };
 
   let tag1 = {
-    name: 'Ian is handsome boy'
+    name: 'Ian shuai shuai de'
   };
 
   let tag2 = {
-    name: 'Tz is handsome boy'
+    name: 'Tz shuai shuai de'
   };
 
   let tag3 = {
-    name: '蹤影'
+    name: 'tag3'
   };
 
 

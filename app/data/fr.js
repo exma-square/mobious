@@ -3,7 +3,8 @@ export default {
     header: {
       users: 'Utilisateurs',
       guides: 'Guides',
-      protected: 'Privé'
+      protected: 'Privé',
+      posts: 'Post Manager'
     },
     guides: {
       'page-title': 'Guides'
@@ -34,6 +35,13 @@ export default {
       add: 'Ajouter un poste',
       edit: 'Edit',
       content: 'post content'
+    },
+    post: {
+      'page-title': 'Post',
+      title: 'Title',
+      content: 'Content',
+      tags: 'Balises',
+      tagPlaceholder: 'Ajouter Des Balises'
     },
     commentManager: {
       title: '留言版'

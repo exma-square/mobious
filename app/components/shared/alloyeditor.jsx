@@ -22,15 +22,32 @@ class Alloyeditor extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.props.content }} data-placeholder='content....'>
+    let contentSytle = {
+      'min-height': '34px',
+      border: '1px solid #ccc',
+      'border-radius': '4px'
+    };
+    let body = null;
+    if (this.props.label !== undefined) {
+      body = (
+        <div className='form-group'>
+          <label className={this.props.labelClassName + ' control-label'}>{this.props.label}</label>
+          <div id='uiNode'></div>
+          <div className={this.props.wrapperClassName}>
+            <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.props.content }} style={contentSytle}></div>
+          </div>
         </div>
-        <div id='uiNode'></div>
-      </div>
-
-
-    );
+      );
+    }
+    else {
+      body = (
+        <div>
+          <div id='uiNode'></div>
+          <div id='AlloyeditorContent' ref='content' dangerouslySetInnerHTML={{__html: this.props.content }} style={contentSytle}></div>
+        </div>
+      );
+    }
+    return body;
   }
 
 }

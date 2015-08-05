@@ -3,7 +3,8 @@ export default {
     header: {
       users: 'Users List',
       guides: 'Guides',
-      protected: 'Protected'
+      protected: 'Protected',
+      posts: 'Post Manager'
     },
     guides: {
       'page-title': 'Guides'
@@ -34,6 +35,13 @@ export default {
       add: 'Add Post',
       edit: 'Edit',
       content: 'Post Content'
+    },
+    post: {
+      'page-title': 'Post',
+      title: 'Title',
+      content: 'Content',
+      tags: 'Tags',
+      tagPlaceholder: 'Add Tags'
     },
     commentManager: {
       title: '留言版'
