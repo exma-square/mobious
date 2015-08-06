@@ -20,7 +20,7 @@ class Edit extends Component {
     .getBySeed(this.props.params.id).post,
     preview: this.props.flux
     .getStore('posts')
-    .getState().preview
+    .getBySeed(this.props.params.id).preview
   };
 
   componentWillMount() {
@@ -45,7 +45,8 @@ class Edit extends Component {
     let newPost = {
       id: React.findDOMNode(this.refs.id).value,
       title: React.findDOMNode(this.refs.title.refs.input).value,
-      content: React.findDOMNode(this.refs.content.refs.content).innerHTML
+      content: React.findDOMNode(this.refs.content.refs.content).innerHTML,
+      img: this.state.preview
     };
 
     this.props.flux.getActions('posts').update(newPost);
@@ -63,8 +64,7 @@ class Edit extends Component {
     if (this.state.post !== undefined) {
       body = (
         <form id='edit-post-form' onSubmit={this._handleSubmit} className='app--beans'>
-          <DropImg apiUrl={'/rest/post/fileUpload/'} flux={this.props.flux} />
-          <img src={this.state.preview} />
+          <DropImg apiUrl={'/rest/post/fileUpload/'} flux={this.props.flux} preview={this.state.preview} />
           <input type='hidden' ref='id' value={this.state.post.id}></input>
           <Input type='text' ref='title' value={this.state.post.title} onChange={this._handleChange}/>
           <Alloyeditor content={this.state.post.content} ref='content' />

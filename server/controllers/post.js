@@ -48,10 +48,11 @@ exports.update = function *() {
     let post = yield models.Post.findById(editPost.id);
     post.title=editPost.title;
     post.content=editPost.content;
+    post.img=editPost.img;
     post.UserId = UserId;
     result = yield post.save();
   } catch (e) {
-    console.error("delete post error", e);
+    console.error("update post error", e);
   }
   this.body = {result}
 };

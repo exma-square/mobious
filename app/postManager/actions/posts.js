@@ -4,7 +4,7 @@ import request from 'superagent';
 class PostsActions {
   constructor() {
     this.generateActions(
-      'fetchSuccess', 'createSuccess', 'fetchOneSuccess', 'updateSuccess', 'updateImg'
+      'fetchSuccess', 'createSuccess', 'fetchOneSuccess', 'updateSuccess', 'updateImgSuccess'
     );
   }
   create(params) {
@@ -84,12 +84,13 @@ class PostsActions {
         request.post(url)
         .field('filename', file.name )
         .attach('file', file)
-        .end(function(err, res) {
+        .end((err, res) => {
           if (err) return resolve(err);
           let resObj = res.body;
           console.log('filename is ', resObj.path);
+          this.actions.updateImgSuccess(resObj.path);
+          this.alt.getActions('requests').success();
         });
-        this.actions.updateImg(file.preview);
       });
 
       return resolve();
