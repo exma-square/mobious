@@ -16,7 +16,6 @@ class PostsActions {
       .send(params)
       .end((error, res) => {
         if (error) return resolve(error);
-
         let createdPost = res.body.post;
         this.actions.updateSuccess(createdPost);
         this.alt.getActions('requests').success();
@@ -30,7 +29,6 @@ class PostsActions {
     const promise = (resolve) => {
       let that = this;
       that.alt.getActions('requests').start();
-
       request.put(baseUrl + 'rest/post/')
       .send(params)
       .end((error, res) => {
@@ -77,18 +75,17 @@ class PostsActions {
     this.alt.resolve(promise);
   }
 
-  uploadImg(url: string, files: Array) {
+  uploadImg(url: string, files: Array, singlePost: Object) {
     const promise = (resolve) => {
       this.alt.getActions('requests').start();
       files.forEach((file) => {
         request.post(url)
-        .field('filename', file.name )
         .attach('file', file)
         .end((err, res) => {
           if (err) return resolve(err);
           let resObj = res.body;
-          console.log('filename is ', resObj.path);
-          this.actions.updateImgSuccess(resObj.path);
+          singlePost.img = resObj.filename;
+          this.actions.updateImgSuccess(singlePost);
           this.alt.getActions('requests').success();
         });
       });

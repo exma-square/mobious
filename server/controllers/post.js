@@ -49,6 +49,7 @@ exports.update = function *() {
     post.title=editPost.title;
     post.content=editPost.content;
     post.img=editPost.img;
+    console.log(editPost);
     post.UserId = UserId;
     result = yield post.save();
   } catch (e) {
@@ -78,7 +79,7 @@ exports.upload = function* (next) {
       part.pipe(stream);
     }
     console.log('uploading %s -> %s', filename, stream.path);
-    this.body = {success: true, path: filename}
+    this.body = {success: true, filename: filename}
 
   } catch (e) {
 
