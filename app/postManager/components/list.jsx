@@ -91,7 +91,7 @@ class Posts extends Component {
                   {this._getIntlMessage('postManager.name')}
                 </th>
                   {() => {
-                    if (this.state.authStatus.authority === 'editor') {
+                    if (this.state.authStatus.authority === 'editor' || 'admin') {
                       return (
                       <th>
                         {this._getIntlMessage('postManager.edit')}

@@ -3,7 +3,9 @@
 module.exports = (sequelize, DataTypes) => {
   var Post = sequelize.define('Post', {
     title: DataTypes.STRING,
-    content: DataTypes.STRING
+    tags: DataTypes.STRING,
+    content: DataTypes.STRING,
+    img: DataTypes.STRING
   }, {
     classMethods: {
       associate: (models) => {
