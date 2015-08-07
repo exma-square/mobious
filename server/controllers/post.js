@@ -2,6 +2,7 @@ import parse from 'co-busboy';
 import fs from 'fs-extra';
 var os = require('os');
 var path = require('path');
+
 exports.index = function *() {
 
   let posts = yield models.Post.findAll()
@@ -41,25 +42,20 @@ exports.create = function *() {
 };
 
 exports.update = async function() {
-  console.log('=============');
 
   let editPost = this.request.body;
   let UserId = services.user.getAuthStatus(this).sessionUser.id;
-  // let UserId = 1;
   let result = null;
 
   try {
-
-
     let post = await models.Post.find({
       where: {
         id: editPost.id
       },
       include: [ { model: models.Tag } ]
     });
-
     // Remove Tag
-    post.Tags.forEach((tag,index) =>  {
+    post.Tags.forEach((tag,index) => {
       let state = editPost.tags.indexOf(tag.name);
       if(state === -1){
         // New Post Data not have this tag, Remove Tag.
@@ -72,9 +68,8 @@ exports.update = async function() {
         editPost.tags.splice(state,1);
       }
     });
-
     // Create Tag
-    editPost.tags.forEach(tag =>{
+    editPost.tags.forEach((tag) => {
       // Create new Tag
       models.Tag.create({
         name:tag,
@@ -92,6 +87,7 @@ exports.update = async function() {
   } catch (e) {
     console.error("update post error", e);
   }
+  console.log(result);
   this.body = {result}
 };
 

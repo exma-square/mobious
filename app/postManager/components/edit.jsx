@@ -24,7 +24,7 @@ class Edit extends Component {
   state = {
     post: this.props.flux
     .getStore('posts')
-    .getBySeed(this.props.params.id).post,
+    .getBySeed(this.props.params.id).post
   };
 
   componentWillMount() {
@@ -75,7 +75,7 @@ class Edit extends Component {
       body = (
         <div className='form-horizontal'>
           <form id='edit-post-form' onSubmit={this._handleSubmit} className='app--beans'>
-            <DropImg apiUrl={'file/upload'} flux={this.props.flux} preview={this.state.post}/>
+            <DropImg apiUrl={'/rest/post/fileUpload/'} flux={this.props.flux} preview={this.state.post}/>
             <input type='hidden' ref='id' value={this.state.post.id}></input>
             <Input label={this._getIntlMessage('post.title')} labelClassName='col-xs-1' wrapperClassName='col-xs-10' type='text' ref='title' value={this.state.post.title} onChange={this._handleTitle} />
             <div className='form-group'>
