@@ -41,25 +41,32 @@ exports.create = function *() {
   this.body = {post}
 };
 
-exports.update = async function() {
+exports.update = function *() {
 
-  let editPost = this.request.body;
-  let UserId = services.user.getAuthStatus(this).sessionUser.id;
-  let result = null;
 
   try {
-    let post = await models.Post.find({
+    console.log('=== exports.update ===');
+    let postId = this.params.id;
+    let editPost = this.request.body;
+    let UserId = services.user.getSessionUser(this).id;
+    let result = null;
+
+    console.log('=== postId ===', postId);
+
+    let post = yield models.Post.find({
       where: {
-        id: editPost.id
+        id: postId
       },
       include: [ { model: models.Tag } ]
     });
     // Remove Tag
-    post.Tags.forEach((tag,index) => {
+    console.log('post.Tags', post.Tags);
+
+    post.Tags.forEach(function *(tag, index) {
       let state = editPost.tags.indexOf(tag.name);
       if(state === -1){
         // New Post Data not have this tag, Remove Tag.
-        models.Tag.destroy({
+        yield models.Tag.destroy({
           where:{
             id:tag.id
           }});
@@ -69,26 +76,33 @@ exports.update = async function() {
       }
     });
     // Create Tag
-    editPost.tags.forEach((tag) => {
-      // Create new Tag
-      models.Tag.create({
-        name:tag,
-        PostId:post.id
+    if (editPost.tags && editPost.tags.length){
+      editPost.tags.forEach(function *(tag) {
+        // Create new Tag
+        yield models.Tag.create({
+          name:tag,
+          PostId:post.id
+        });
       });
-    });
+    }
 
     // Post
     post.title=editPost.title;
     post.content=editPost.content;
     post.img=editPost.img;
-    console.log(editPost);
+
     post.UserId = UserId;
-    result = await post.save();
-  } catch (e) {
-    console.error("update post error", e);
+    result = yield post.save();
+
+    console.log('update result', result);
+
+    this.body = {result};
+  } catch (error) {
+    console.log(error.stack);
+    this.body = {result, error};
   }
-  console.log(result);
-  this.body = {result}
+
+
 };
 
 

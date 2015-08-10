@@ -1,18 +1,24 @@
 import fs from "fs";
 
 describe("post", () => {
-  describe('find one and all', (done) => {
-    before((done)=>{
-      sinon.stub(services.user, 'isAuthenticated', (app) =>{
-        return true;
-      });
-      done();
+  before((done)=>{
+    sinon.stub(services.user, 'isAuthenticated', (app) =>{
+      return true;
     });
 
-    after((done) =>{
-      services.user.isAuthenticated.restore();
-      done();
+    sinon.stub(services.user, 'getSessionUser', (app) =>{
+      return {id: 1};
     });
+    done();
+  });
+
+  after((done) =>{
+    services.user.isAuthenticated.restore();
+    done();
+  });
+
+
+  describe('find one and all', (done) => {
 
 
     it("index all post", (done) => {
@@ -43,13 +49,29 @@ describe("post", () => {
       });
     });
   });
-  describe.only('find one and all', (done) => {
+  describe('find one and all', (done) => {
     it("file Upload", (done) => {
       request.post('/rest/post/fileUpload/')
       .attach('file', 'test/server/resources/mobious.png')
       .expect(200)
       .end(function(err, res) {
         done(err)
+      });
+    });
+  });
+  it.only("update post", (done) => {
+    let updatePost = {
+      title: '111',
+      content: 'ssss'
+    }
+    request.put("/rest/post/1")
+    .expect(200)
+    .send(updatePost)
+    .end((error, res) => {
+
+      models.User.findById('1').then((result) =>{
+        (result !== null).should.true
+        done(error);
       });
     });
   });

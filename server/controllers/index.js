@@ -101,7 +101,7 @@ export default class Routes {
 
       this.router.post('/rest/user/', UserController.create);
       this.router.post('/rest/post/', PostController.create);
-      this.router.put('/rest/post/', PostController.update);
+      this.router.put('/rest/post/:id', PostController.update);
       this.router.delete('/rest/user/:id', UserController.delete);
 
       this.app.use(this.router.middleware())
