@@ -25,11 +25,11 @@ class PostsActions {
     this.alt.resolve(promise);
   }
 
-  update(params) {
+  update(id:string, params) {
     const promise = (resolve) => {
       let that = this;
       that.alt.getActions('requests').start();
-      request.put(baseUrl + 'rest/post/')
+      request.put(baseUrl + 'rest/post/' + `${id}`)
       .send(params)
       .end((error, res) => {
         if (error) return resolve(error);
