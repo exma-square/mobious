@@ -30,6 +30,7 @@
     "cookies-js": "^1.2.1",
     "debug": "^2.2.0",
     "fs-extra": "^0.22.1",
+    "generator-foreach": "^0.1.0",
     "intl": "^1.0.0",
     "iso": "^4.1.0",
     "koa": "^0.21.0",

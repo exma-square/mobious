@@ -3,6 +3,7 @@ import fs from 'fs-extra';
 var os = require('os');
 var path = require('path');
 var foreach = require('generator-foreach')
+var co = require('co');
 
 exports.index = function *() {
 
@@ -60,8 +61,8 @@ exports.update = function *() {
       },
       include: [ { model: models.Tag } ]
     });
+    
     // Remove Tag
-    console.log('post.Tags', post.Tags);
 
     yield * foreach(post.Tags, function * (tag, index) {
       let state = editPost.tags.indexOf(tag.name);

@@ -62,16 +62,24 @@ describe("post", () => {
   it.only("update post", (done) => {
     let updatePost = {
       title: '111',
-      content: 'ssss'
+      content: 'ssss',
+      tags: ['aa', 'bb']
     }
     request.put("/rest/post/1")
     .expect(200)
     .send(updatePost)
     .end((error, res) => {
 
-      models.User.findById('1').then((result) =>{
-        (result !== null).should.true
-        done(error);
+      models.Post.find({
+        where: {
+          id: 1
+        },
+        include: [ { model: models.Tag } ]
+      }).then((updatedPost)=>{
+        updatedPost.Tags[0].name.should.be.equal('aa');
+        updatedPost.Tags[1].name.should.be.equal('bb');
+        done();
+
       });
     });
   });
