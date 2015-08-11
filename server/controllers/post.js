@@ -2,6 +2,7 @@ import parse from 'co-busboy';
 import fs from 'fs-extra';
 var os = require('os');
 var path = require('path');
+var foreach = require('generator-foreach')
 
 exports.index = function *() {
 
@@ -48,7 +49,8 @@ exports.update = function *() {
     console.log('=== exports.update ===');
     let postId = this.params.id;
     let editPost = this.request.body;
-    let UserId = services.user.getSessionUser(this).id;
+    // let UserId = services.user.getSessionUser(this).id;
+    let UserId = 1;
     let result = null;
 
     console.log('=== postId ===', postId);
@@ -62,7 +64,7 @@ exports.update = function *() {
     // Remove Tag
     console.log('post.Tags', post.Tags);
 
-    post.Tags.forEach(function *(tag, index) {
+    yield * foreach(post.Tags, function * (tag, index) {
       let state = editPost.tags.indexOf(tag.name);
       if(state === -1){
         // New Post Data not have this tag, Remove Tag.
@@ -70,86 +72,84 @@ exports.update = function *() {
           where:{
             id:tag.id
           }});
-      }else {
-        // Is exist remove in editTag
-        editPost.tags.splice(state,1);
-      }
-    });
-    // Create Tag
-    if (editPost.tags && editPost.tags.length){
-      editPost.tags.forEach(function *(tag) {
+        }else {
+          // Is exist remove in editTag
+          editPost.tags.splice(state,1);
+        }
+      });
+
+      yield * foreach(editPost.tags, function * (tag) {
         // Create new Tag
         yield models.Tag.create({
           name:tag,
           PostId:post.id
         });
       });
+
+      // Post
+      post.title=editPost.title;
+      post.content=editPost.content;
+      post.img=editPost.img;
+
+      post.UserId = UserId;
+      result = yield post.save();
+
+      console.log('update result', result);
+
+      this.body = {result};
+    } catch (error) {
+      console.log(error.stack);
+      this.body = {result, error};
     }
 
-    // Post
-    post.title=editPost.title;
-    post.content=editPost.content;
-    post.img=editPost.img;
 
-    post.UserId = UserId;
-    result = yield post.save();
-
-    console.log('update result', result);
-
-    this.body = {result};
-  } catch (error) {
-    console.log(error.stack);
-    this.body = {result, error};
-  }
+  };
 
 
-};
+  exports.upload = function* (next) {
 
+    // ignore non-POSTs
+    if ('POST' != this.method) return yield next;
 
-exports.upload = function* (next) {
+    try {
+      // multipart upload
+      let parts = parse(this, {
+        autoFields: true
+      });
+      let part;
+      let dir = '.tmp/images/post/';
+      fs.ensureDirSync(dir);
+      let filename = Math.floor(Math.random()*1000000) + '.png';
 
-  // ignore non-POSTs
-  if ('POST' != this.method) return yield next;
+      while (part = yield parts) {
+        var stream = fs.createWriteStream(path.join(dir, filename));
+        part.pipe(stream);
+      }
+      console.log('uploading %s -> %s', filename, stream.path);
+      this.body = {success: true, filename: filename}
 
-  try {
-    // multipart upload
-    let parts = parse(this, {
-      autoFields: true
-    });
-    let part;
-    let dir = '.tmp/images/post/';
-    fs.ensureDirSync(dir);
-    let filename = Math.floor(Math.random()*1000000) + '.png';
+    } catch (e) {
 
-    while (part = yield parts) {
-      var stream = fs.createWriteStream(path.join(dir, filename));
-      part.pipe(stream);
+      console.log(e.stack);
+      this.body = {success: false};
+
     }
-    console.log('uploading %s -> %s', filename, stream.path);
-    this.body = {success: true, filename: filename}
-
-  } catch (e) {
-
-    console.log(e.stack);
-    this.body = {success: false};
-
-  }
-};
+  };
 
 
 
-exports.delete = function *() {
+  exports.delete = function *() {
 
-  let postId = this.params.id;
+    let postId = this.params.id;
 
-  let result = null;
+    let result = null;
 
-  try {
-    let post = yield models.Post.findById(postId);
-    result = post.destroy()
-  } catch (e) {
-    console.error("delete post error", e);
-  }
+    try {
+      let post = yield models.Post.findById(postId);
+      result = post.destroy()
+    } catch (e) {
+      console.error("delete post error", e);
+    }
 
-  this.body = {result}
-};
+    this.body = {result}
+  };

@@ -54,7 +54,7 @@ class Edit extends Component {
       tags: this.refs.tags.getTags()
     };
 
-    this.props.flux.getActions('posts').update(newPost);
+    this.props.flux.getActions('posts').update(this.props.params.id, newPost);
     this.context.router.transitionTo('/postList');
   }
 
