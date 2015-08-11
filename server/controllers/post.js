@@ -70,85 +70,86 @@ exports.update = function *() {
         yield models.Tag.destroy({
           where:{
             id:tag.id
-          }});
-        }else {
-          // Is exist remove in editTag
-          editPost.tags.splice(state,1);
-        }
-      });
-
-      yield * foreach(editPost.tags, function * (tag) {
-        // Create new Tag
-        yield models.Tag.create({
-          name:tag,
-          PostId:post.id
+          }
         });
-      });
-
-      // Post
-      post.title=editPost.title;
-      post.content=editPost.content;
-      post.img=editPost.img;
-
-      post.UserId = UserId;
-      result = yield post.save();
-
-      console.log('update result', result);
-
-      this.body = {result};
-    } catch (error) {
-      console.log(error.stack);
-      this.body = {result, error};
-    }
-
-
-  };
-
-
-  exports.upload = function* (next) {
-
-    // ignore non-POSTs
-    if ('POST' != this.method) return yield next;
-
-    try {
-      // multipart upload
-      let parts = parse(this, {
-        autoFields: true
-      });
-      let part;
-      let dir = '.tmp/images/post/';
-      fs.ensureDirSync(dir);
-      let filename = Math.floor(Math.random()*1000000) + '.png';
-
-      while (part = yield parts) {
-        var stream = fs.createWriteStream(path.join(dir, filename));
-        part.pipe(stream);
+      }else {
+        // Is exist remove in editTag
+        editPost.tags.splice(state,1);
       }
-      console.log('uploading %s -> %s', filename, stream.path);
-      this.body = {success: true, filename: filename}
+    });
 
-    } catch (e) {
+    yield * foreach(editPost.tags, function * (tag) {
+      // Create new Tag
+      yield models.Tag.create({
+        name:tag,
+        PostId:post.id
+      });
+    });
 
-      console.log(e.stack);
-      this.body = {success: false};
+    // Post
+    post.title=editPost.title;
+    post.content=editPost.content;
+    post.img=editPost.img;
 
+    post.UserId = UserId;
+    result = yield post.save();
+
+    console.log('update result', result);
+
+    this.body = {result};
+  } catch (error) {
+    console.log(error.stack);
+    this.body = {result, error};
+  }
+
+
+};
+
+
+exports.upload = function* (next) {
+
+  // ignore non-POSTs
+  if ('POST' != this.method) return yield next;
+
+  try {
+    // multipart upload
+    let parts = parse(this, {
+      autoFields: true
+    });
+    let part;
+    let dir = '.tmp/images/post/';
+    fs.ensureDirSync(dir);
+    let filename = Math.floor(Math.random()*1000000) + '.png';
+
+    while (part = yield parts) {
+      var stream = fs.createWriteStream(path.join(dir, filename));
+      part.pipe(stream);
     }
-  };
+    console.log('uploading %s -> %s', filename, stream.path);
+    this.body = {success: true, filename: filename}
+
+  } catch (e) {
+
+    console.log(e.stack);
+    this.body = {success: false};
+
+  }
+};
 
 
 
-  exports.delete = function *() {
+exports.delete = function *() {
 
-    let postId = this.params.id;
+  let postId = this.params.id;
 
-    let result = null;
+  let result = null;
 
-    try {
-      let post = yield models.Post.findById(postId);
-      result = post.destroy()
-    } catch (e) {
-      console.error("delete post error", e);
-    }
+  try {
+    let post = yield models.Post.findById(postId);
+    result = post.destroy()
+  } catch (e) {
+    console.error("delete post error", e);
+  }
 
-    this.body = {result}
-  };
+  this.body = {result}
+};
