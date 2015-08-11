@@ -49,8 +49,7 @@ exports.update = function *() {
     console.log('=== exports.update ===');
     let postId = this.params.id;
     let editPost = this.request.body;
-    // let UserId = services.user.getSessionUser(this).id;
-    let UserId = 1;
+    let UserId = services.user.getSessionUser(this).id;
     let result = null;
 
     console.log('=== postId ===', postId);
