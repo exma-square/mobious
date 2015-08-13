@@ -2,7 +2,7 @@ import parse from 'co-busboy';
 import fs from 'fs-extra';
 var os = require('os');
 var path = require('path');
-var foreach = require('generator-foreach')
+var co = require('co');
 
 exports.index = function *() {
 
@@ -46,13 +46,10 @@ exports.update = function *() {
 
 
   try {
-    console.log('=== exports.update ===');
     let postId = this.params.id;
     let editPost = this.request.body;
     let UserId = services.user.getSessionUser(this).id;
     let result = null;
-
-    console.log('=== postId ===', postId);
 
     let post = yield models.Post.find({
       where: {
@@ -63,7 +60,9 @@ exports.update = function *() {
 
     // Remove Tag
 
-    yield * foreach(post.Tags, function * (tag, index) {
+    // yield * foreach(post.Tags, function * (tag, index) {
+
+    post.Tags.forEach(co.wrap(function* (tag) {
       let state = editPost.tags.indexOf(tag.name);
       if(state === -1){
         // New Post Data not have this tag, Remove Tag.
@@ -76,15 +75,16 @@ exports.update = function *() {
         // Is exist remove in editTag
         editPost.tags.splice(state,1);
       }
-    });
+    }));
 
-    yield * foreach(editPost.tags, function * (tag) {
+
+    editPost.tags.forEach(co.wrap(function* (tag) {
       // Create new Tag
       yield models.Tag.create({
         name:tag,
         PostId:post.id
       });
-    });
+    }));
 
     // Post
     post.title=editPost.title;
@@ -93,8 +93,6 @@ exports.update = function *() {
 
     post.UserId = UserId;
     result = yield post.save();
-
-    console.log('update result', result);
 
     this.body = {result};
   } catch (error) {
