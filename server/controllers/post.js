@@ -2,7 +2,6 @@ import parse from 'co-busboy';
 import fs from 'fs-extra';
 var os = require('os');
 var path = require('path');
-var co = require('co');
 
 exports.index = function *() {
 
@@ -62,11 +61,11 @@ exports.update = function *() {
 
     // yield * foreach(post.Tags, function * (tag, index) {
 
-    post.Tags.forEach(co.wrap(function* (tag) {
+    yield post.Tags.map((tag) => {
       let state = editPost.tags.indexOf(tag.name);
       if(state === -1){
         // New Post Data not have this tag, Remove Tag.
-        yield models.Tag.destroy({
+        models.Tag.destroy({
           where:{
             id:tag.id
           }
@@ -75,16 +74,15 @@ exports.update = function *() {
         // Is exist remove in editTag
         editPost.tags.splice(state,1);
       }
-    }));
+    });
 
-
-    editPost.tags.forEach(co.wrap(function* (tag) {
+    yield editPost.tags.map((tag) => {
       // Create new Tag
-      yield models.Tag.create({
+      models.Tag.create({
         name:tag,
         PostId:post.id
       });
-    }));
+    });
 
     // Post
     post.title=editPost.title;
