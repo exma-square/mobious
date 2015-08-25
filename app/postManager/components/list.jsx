@@ -42,16 +42,23 @@ class Posts extends Component {
     this.props.flux
     .getStore('posts')
     .listen(this._handleStoreChange);
+    this.props.flux
+    .getStore('role')
+    .listen(this._handleStoreChange);
   }
 
   componentWillUnmount() {
     this.props.flux
     .getStore('posts')
     .unlisten(this._handleStoreChange);
+    this.props.flux
+    .getStore('role')
+    .unlisten(this._handleStoreChange);
   }
 
   _handleStoreChange = (state) => {
     state.authStatus = this.props.flux.getStore('auth').getState().authStatus;
+    state.editors = this.props.flux.getStore('role').getState().attributes;
     return this.setState(state);
   }
 
@@ -72,7 +79,7 @@ class Posts extends Component {
     );
   }
   renderEditor(EditorId) {
-    if (this.state.authStatus.authority === 'editor' || 'admin') {
+    if (this.state.authStatus.authority === 'admin') {
       return (
         <td>
           <Input type='select' placeholder={EditorId}>
@@ -89,7 +96,7 @@ class Posts extends Component {
     );
   }
   renderEdit(post) {
-    if (this.state.authStatus.authority === 'editor' || 'admin') {
+    if (this.state.authStatus.authority === 'editor') {
       return (
         <td>
           <Link to={`/postEdit/${post.id}`} >
@@ -101,6 +108,8 @@ class Posts extends Component {
   }
 
   render() {
+    console.log(this.state.editors);
+    console.log(this.state.posts);
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className='app-posts'
@@ -113,7 +122,7 @@ class Posts extends Component {
                   {this._getIntlMessage('postManager.name')}
                 </th>
                 {() => {
-                  if (this.state.authStatus.authority === 'editor' || 'admin') {
+                  if (this.state.authStatus.authority === 'editor') {
                     return (
                       <th>
                         {this._getIntlMessage('postManager.edit')}
