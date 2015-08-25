@@ -13,12 +13,14 @@ class Flux extends Alt {
     this.addActions('posts', require('postManager/actions/posts'));
     this.addActions('bean', require('beanManager/actions/bean'));
     this.addActions('comment', require('commentManager/actions/comment'));
+    this.addActions('role', require('userManager/actions/role'));
 
     // Register Stores
     this.addStore('users', require('userManager/stores/users'));
     this.addStore('posts', require('postManager/stores/posts'));
     this.addStore('bean', require('beanManager/stores/bean'));
     this.addStore('comment', require('commentManager/stores/comment'));
+    this.addStore('role', require('userManager/stores/role'));
 
     ['requests', 'locale', 'page-title', 'auth']
       .map(this.registerCouple);

@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
-import {Table, Panel, Col, Glyphicon} from 'react-bootstrap';
+import {Table, Panel, Col, Glyphicon, Input} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
@@ -21,28 +21,33 @@ class Posts extends Component {
     .getState().posts,
     authStatus: this.props.flux
     .getStore('auth')
-    .getState().authStatus
+    .getState().authStatus,
+    editors: this.props.flux
+    .getStore('role')
+    .getState().attributes
   };
 
   componentWillMount() {
     this.props.flux
-      .getActions('page-title')
-      .set(this._getIntlMessage('postManager.page-title'));
+    .getActions('page-title')
+    .set(this._getIntlMessage('postManager.page-title'));
     this.props.flux
-      .getActions('posts')
-      .fetch();
+    .getActions('posts')
+    .fetch();
+    this.props.flux.
+    getActions('role').fetchByAttributes('editor');
   }
 
   componentDidMount() {
     this.props.flux
-      .getStore('posts')
-      .listen(this._handleStoreChange);
+    .getStore('posts')
+    .listen(this._handleStoreChange);
   }
 
   componentWillUnmount() {
     this.props.flux
-      .getStore('posts')
-      .unlisten(this._handleStoreChange);
+    .getStore('posts')
+    .unlisten(this._handleStoreChange);
   }
 
   _handleStoreChange = (state) => {
@@ -52,22 +57,39 @@ class Posts extends Component {
 
   renderPost = (post, index) => {
     return (
-        <tr className='post--row' key={index}>
-          <td>
-            {post.id}
-          </td>
-          <td>
-            <Link to={`/postOne/${post.id}`} >
-              {post.title}
-            </Link>
-          </td>
-          {this.renderEdit(post)}
-        </tr>
-      );
+      <tr className='post--row' key={index}>
+        <td>
+          {post.id}
+        </td>
+        <td>
+          <Link to={`/postOne/${post.id}`} >
+            {post.title}
+          </Link>
+        </td>
+        {this.renderEdit(post)}
+        {this.renderEditor(post.EditorId)}
+      </tr>
+    );
   }
-
+  renderEditor(EditorId) {
+    if (this.state.authStatus.authority === 'editor' || 'admin') {
+      return (
+        <td>
+          <Input type='select' placeholder={EditorId}>
+            <option value='0'>select</option>
+            {this.state.editors.map(this.renderEditorsOptions)}
+          </Input>
+        </td>
+      );
+    }
+  }
+  renderEditorsOptions = (editor, index) => {
+    return (
+      <option value={editor.id} key={index}>{editor.username}</option>
+    );
+  }
   renderEdit(post) {
-    if (this.state.authStatus.authority === 'editor') {
+    if (this.state.authStatus.authority === 'editor' || 'admin') {
       return (
         <td>
           <Link to={`/postEdit/${post.id}`} >
@@ -82,7 +104,7 @@ class Posts extends Component {
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className='app-posts'
-               header={<h3>{this._getIntlMessage('postManager.title')}</h3>}>
+          header={<h3>{this._getIntlMessage('postManager.title')}</h3>}>
           <Table striped responsive>
             <thead>
               <tr>
@@ -90,15 +112,24 @@ class Posts extends Component {
                 <th>
                   {this._getIntlMessage('postManager.name')}
                 </th>
-                  {() => {
-                    if (this.state.authStatus.authority === 'editor' || 'admin') {
-                      return (
+                {() => {
+                  if (this.state.authStatus.authority === 'editor' || 'admin') {
+                    return (
                       <th>
                         {this._getIntlMessage('postManager.edit')}
                       </th>
-                      );
-                    }
-                  }()}
+                    );
+                  }
+                }()}
+                {() => {
+                  if (this.state.authStatus.authority === 'admin') {
+                    return (
+                      <th>
+                        {this._getIntlMessage('postManager.editor')}
+                      </th>
+                    );
+                  }
+                }()}
               </tr>
             </thead>
             <tbody>

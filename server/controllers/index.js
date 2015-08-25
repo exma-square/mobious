@@ -3,6 +3,7 @@ import BeanController from './bean';
 import PostController from './post';
 import AuthController from './auth';
 import CommentController from './comment';
+import RoleController from './role';
 
 import Router from 'koa-router';
 import fs from 'fs';
@@ -81,6 +82,7 @@ export default class Routes {
       publicRoute.get('/rest/auth/status', AuthController.status);
       publicRoute.post('/rest/post/fileUpload/', PostController.upload);
       publicRoute.post('/rest/comment/', CommentController.create);
+      publicRoute.get('/rest/role/:attribute', RoleController.get);
 
 
       app.use(publicRoute.middleware())

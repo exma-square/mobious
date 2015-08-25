@@ -29,6 +29,16 @@ export default async (cb) => {
     "picture":JSON.stringify(picture)
   }
 
+  let editorUser2 = {
+    "username":"editor2",
+    "password":"editor2",
+    "gender":"male",
+    "email":"editor2@editor.com",
+    "phone":"(951)-385-6121",
+    "cell":"(657)-919-3511",
+    "picture":JSON.stringify(picture)
+  }
+
   let adminUser = {
     "username":"admin",
     "password":"admin",
@@ -119,12 +129,15 @@ export default async (cb) => {
   try {
     let createdVisitor = await models.User.create(visitorUser);
     let createdEditor = await models.User.create(editorUser);
+    let createdEditor2 = await models.User.create(editorUser2);
     let createdAdmin = await models.User.create(adminUser);
 
     let createdEditorRole = await models.Role.create(editorRole);
+    let createdEditor2Role = await models.Role.create(editorRole);
     let createdAdminRole = await models.Role.create(adminRole);
 
     await createdEditor.setRoles(createdEditorRole);
+    await createdEditor2.setRoles(createdEditor2Role);
     await createdAdmin.setRoles(createdAdminRole);
 
     await models.Bean.create(newBeanBlack);
