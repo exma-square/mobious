@@ -36,6 +36,18 @@ class PostStore {
     return this.setState({post});
   }
 
+  onUpdateEditorSuccess(newPost) {
+    const posts: Array<Object> = this.posts;
+    posts.forEach((post, index) => {
+      if (post.id === newPost.id) {
+        this.posts[index] = newPost;
+        // UI select default value.
+        if (newPost.EditorId === null) this.posts[index].EditorId = 0;
+      }
+    });
+
+    return this.setState({posts});
+  }
 
 }
 

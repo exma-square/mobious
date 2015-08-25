@@ -74,18 +74,20 @@ class Posts extends Component {
           </Link>
         </td>
         {this.renderEdit(post)}
-        {this.renderEditor(post.EditorId)}
+        {this.renderEditor(post.EditorId, post.id)}
       </tr>
     );
   }
-  renderEditor(EditorId) {
+  renderEditor(EditorId, postId) {
     if (this.state.authStatus.authority === 'admin') {
       return (
         <td>
-          <Input type='select' placeholder={EditorId}>
-            <option value='0'>select</option>
-            {this.state.editors.map(this.renderEditorsOptions)}
-          </Input>
+          <form>
+            <Input type='select' value={EditorId} onChange={this.updateEditor.bind(this, postId)}>
+              <option value='0'>select...</option>
+              {this.state.editors.map(this.renderEditorsOptions)}
+            </Input>
+          </form>
         </td>
       );
     }
@@ -94,6 +96,9 @@ class Posts extends Component {
     return (
       <option value={editor.id} key={index}>{editor.username}</option>
     );
+  }
+  updateEditor = (postId, event) => {
+    this.props.flux.getActions('posts').updateEditor(postId, {editorId: event.target.value});
   }
   renderEdit(post) {
     if (this.state.authStatus.authority === 'editor') {
@@ -108,8 +113,6 @@ class Posts extends Component {
   }
 
   render() {
-    console.log(this.state.editors);
-    console.log(this.state.posts);
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className='app-posts'

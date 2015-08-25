@@ -4,7 +4,7 @@ import request from 'superagent';
 class PostsActions {
   constructor() {
     this.generateActions(
-      'fetchSuccess', 'createSuccess', 'fetchOneSuccess', 'updateSuccess', 'updateImgSuccess'
+      'fetchSuccess', 'createSuccess', 'fetchOneSuccess', 'updateSuccess', 'updateImgSuccess', 'updateEditorSuccess'
     );
   }
   create(params) {
@@ -35,6 +35,22 @@ class PostsActions {
         if (error) return resolve(error);
         let editPost = res.body.post;
         this.actions.updateSuccess(editPost);
+        this.alt.getActions('requests').success();
+        return resolve();
+      }, 300);
+    };
+    this.alt.resolve(promise);
+  }
+
+  updateEditor(id:string, params) {
+    const promise = (resolve) => {
+      let that = this;
+      that.alt.getActions('requests').start();
+      request.put(baseUrl + 'rest/post/updateEditor/' + `${id}`)
+      .send(params)
+      .end((error, res) => {
+        if (error) return resolve(error);
+        this.actions.updateEditorSuccess(res.body.post);
         this.alt.getActions('requests').success();
         return resolve();
       }, 300);

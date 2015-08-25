@@ -101,6 +101,29 @@ exports.update = function *() {
 
 };
 
+exports.updateEditor = function *() {
+
+
+  try {
+    let postId = this.params.id;
+    let editorId = this.request.body.editorId;
+    let result = null;
+
+    if(editorId==='0'){
+      editorId=null;
+    };
+
+    let post = yield models.Post.findById(postId);
+    post.EditorId = editorId;
+    yield post.save();
+
+    this.body = {post};
+  } catch (error) {
+    console.log(error.stack);
+    this.body = {result, error};
+  }
+
+};
 
 exports.upload = function* (next) {
 
