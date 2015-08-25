@@ -90,6 +90,11 @@ export default async (cb) => {
     content: '蹤影帥帥'
   }
 
+  let testPost3 = {
+    title: '這是三篇文章',
+    content: '三篇文章的內容'
+  }
+
   let Comment1 = {
     author: '西捨',
     content: '我也這麼認為'
@@ -145,6 +150,9 @@ export default async (cb) => {
 
     let createdPost1 = await models.Post.create(testPost1);
     let createdPost2 = await models.Post.create(testPost2);
+    let createdPost3 = await models.Post.create(testPost3);
+
+    await createdPost1.setCreater(createdEditor);
 
     let createTag = await models.Tag.create(tag1);
     let createTag2 = await models.Tag.create(tag2);

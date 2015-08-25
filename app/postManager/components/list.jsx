@@ -102,17 +102,28 @@ class Posts extends Component {
   }
   renderEdit(post) {
     if (this.state.authStatus.authority === 'editor') {
-      return (
-        <td>
-          <Link to={`/postEdit/${post.id}`} >
-            <Glyphicon glyph='pencil' />
-          </Link>
-        </td>
-      );
+      let userId = this.state.authStatus.sessionUser.id;
+      if (userId === post.CreaterId || userId === post.EditorId) {
+        return (
+          <td>
+            <Link to={`/postEdit/${post.id}`} >
+              <Glyphicon glyph='pencil' />
+            </Link>
+          </td>
+        );
+      } else return ( <td></td> );
     }
   }
-
   render() {
+    let isEditorOrCreater = false;
+    let userId = this.state.authStatus.authority === '' ? 0 : this.state.authStatus.sessionUser.id;
+    this.state.posts.forEach((post) => {
+      if (post.CreaterId === userId || post.EditorId === userId) {
+        isEditorOrCreater = true;
+      }
+    });
+
+
     return (
       <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
         <Panel className='app-posts'
@@ -125,7 +136,7 @@ class Posts extends Component {
                   {this._getIntlMessage('postManager.name')}
                 </th>
                 {() => {
-                  if (this.state.authStatus.authority === 'editor') {
+                  if (isEditorOrCreater) {
                     return (
                       <th>
                         {this._getIntlMessage('postManager.edit')}
