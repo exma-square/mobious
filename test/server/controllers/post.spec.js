@@ -7,7 +7,7 @@ describe("post", () => {
     });
 
     sinon.stub(services.user, 'getSessionUser', (app) =>{
-      return {id: 1};
+      return {id: 2};
     });
     done();
   });
@@ -59,7 +59,7 @@ describe("post", () => {
       });
     });
   });
-  it("update post", (done) => {
+  it.only("update post", (done) => {
     let updatePost = {
       title: '111',
       content: 'ssss',
@@ -83,7 +83,7 @@ describe("post", () => {
       });
     });
   });
-  it.only("update post editor", (done) => {
+  it("update post editor", (done) => {
 
     //Setting is 'admin' authority
     sinon.stub(services.user, 'getAuthStatus', (app) =>{

@@ -56,43 +56,45 @@ exports.update = function *() {
       },
       include: [ { model: models.Tag } ]
     });
+    if( UserId === post.CreaterId || UserId === post.EditorId )
+    {
+      // Remove Tag
 
-    // Remove Tag
+      // yield * foreach(post.Tags, function * (tag, index) {
 
-    // yield * foreach(post.Tags, function * (tag, index) {
-
-    yield post.Tags.map((tag) => {
-      let state = editPost.tags.indexOf(tag.name);
-      if(state === -1){
-        // New Post Data not have this tag, Remove Tag.
-        models.Tag.destroy({
-          where:{
-            id:tag.id
-          }
-        });
-      }else {
-        // Is exist remove in editTag
-        editPost.tags.splice(state,1);
-      }
-    });
-
-    yield editPost.tags.map((tag) => {
-      // Create new Tag
-      models.Tag.create({
-        name:tag,
-        PostId:post.id
+      yield post.Tags.map((tag) => {
+        let state = editPost.tags.indexOf(tag.name);
+        if(state === -1){
+          // New Post Data not have this tag, Remove Tag.
+          models.Tag.destroy({
+            where:{
+              id:tag.id
+            }
+          });
+        }else {
+          // Is exist remove in editTag
+          editPost.tags.splice(state,1);
+        }
       });
-    });
 
-    // Post
-    post.title=editPost.title;
-    post.content=editPost.content;
-    post.img=editPost.img;
+      yield editPost.tags.map((tag) => {
+        // Create new Tag
+        models.Tag.create({
+          name:tag,
+          PostId:post.id
+        });
+      });
 
-    post.UserId = UserId;
-    result = yield post.save();
+      // Post
+      post.title=editPost.title;
+      post.content=editPost.content;
+      post.img=editPost.img;
 
-    this.body = {result};
+      result = yield post.save();
+
+      this.body = {result};
+    }
+
   } catch (error) {
     console.log(error.stack);
     this.body = {result, error};
