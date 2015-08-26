@@ -8,10 +8,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: (models) => {
-        Post.belongsTo(models.User),
+        Post.belongsTo(models.User, {as: 'Creater'} ),
+        Post.belongsTo(models.User, {as: 'Editor'} ),
         Post.hasMany(models.Tag);
       }
-    }
+    },
+    paranoid: true
   });
 
   return Post;

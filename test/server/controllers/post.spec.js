@@ -7,7 +7,7 @@ describe("post", () => {
     });
 
     sinon.stub(services.user, 'getSessionUser', (app) =>{
-      return {id: 1};
+      return {id: 2};
     });
     done();
   });
@@ -59,7 +59,7 @@ describe("post", () => {
       });
     });
   });
-  it.only("update post", (done) => {
+  it("update post", (done) => {
     let updatePost = {
       title: '111',
       content: 'ssss',
@@ -83,4 +83,49 @@ describe("post", () => {
       });
     });
   });
+  it("update post editor", (done) => {
+
+    //Setting is 'admin' authority
+    sinon.stub(services.user, 'getAuthStatus', (app) =>{
+      return {authority: 'admin'};
+    });
+
+    let updateEditorId = {
+      editorId: 2
+    }
+
+    request.put("/rest/post/updateEditor/1")
+    .expect(200)
+    .send(updateEditorId)
+    .end((error, res) => {
+      models.Post.find({
+        where: {
+          id: 1
+        }
+      }).then((updatedPost)=>{
+        updatedPost.EditorId.should.be.equal(updateEditorId.editorId);
+        done();
+      });
+    });
+
+
+  });
+
+  it.only("delete post", (done) => {
+
+    let postId = 1;
+
+      request.delete("/rest/post/"+postId)
+      .expect(200)
+      .end((error, res) => {
+
+        models.Post.findById(postId).then((result) =>{
+          (result == null).should.true
+          done(error);
+        });
+
+      });
+
+    });
+
 });

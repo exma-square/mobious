@@ -29,6 +29,16 @@ export default async (cb) => {
     "picture":JSON.stringify(picture)
   }
 
+  let editorUser2 = {
+    "username":"editor2",
+    "password":"editor2",
+    "gender":"male",
+    "email":"editor2@editor.com",
+    "phone":"(951)-385-6121",
+    "cell":"(657)-919-3511",
+    "picture":JSON.stringify(picture)
+  }
+
   let adminUser = {
     "username":"admin",
     "password":"admin",
@@ -80,6 +90,11 @@ export default async (cb) => {
     content: '蹤影帥帥'
   }
 
+  let testPost3 = {
+    title: '這是三篇文章',
+    content: '三篇文章的內容'
+  }
+
   let Comment1 = {
     author: '西捨',
     content: '我也這麼認為'
@@ -119,12 +134,15 @@ export default async (cb) => {
   try {
     let createdVisitor = await models.User.create(visitorUser);
     let createdEditor = await models.User.create(editorUser);
+    let createdEditor2 = await models.User.create(editorUser2);
     let createdAdmin = await models.User.create(adminUser);
 
     let createdEditorRole = await models.Role.create(editorRole);
+    let createdEditor2Role = await models.Role.create(editorRole);
     let createdAdminRole = await models.Role.create(adminRole);
 
     await createdEditor.setRoles(createdEditorRole);
+    await createdEditor2.setRoles(createdEditor2Role);
     await createdAdmin.setRoles(createdAdminRole);
 
     await models.Bean.create(newBeanBlack);
@@ -132,6 +150,9 @@ export default async (cb) => {
 
     let createdPost1 = await models.Post.create(testPost1);
     let createdPost2 = await models.Post.create(testPost2);
+    let createdPost3 = await models.Post.create(testPost3);
+
+    await createdPost1.setCreater(createdEditor);
 
     let createTag = await models.Tag.create(tag1);
     let createTag2 = await models.Tag.create(tag2);
