@@ -152,7 +152,7 @@ export default async (cb) => {
     let createdPost2 = await models.Post.create(testPost2);
     let createdPost3 = await models.Post.create(testPost3);
 
-    await createdPost1.setCreater(createdEditor);
+    await createdPost1.setCreator(createdEditor);
 
     let createTag = await models.Tag.create(tag1);
     let createTag2 = await models.Tag.create(tag2);
