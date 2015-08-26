@@ -49,6 +49,18 @@ class PostStore {
     return this.setState({posts});
   }
 
+  onRemoveSuccess(id) {
+    const posts: Array<Object> = this.posts.slice();
+    let removeIndex = -1;
+    posts.forEach((post, index) => {
+      if (post.id === id) removeIndex = index;
+    });
+
+    if (removeIndex >= 0) posts.splice(removeIndex, 1);
+
+    return this.setState({posts});
+  }
+
 }
 
 export default PostStore;

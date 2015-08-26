@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
-import {Table, Panel, Col, Glyphicon, Input} from 'react-bootstrap';
+import {Table, Panel, Col, Glyphicon, Input, Button} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
   require('postManager/styles/post.scss');
@@ -82,10 +82,10 @@ class Posts extends Component {
     if (this.state.authStatus.authority === 'admin') {
       return (
         <td>
-            <Input type='select' value={EditorId} onChange={this.updateEditor.bind(this, postId)}>
-              <option value='0'>select...</option>
-              {this.state.editors.map(this.renderEditorsOptions)}
-            </Input>
+          <Input type='select' value={EditorId} onChange={this.updateEditor.bind(this, postId)}>
+            <option value='0'>select...</option>
+            {this.state.editors.map(this.renderEditorsOptions)}
+          </Input>
         </td>
       );
     }
@@ -103,13 +103,35 @@ class Posts extends Component {
       let userId = this.state.authStatus.sessionUser.id;
       if (userId === post.CreaterId || userId === post.EditorId) {
         return (
-          <td>
-            <Link to={`/postEdit/${post.id}`} >
-              <Glyphicon glyph='pencil' />
-            </Link>
-          </td>
+          <div>
+            <td>
+              <Link to={`/postEdit/${post.id}`} >
+                <Glyphicon glyph='pencil' />
+              </Link>
+            </td>
+            <td>
+              <Button bsStyle='danger' bsSize='small'
+                onClick={this._removePost.bind(this, post.id)}>
+                <Glyphicon glyph='trash' className="" />
+              </Button>
+            </td>
+          </div>
         );
-      } else return ( <td></td> );
+      } else return ( <div><td></td><td></td></div> );
+    }
+  }
+  _removePost(id) {
+    this.props.flux
+    .getActions('posts')
+    .remove(id);
+  }
+  renderTh(isEditorOrCreater, message) {
+    if (isEditorOrCreater) {
+      return (
+        <th>
+          {message}
+        </th>
+      );
     }
   }
   render() {
@@ -133,15 +155,8 @@ class Posts extends Component {
                 <th>
                   {this._getIntlMessage('postManager.name')}
                 </th>
-                {() => {
-                  if (isEditorOrCreater) {
-                    return (
-                      <th>
-                        {this._getIntlMessage('postManager.edit')}
-                      </th>
-                    );
-                  }
-                }()}
+                {this.renderTh(isEditorOrCreater, this._getIntlMessage('postManager.edit'))}
+                {this.renderTh(isEditorOrCreater, this._getIntlMessage('postManager.delete'))}
                 {() => {
                   if (this.state.authStatus.authority === 'admin') {
                     return (

@@ -59,7 +59,7 @@ describe("post", () => {
       });
     });
   });
-  it.only("update post", (done) => {
+  it("update post", (done) => {
     let updatePost = {
       title: '111',
       content: 'ssss',
@@ -111,5 +111,21 @@ describe("post", () => {
 
   });
 
+  it.only("delete post", (done) => {
+
+    let postId = 1;
+
+      request.delete("/rest/post/"+postId)
+      .expect(200)
+      .end((error, res) => {
+
+        models.Post.findById(postId).then((result) =>{
+          (result == null).should.true
+          done(error);
+        });
+
+      });
+
+    });
 
 });

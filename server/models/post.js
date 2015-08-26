@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         Post.belongsTo(models.User, {as: 'Editor'} ),
         Post.hasMany(models.Tag);
       }
-    }
+    },
+    paranoid: true
   });
 
   return Post;

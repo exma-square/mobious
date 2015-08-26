@@ -4,7 +4,7 @@ import request from 'superagent';
 class PostsActions {
   constructor() {
     this.generateActions(
-      'fetchSuccess', 'createSuccess', 'fetchOneSuccess', 'updateSuccess', 'updateImgSuccess', 'updateEditorSuccess'
+      'fetchSuccess', 'createSuccess', 'fetchOneSuccess', 'updateSuccess', 'updateImgSuccess', 'updateEditorSuccess', 'removeSuccess'
     );
   }
   create(params) {
@@ -112,6 +112,21 @@ class PostsActions {
       return resolve();
     };
 
+    this.alt.resolve(promise);
+  }
+
+  remove(id: number) {
+    const promise = (resolve) => {
+      let that = this;
+      that.alt.getActions('requests').start();
+
+      request.del(`${baseUrl}rest/post/${id}`)
+      .end(() => {
+        that.actions.removeSuccess(id);
+        that.alt.getActions('requests').success();
+        return resolve();
+      });
+    };
     this.alt.resolve(promise);
   }
 

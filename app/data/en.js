@@ -34,6 +34,7 @@ export default {
       name: 'Post Name',
       add: 'Add Post',
       edit: 'Edit',
+      delete: 'Delete',
       editor: 'Editor',
       content: 'Post Content'
     },
