@@ -164,13 +164,19 @@ exports.upload = function* (next) {
 
 exports.delete = function *() {
 
+
+
   let postId = this.params.id;
 
   let result = null;
 
   try {
+    let UserId = services.user.getSessionUser(this).id;
     let post = yield models.Post.findById(postId);
-    result = post.destroy()
+
+    if( UserId === post.CreaterId || UserId === post.EditorId )
+      result = yield post.destroy()
+
   } catch (e) {
     console.error("delete post error", e);
   }
