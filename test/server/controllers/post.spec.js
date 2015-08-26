@@ -84,24 +84,31 @@ describe("post", () => {
     });
   });
   it.only("update post editor", (done) => {
+
+    //Setting is 'admin' authority
+    sinon.stub(services.user, 'getAuthStatus', (app) =>{
+      return {authority: 'admin'};
+    });
+
     let updateEditorId = {
-      editorId: '2'
+      editorId: 2
     }
+
     request.put("/rest/post/updateEditor/1")
     .expect(200)
     .send(updateEditorId)
     .end((error, res) => {
-
       models.Post.find({
         where: {
           id: 1
         }
       }).then((updatedPost)=>{
-        updatedPost.EditorId.should.be.equal(2);
+        updatedPost.EditorId.should.be.equal(updateEditorId.editorId);
         done();
-
       });
     });
+
+
   });
 
 

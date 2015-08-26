@@ -105,19 +105,22 @@ exports.updateEditor = function *() {
 
 
   try {
-    let postId = this.params.id;
-    let editorId = this.request.body.editorId;
-    let result = null;
+    let authStatus = services.user.getAuthStatus(this);
+    if(authStatus.authority ==='admin'){
+      let postId = this.params.id;
+      let editorId = this.request.body.editorId;
+      let result = null;
 
-    if(editorId==='0'){
-      editorId=null;
-    };
+      if(editorId==='0'){
+        editorId=null;
+      };
 
-    let post = yield models.Post.findById(postId);
-    post.EditorId = editorId;
-    yield post.save();
+      let post = yield models.Post.findById(postId);
+      post.EditorId = editorId;
+      yield post.save();
 
-    this.body = {post};
+      this.body = {post};
+    }
   } catch (error) {
     console.log(error.stack);
     this.body = {result, error};
