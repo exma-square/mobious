@@ -59,7 +59,7 @@ describe("post", () => {
       });
     });
   });
-  it.only("update post", (done) => {
+  it("update post", (done) => {
     let updatePost = {
       title: '111',
       content: 'ssss',
@@ -83,4 +83,26 @@ describe("post", () => {
       });
     });
   });
+  it.only("update post editor", (done) => {
+    let updateEditorId = {
+      editorId: '2'
+    }
+    request.put("/rest/post/updateEditor/1")
+    .expect(200)
+    .send(updateEditorId)
+    .end((error, res) => {
+
+      models.Post.find({
+        where: {
+          id: 1
+        }
+      }).then((updatedPost)=>{
+        updatedPost.EditorId.should.be.equal(2);
+        done();
+
+      });
+    });
+  });
+
+
 });
