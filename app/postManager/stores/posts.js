@@ -3,7 +3,7 @@ class PostStore {
   constructor() {
     this.bindActions(this.alt.getActions('posts'));
     this.posts = [];
-    this.post = [];
+    this.post = { Tags: []};
     this.view = [];
   }
 
