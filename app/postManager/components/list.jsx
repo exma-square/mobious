@@ -82,12 +82,10 @@ class Posts extends Component {
     if (this.state.authStatus.authority === 'admin') {
       return (
         <td>
-          <form>
             <Input type='select' value={EditorId} onChange={this.updateEditor.bind(this, postId)}>
               <option value='0'>select...</option>
               {this.state.editors.map(this.renderEditorsOptions)}
             </Input>
-          </form>
         </td>
       );
     }
