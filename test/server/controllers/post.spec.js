@@ -1,6 +1,6 @@
 import fs from "fs";
 
-describe("post", () => {
+describe.only("post", () => {
   before((done)=>{
     sinon.stub(services.user, 'isAuthenticated', (app) =>{
       return true;
@@ -49,6 +49,40 @@ describe("post", () => {
       });
     });
   });
+
+  describe('create a post', () => {
+    it('create', async (done) => {
+
+      let seedPost = {
+        title: 'createPostTitle',
+        content: 'createPostContent',
+        tags: ['tag1', 'tag2', 'tag3'],
+        img: 'createPostImgDir'
+      };
+
+      let createResult = await new Promise((resolve, reject) => {
+        request.post('/rest/post/')
+        .send(seedPost)
+        .expect(200)
+        .end((error, res) => {
+          if (error) return reject(error);
+          return resolve(res.body.post);
+        });
+      });
+
+      let result = await createResult;
+      console.log('spec returns result ', result);
+      try {
+        result.title.should.equal(seedPost.title);
+        result.tags.should.eql(seedPost.tags);
+        result.id.should.be.greaterThan(0);
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
   describe('find one and all', (done) => {
     it("file Upload", (done) => {
       request.post('/rest/post/fileUpload/')
@@ -59,6 +93,7 @@ describe("post", () => {
       });
     });
   });
+
   it("update post", (done) => {
     let updatePost = {
       title: '111',
@@ -83,6 +118,7 @@ describe("post", () => {
       });
     });
   });
+
   it("update post editor", (done) => {
 
     //Setting is 'admin' authority

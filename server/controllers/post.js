@@ -26,19 +26,40 @@ exports.get = function *() {
 
 exports.create = function *() {
 
-  let newPost = this.request.body;
-
-  let result = null;
-
+  console.log('inside create api');
   try {
-    result = yield models.Post.create(newPost);
-  } catch (e) {
-    console.error("create post error", e);
+   let tmpPost = this.request.body;
+   let post = null;
+   let tag_arr = [];
+   let tmpTag = [];
+
+   let result = models.Post.create({
+       title: tmpPost.title,
+       content: tmpPost.content,
+       img: tmpPost.img
+   });
+
+   tmpPost.tags.forEach((tag) => {
+     tmpTag.push({
+         name: tag,
+         PostId: result.id
+       });
+   });
+
+   let tagResult = yield models.Tag.bulkCreate(tmpTag);
+   tagResult.forEach((tr) => {
+     console.log('tr name', tr.name);
+     tag_arr.push(tr.name);
+   });
+   post = yield result;
+   post.setDataValue('tags', yield tag_arr);
+
+   this.body = {post};
+
+  } catch (error) {
+    console.log(error.stack);
+    this.body = {post, error};
   }
-
-  let post = result;
-
-  this.body = {post}
 };
 
 exports.update = function *() {
@@ -105,30 +126,29 @@ exports.update = function *() {
 
 exports.updateEditor = function *() {
 
+    try {
+      let authStatus = services.user.getAuthStatus(this);
+      if(authStatus.authority ==='admin'){
+        let postId = this.params.id;
+        let editorId = this.request.body.editorId;
+        let result = null;
 
-  try {
-    let authStatus = services.user.getAuthStatus(this);
-    if(authStatus.authority ==='admin'){
-      let postId = this.params.id;
-      let editorId = this.request.body.editorId;
-      let result = null;
+        if(editorId==='0'){
+          editorId=null;
+        };
 
-      if(editorId==='0'){
-        editorId=null;
-      };
+        let post = yield models.Post.findById(postId);
+        post.EditorId = editorId;
+        yield post.save();
 
-      let post = yield models.Post.findById(postId);
-      post.EditorId = editorId;
-      yield post.save();
-
-      this.body = {post};
+        this.body = {post};
+      }
+    } catch (error) {
+      console.log(error.stack);
+      this.body = {result, error};
     }
-  } catch (error) {
-    console.log(error.stack);
-    this.body = {result, error};
-  }
 
-};
+  };
 
 exports.upload = function* (next) {
 

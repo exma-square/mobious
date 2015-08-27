@@ -142,7 +142,7 @@ export default async (cb) => {
   };
 
   let tag3 = {
-    name: 'tag3'
+    name: 'this is a tag'
   };
 
 
