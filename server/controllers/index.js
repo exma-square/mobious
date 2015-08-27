@@ -80,6 +80,7 @@ export default class Routes {
       publicRoute.get('/rest/comment/', CommentController.index);
       publicRoute.get('/rest/post/:id', PostController.get);
       publicRoute.get('/rest/auth/status', AuthController.status);
+      publicRoute.post('/rest/post/', PostController.create);
       publicRoute.post('/rest/post/fileUpload/', PostController.upload);
       publicRoute.post('/rest/comment/', CommentController.create);
       publicRoute.get('/rest/role/:attribute', RoleController.get);
@@ -102,7 +103,6 @@ export default class Routes {
     setupAppRoute() {
 
       this.router.post('/rest/user/', UserController.create);
-      this.router.post('/rest/post/', PostController.create);
       this.router.put('/rest/post/updateEditor/:id', PostController.updateEditor);
       this.router.put('/rest/post/:id', PostController.update);
       this.router.put('/rest/user/activated/:id', UserController.updateActivated);

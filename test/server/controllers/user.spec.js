@@ -97,7 +97,7 @@ describe("User", () => {
 
   });
 
-  it.only("update user activated", (done) => {
+  it("update user activated", (done) => {
 
     //Setting is 'admin' authority
     sinon.stub(services.user, 'getAuthStatus', (app) =>{
