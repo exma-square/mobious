@@ -30,7 +30,7 @@ passport.use(new FacebookStrategy({
 var LocalStrategy = require('passport-local').Strategy
 passport.use(new LocalStrategy(async (username, password, done) => {
   let loginInfo = {
-    where: {username, password},
+    where: {username, password, activated:true},
     include: [models.Role]
   };
   try {

@@ -59,6 +59,16 @@ class UsersStore {
     return this.setState({user});
   }
 
+  onUpdateActivatedSuccess(editUser) {
+    const users: Array<Object> = this.users;
+    users.forEach((user, index) => {
+      if (user.id === editUser.id) {
+        this.users[index] = editUser;
+      }
+    });
+    return this.setState({users});
+  }
+
 }
 
 export default UsersStore;

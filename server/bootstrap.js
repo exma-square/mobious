@@ -15,7 +15,8 @@ export default async (cb) => {
     "email":"visitor@visitor.com",
     "phone":"(951)-385-6121",
     "cell":"(657)-919-3511",
-    "picture":JSON.stringify(picture)
+    "picture":JSON.stringify(picture),
+    'activated':true
   }
 
 
@@ -26,7 +27,8 @@ export default async (cb) => {
     "email":"editor@editor.com",
     "phone":"(951)-385-6121",
     "cell":"(657)-919-3511",
-    "picture":JSON.stringify(picture)
+    "picture":JSON.stringify(picture),
+    'activated':true
   }
 
   let editorUser2 = {
@@ -36,7 +38,8 @@ export default async (cb) => {
     "email":"editor2@editor.com",
     "phone":"(951)-385-6121",
     "cell":"(657)-919-3511",
-    "picture":JSON.stringify(picture)
+    "picture":JSON.stringify(picture),
+    'activated':true
   }
 
   let adminUser = {
@@ -46,7 +49,19 @@ export default async (cb) => {
     "email":"admin@admin.com",
     "phone":"(951)-385-6121",
     "cell":"(657)-919-3511",
-    "picture":JSON.stringify(picture)
+    "picture":JSON.stringify(picture),
+    'activated':true
+  }
+
+  let adminUser2 = {
+    "username":"admin2",
+    "password":"admin2",
+    "gender":"male",
+    "email":"admin2@admin.com",
+    "phone":"(951)-385-6121",
+    "cell":"(657)-919-3511",
+    "picture":JSON.stringify(picture),
+    'activated':false
   }
 
 
@@ -136,14 +151,17 @@ export default async (cb) => {
     let createdEditor = await models.User.create(editorUser);
     let createdEditor2 = await models.User.create(editorUser2);
     let createdAdmin = await models.User.create(adminUser);
+    let createdAdmin2 = await models.User.create(adminUser2);
 
     let createdEditorRole = await models.Role.create(editorRole);
     let createdEditor2Role = await models.Role.create(editorRole);
     let createdAdminRole = await models.Role.create(adminRole);
+    let createdAdminRole2 = await models.Role.create(adminRole);
 
     await createdEditor.setRoles(createdEditorRole);
     await createdEditor2.setRoles(createdEditor2Role);
     await createdAdmin.setRoles(createdAdminRole);
+    await createdAdmin2.setRoles(createdAdminRole2);
 
     await models.Bean.create(newBeanBlack);
     await models.Bean.create(newBeanWhite);
