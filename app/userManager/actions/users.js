@@ -5,7 +5,7 @@ class UsersActions {
   constructor() {
     this.generateActions(
       'removeSuccess', 'fetchSuccess', 'createSuccess',
-      'fetchBySeedSuccess'
+      'fetchBySeedSuccess', 'updateActivatedSuccess'
     );
   }
   create(params) {
@@ -75,6 +75,23 @@ class UsersActions {
 
     this.alt.resolve(promise);
   }
+
+  updateActivated(id:string, params) {
+    const promise = (resolve) => {
+      let that = this;
+      that.alt.getActions('requests').start();
+      request.put(`${baseUrl}rest/user/activated/${id}`)
+      .send(params)
+      .end((error, res) => {
+        if (error) return resolve(error);
+        this.actions.updateActivatedSuccess(res.body.user);
+        this.alt.getActions('requests').success();
+        return resolve();
+      }, 300);
+    };
+    this.alt.resolve(promise);
+  }
+
 }
 
 export default UsersActions;

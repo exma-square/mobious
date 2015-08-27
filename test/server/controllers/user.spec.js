@@ -9,6 +9,11 @@ describe("User", () => {
     sinon.stub(services.user, 'isAuthenticated', (app) =>{
       return true;
     });
+
+    sinon.stub(services.user, 'getSessionUser', (app) =>{
+      return {id: 4};
+    });
+
     done();
   });
 
@@ -89,6 +94,33 @@ describe("User", () => {
       });
 
     });
+
+  });
+
+  it.only("update user activated", (done) => {
+
+    //Setting is 'admin' authority
+    sinon.stub(services.user, 'getAuthStatus', (app) =>{
+      return {authority: 'admin'};
+    });
+
+    let editUserId = 2;
+    let editActivated = {activated: true};
+
+    request.put("/rest/user/activated/" + editUserId)
+    .expect(200)
+    .send(editActivated)
+    .end((error, res) => {
+      models.User.find({
+        where: {
+          id: editUserId
+        }
+      }).then((updatedUser)=>{
+        updatedUser.activated.should.be.equal(editActivated.activated);
+        done();
+      });
+    });
+
 
   });
 

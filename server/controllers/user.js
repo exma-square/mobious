@@ -50,3 +50,31 @@ exports.delete = function *() {
 
   this.body = {result}
 };
+
+
+exports.updateActivated = function *() {
+
+  let UserId = services.user.getSessionUser(this).id;
+
+  let editUserId = this.params.id;
+  let editActivated = this.request.body.activated;
+
+  let result = null;
+
+  try {
+    let user = yield models.User.findById(editUserId);
+
+    //Confirm not myself account
+    if(UserId !== user.id){
+      user.activated = editActivated;
+      result = yield user.save();
+    }
+    result = user;
+  } catch (e) {
+    console.error("create user error", e);
+  }
+
+  let user = result;
+
+  this.body = {user}
+};

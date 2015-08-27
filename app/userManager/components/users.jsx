@@ -1,9 +1,7 @@
-/* eslint-disable */
-
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
-import {Button, Table, Panel, Col} from 'react-bootstrap';
+import {Button, Table, Panel, Col, Glyphicon, ButtonToolbar} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
   require('userManager/styles/users.scss');
@@ -46,11 +44,10 @@ class Users extends Component {
     this.props.flux
       .getStore('users')
       .unlisten(this._handleStoreChange);
-
   }
 
   _handleStoreChange = (state) => {
-    state.authStatus = this.props.flux.getStore('auth').getState().authStatus
+    state.authStatus = this.props.flux.getStore('auth').getState().authStatus;
     return this.setState(state);
   }
 
@@ -60,24 +57,49 @@ class Users extends Component {
       .remove(id);
   }
 
+  _updateActivated(id, activated) {
+    activated = ( activated === true ? false : true );
+    this.props.flux
+    .getActions('users')
+    .updateActivated(id, {activated: activated});
+  }
+
+  renderActivated(user) {
+    let lockStyle = user.activated === true ? 'success' : 'danger';
+
+    if (this.state.authStatus.authority === 'admin') {
+      let myId = this.state.authStatus.sessionUser.id;
+      if (myId !== user.id) {
+        return (
+          <Button bsStyle={lockStyle} bsSize='small' onClick={this._updateActivated.bind(this, user.id, user.activated)}>
+            <Glyphicon glyph='lock'/>
+          </Button>
+        );
+      }
+    }
+  }
+
   renderUser = (user, index) => {
     return (
       <tr className='user--row' key={index}>
         <td>{user.email}</td>
         <td>
-          <Link to={`/profile/${user.id}`}>
-            <Button>Profile</Button>
-          </Link>
-          {() => {
-            if (this.state.authStatus.authority === 'admin') {
-              return (
-                <Button bsStyle='danger' bsSize='small' className='user-remove'
-                  onClick={this._removeUser.bind(this, user.id)}>
-                  X
-                </Button>
-              )
-            }
-          }()}
+          <ButtonToolbar>
+            <Link to={`/profile/${user.id}`}>
+              <Button>Profile</Button>
+            </Link>
+            {() => {
+              if (this.state.authStatus.authority === 'admin') {
+                return (
+                  <Button bsStyle='danger' bsSize='small' className='user-remove'
+                    onClick={this._removeUser.bind(this, user.id)}>
+                    X
+                  </Button>
+                );
+              }
+            }()}
+            {this.renderActivated(user)}
+          </ButtonToolbar>
         </td>
       </tr>
     );
@@ -96,7 +118,7 @@ class Users extends Component {
                     {this._getIntlMessage('userManager.add')}
                   </Button>
                 </Link>
-              )
+              );
             }
           }()}
         >

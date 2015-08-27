@@ -111,7 +111,7 @@ describe("post", () => {
 
   });
 
-  it.only("delete post", (done) => {
+  it("delete post", (done) => {
 
     let postId = 1;
 
