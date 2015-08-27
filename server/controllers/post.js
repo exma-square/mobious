@@ -56,7 +56,7 @@ exports.update = function *() {
       },
       include: [ { model: models.Tag } ]
     });
-    if( UserId === post.CreaterId || UserId === post.EditorId )
+    if( UserId === post.CreatorId || UserId === post.EditorId )
     {
       // Remove Tag
 
@@ -174,7 +174,7 @@ exports.delete = function *() {
     let UserId = services.user.getSessionUser(this).id;
     let post = yield models.Post.findById(postId);
 
-    if( UserId === post.CreaterId || UserId === post.EditorId )
+    if( UserId === post.CreatorId || UserId === post.EditorId )
       result = yield post.destroy()
 
   } catch (e) {

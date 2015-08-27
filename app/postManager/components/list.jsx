@@ -101,7 +101,7 @@ class Posts extends Component {
   renderEdit(post) {
     if (this.state.authStatus.authority === 'editor') {
       let userId = this.state.authStatus.sessionUser.id;
-      if (userId === post.CreaterId || userId === post.EditorId) {
+      if (userId === post.CreatorId || userId === post.EditorId) {
         return (
           <div>
             <td>
@@ -125,8 +125,8 @@ class Posts extends Component {
     .getActions('posts')
     .remove(id);
   }
-  renderTh(isEditorOrCreater, message) {
-    if (isEditorOrCreater) {
+  renderTh(isEditorOrCreator, message) {
+    if (isEditorOrCreator) {
       return (
         <th>
           {message}
@@ -135,11 +135,11 @@ class Posts extends Component {
     }
   }
   render() {
-    let isEditorOrCreater = false;
+    let isEditorOrCreator = false;
     let userId = this.state.authStatus.authority === '' ? 0 : this.state.authStatus.sessionUser.id;
     this.state.posts.forEach((post) => {
-      if (post.CreaterId === userId || post.EditorId === userId) {
-        isEditorOrCreater = true;
+      if (post.CreatorId === userId || post.EditorId === userId) {
+        isEditorOrCreator = true;
       }
     });
 
@@ -155,8 +155,8 @@ class Posts extends Component {
                 <th>
                   {this._getIntlMessage('postManager.name')}
                 </th>
-                {this.renderTh(isEditorOrCreater, this._getIntlMessage('postManager.edit'))}
-                {this.renderTh(isEditorOrCreater, this._getIntlMessage('postManager.delete'))}
+                {this.renderTh(isEditorOrCreator, this._getIntlMessage('postManager.edit'))}
+                {this.renderTh(isEditorOrCreator, this._getIntlMessage('postManager.delete'))}
                 {() => {
                   if (this.state.authStatus.authority === 'admin') {
                     return (
