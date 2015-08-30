@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Dropzone from 'react-dropzone';
+import {Col} from 'react-bootstrap';
 
 let nonImage;
 
@@ -12,7 +13,7 @@ class DropImg extends Component {
   static propTypes = {
     apiUrl: PropTypes.string.isRequired,
     flux: PropTypes.object.isRequired,
-    preview: PropTypes.object
+    preview: PropTypes.string
   }
 
   onDrop(files) {
@@ -21,19 +22,19 @@ class DropImg extends Component {
 
   render() {
     let img = '';
-    if (this.props.preview === undefined || this.props.preview === null) {
+    if (this.props.preview === undefined || this.props.preview === '') {
       img = nonImage;
     }
     else {
       img = '/assets/images/post/' + this.props.preview;
     }
     return (
-        <div>
-          <Dropzone onDrop={this.onDrop.bind(this)} width={200} height={100}>
-            <img ref='previewImg' src={img} width={150}/>
-            <div>Try dropping some files here, or click to select files to upload.</div>
+        <Col style={{display: 'inline-block', marginBottom: '3%'}}>
+          <Dropzone onDrop={this.onDrop.bind(this)} width={'100%'} height={'10%'}>
+            <img ref='previewImg' src={img} width={'100%'}/>
+            <div>點擊或拖拉圖片至此區塊以上載圖片</div>
           </Dropzone>
-        </div>
+        </Col>
     );
   }
 

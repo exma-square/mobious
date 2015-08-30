@@ -23,9 +23,9 @@ class Alloyeditor extends Component {
 
   render() {
     let contentSytle = {
-      'min-height': '34px',
+      'minHeight': '5px',
       border: '1px solid #ccc',
-      'border-radius': '4px'
+      'borderRadius': '4px'
     };
     let body = null;
     if (this.props.label !== undefined) {

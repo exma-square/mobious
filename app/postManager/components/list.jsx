@@ -138,10 +138,13 @@ class Posts extends Component {
   renderCreateBtn(isEditorOrCreator) {
     if (isEditorOrCreator) {
       return (
-
-          <Button bsStyle='success' href='/postCreate/'>
+        <Col md={6} mdOffset={4} sm={8} smOffset={4} xs={12}>
+          <Link to={'/postCreate/'}>
+            <Button bsStyle='success'>
               新增文章
-          </Button>
+            </Button>
+          </Link>
+        </Col>
       );
     }
   }
@@ -156,7 +159,7 @@ class Posts extends Component {
 
 
     return (
-      <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
+      <Col md={6} mdOffset={3} sm={8} smOffset={4} xs={12}>
         <Panel className='app-posts'
           header={<h3>{this._getIntlMessage('postManager.title')}</h3>}>
           <Table striped responsive>
