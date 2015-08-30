@@ -21,11 +21,11 @@ class DropImg extends Component {
 
   render() {
     let img = '';
-    if (this.props.preview.img === undefined || this.props.preview.img === null) {
+    if (this.props.preview === undefined || this.props.preview === null) {
       img = nonImage;
     }
     else {
-      img = '/assets/images/post/' + this.props.preview.img;
+      img = '/assets/images/post/' + this.props.preview;
     }
     return (
         <div>

@@ -94,7 +94,7 @@ class PostsActions {
     this.alt.resolve(promise);
   }
 
-  uploadImg(url: string, files: Array, singlePost: Object) {
+  uploadImg(url: string, files: Array, uploadFileName: string) {
     const promise = (resolve) => {
       this.alt.getActions('requests').start();
       files.forEach((file) => {
@@ -103,8 +103,8 @@ class PostsActions {
         .end((err, res) => {
           if (err) return resolve(err);
           let resObj = res.body;
-          singlePost.img = resObj.filename;
-          this.actions.updateImgSuccess(singlePost);
+          uploadFileName = resObj.filename;
+          this.actions.updateImgSuccess(uploadFileName);
           this.alt.getActions('requests').success();
         });
       });

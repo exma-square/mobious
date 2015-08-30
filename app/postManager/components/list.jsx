@@ -134,6 +134,17 @@ class Posts extends Component {
       );
     }
   }
+
+  renderCreateBtn(isEditorOrCreator) {
+    if (isEditorOrCreator) {
+      return (
+
+          <Button bsStyle='success' href='/postCreate/'>
+              新增文章
+          </Button>
+      );
+    }
+  }
   render() {
     let isEditorOrCreator = false;
     let userId = this.state.authStatus.authority === '' ? 0 : this.state.authStatus.sessionUser.id;
@@ -173,6 +184,7 @@ class Posts extends Component {
             </tbody>
           </Table>
         </Panel>
+        {this.renderCreateBtn(isEditorOrCreator)}
       </Col>
     );
   }
