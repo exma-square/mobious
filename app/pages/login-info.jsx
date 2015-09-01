@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {IntlMixin} from 'react-intl';
 import {baseUrl} from '../../server/config/init';
+import {Button, Panel, Col, Input} from 'react-bootstrap';
 
 
 class LoginInfo extends Component {
@@ -21,8 +22,8 @@ class LoginInfo extends Component {
     event.preventDefault();
 
     let loginUser = {
-      username: this.refs.username.getDOMNode().value,
-      password: this.refs.password.getDOMNode().value
+      username: this.refs.username.refs.input.getDOMNode().value,
+      password: this.refs.password.refs.input.getDOMNode().value
     };
 
     this.props.flux.getActions('auth').localLogin(loginUser);
@@ -35,18 +36,18 @@ class LoginInfo extends Component {
     let url = `/auth/facebook?redirect_uri=${redirectUri}`;
 
     return (
-      <div>
-        <h1>please login.</h1>
-        <a href={url} >Sign in with Facebook</a>
-
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <label><input ref="username" placeholder="username"/></label>
-          <label><input ref="password" placeholder="password"/></label><br/>
-          <button type="submit">login user</button>
-
-        </form>
-
-      </div>
+      <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
+        <Panel header={'Login'}>
+          <form onSubmit={this.handleSubmit.bind(this)}>
+            <Input type='text' ref="username" placeholder="username"/>
+            <Input type='password' ref="password" placeholder="password"/>
+            <Button type="submit">login user</Button>
+            <a href={url} style={{'marginLeft': 10}}>
+              <Button>Sign in with Facebook</Button>
+            </a>
+          </form>
+        </Panel>
+      </Col>
     );
   }
 

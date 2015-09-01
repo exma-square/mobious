@@ -20,7 +20,11 @@ class UserCreate extends Component {
   _getIntlMessage = IntlMixin.getIntlMessage
 
   state = {
-    error: false
+    error: false,
+    role: null,
+    posts: this.props.flux
+    .getStore('users')
+    .getState().user,
   };
 
   handleSubmit(event) {
@@ -28,9 +32,9 @@ class UserCreate extends Component {
 
     let newUser = {
       email: this.refs.email.refs.input.getDOMNode().value,
-      pass: this.refs.pass.refs.input.getDOMNode().value
+      password: this.refs.pass.refs.input.getDOMNode().value,
+      role: this.state.role,
     };
-
     this.props.flux.getActions('users').create(newUser);
     this.context.router.transitionTo('/');
   }
@@ -46,6 +50,12 @@ class UserCreate extends Component {
           <form onSubmit={this.handleSubmit.bind(this)} id='add-user-form'>
             <Input type='text' ref='email' label='Email'/>
             <Input type='password' ref='pass' label='Password'/>
+            <span className='role'>Role</span>
+            <Role onRoleChange={function(role){
+                this.setState({
+                  role: role
+                });
+              }.bind(this)}/>
             {this.state.error && (
               <p>Bad login information</p>
             )}
@@ -55,5 +65,21 @@ class UserCreate extends Component {
     );
   }
 }
+
+const Role = React.createClass({
+  render () {
+    return (
+      <div>
+        <Input type='radio' name='role' label='admin' onChange={function () {
+          this.props.onRoleChange('admin');
+        }.bind(this)}/>
+      <Input type='radio' name='role' label='editor' onChange={function () {
+          this.props.onRoleChange('editor');
+        }.bind(this)}/>
+      </div>
+    )
+  }
+});
+
 
 export default UserCreate;

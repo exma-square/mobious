@@ -4,7 +4,7 @@ import request from 'superagent';
 class RoleActions {
   constructor() {
     this.generateActions(
-      'fetchByAttributesSuccess'
+      'fetchByAttributesSuccess', 'createSuccess'
     );
   }
   fetchByAttributes(attribute: string) {
