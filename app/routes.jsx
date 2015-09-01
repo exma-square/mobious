@@ -36,6 +36,10 @@ export default (
       component: require('./postManager/components/list')
     })}
     {generateRoute({
+      paths: ['postCreate'],
+      component: require('./postManager/components/create')
+    })}
+    {generateRoute({
       paths: ['/postOne/:id'],
       component: require('./postManager/components/single')
     })}

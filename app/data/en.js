@@ -40,10 +40,18 @@ export default {
     },
     post: {
       'page-title': 'Post',
-      title: 'Title',
-      content: 'Content',
-      tags: 'Tags',
-      tagPlaceholder: 'Add Tags'
+      label_title: '文章標題',
+      label_content: '文章內文',
+      label_tag: '文章標籤',
+      label_tagPlaceHolder: '加入標籤'
+    },
+    post_create: {
+      title: '新增文章',
+      submit: '新增'
+    },
+    post_edit: {
+      title: '修改文章',
+      submit: '修改'
     },
     commentManager: {
       title: '留言版'

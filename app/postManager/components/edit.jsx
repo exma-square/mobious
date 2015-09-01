@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {Button, Input} from 'react-bootstrap';
+import {Button, Input, Col, Panel} from 'react-bootstrap';
 import {IntlMixin} from 'react-intl';
 import Alloyeditor from 'components/shared/alloyeditor';
 import TagsInput from 'react-tagsinput';
@@ -24,7 +24,9 @@ class Edit extends Component {
   state = {
     post: this.props.flux
     .getStore('posts')
-    .getBySeed(this.props.params.id).post
+    .getBySeed(this.props.params.id).post,
+    img: this.props.flux
+    .getStore('posts').img
   };
 
   componentWillMount() {
@@ -50,7 +52,7 @@ class Edit extends Component {
       id: React.findDOMNode(this.refs.id).value,
       title: React.findDOMNode(this.refs.title.refs.input).value,
       content: React.findDOMNode(this.refs.content.refs.content).innerHTML,
-      img: this.state.post.img,
+      img: this.state.img,
       tags: this.refs.tags.getTags()
     };
 
@@ -74,19 +76,26 @@ class Edit extends Component {
     if (this.state.post !== undefined) {
       body = (
         <div className='form-horizontal'>
-          <form id='edit-post-form' onSubmit={this._handleSubmit} className='app--beans'>
-            <DropImg apiUrl={'/rest/post/fileUpload/'} flux={this.props.flux} preview={this.state.post}/>
-            <input type='hidden' ref='id' value={this.state.post.id}></input>
-            <Input label={this._getIntlMessage('post.title')} labelClassName='col-xs-1' wrapperClassName='col-xs-10' type='text' ref='title' value={this.state.post.title} onChange={this._handleTitle} />
-            <div className='form-group'>
-              <label className='col-xs-1 control-label'>{this._getIntlMessage('post.tags')}</label>
-              <div className='col-xs-10'>
-                <TagsInput ref='tags' value={this.state.post.Tags} onChange={this._handleTags} placeholder={this._getIntlMessage('post.tagPlaceholder')} />
-              </div>
-            </div>
-            <Alloyeditor label={this._getIntlMessage('post.content')} labelClassName='col-xs-1' wrapperClassName='col-xs-10' content={this.state.post.content} ref='content' />
-            <Button bsStyle='success' type="button" onClick={this._handleSubmit} >Update</Button>
-          </form>
+          <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
+            <form id='edit-post-form' onSubmit={this._handleSubmit} className='app--beans'>
+              <Panel className='app-posts'
+            header={<h3>{this._getIntlMessage('post_edit.title')}</h3>}>
+                <DropImg apiUrl={'/rest/post/fileUpload/'} flux={this.props.flux} preview={this.state.img}/>
+                <input type='hidden' ref='id' value={this.state.post.id}></input>
+                <Input label={this._getIntlMessage('post.label_title')} labelClassName='col-xs-2' wrapperClassName='col-xs-8' type='text' ref='title' value={this.state.post.title} onChange={this._handleTitle} />
+                <div className='form-group'>
+                  <label className='col-xs-2 control-label'>{this._getIntlMessage('post.label_tag')}</label>
+                  <div className='col-xs-8'>
+                    <TagsInput ref='tags' value={this.state.post.Tags} onChange={this._handleTags} placeholder={this._getIntlMessage('post.label_tagPlaceHolder')} />
+                  </div>
+                </div>
+                <Alloyeditor label={this._getIntlMessage('post.label_content')} labelClassName='col-xs-2' wrapperClassName='col-xs-8' content={this.state.post.content} ref='content' />
+              </Panel>
+              <Col md={6} mdOffset={5} sm={4} smOffset={3} xs={12} >
+                <Button bsStyle='success' type="button" onClick={this._handleSubmit} >{this._getIntlMessage('post_edit.submit')}</Button>
+              </Col>
+            </form>
+          </Col>
         </div>
       );
     }

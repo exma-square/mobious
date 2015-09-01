@@ -4,7 +4,7 @@ class PostStore {
     this.bindActions(this.alt.getActions('posts'));
     this.posts = [];
     this.post = { Tags: []};
-    this.view = [];
+    this.img = '';
   }
 
   onCreateSuccess(post) {
@@ -32,8 +32,8 @@ class PostStore {
     return this.setState({post: post});
   }
 
-  updateImgSuccess(post) {
-    return this.setState({post});
+  updateImgSuccess(img) {
+    return this.setState({img});
   }
 
   onUpdateEditorSuccess(newPost) {

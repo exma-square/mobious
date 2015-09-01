@@ -40,10 +40,18 @@ export default {
     },
     post: {
       'page-title': 'Post',
-      title: 'Title',
-      content: 'Content',
-      tags: 'Balises',
-      tagPlaceholder: 'Ajouter Des Balises'
+      label_title: 'Title',
+      label_content: 'Content',
+      label_tag: 'Tag',
+      label_tagPlaceHolder: 'Add Tag'
+    },
+    post_create: {
+      title: 'Create Post',
+      submit: 'create'
+    },
+    post_edit: {
+      title: 'Update Post',
+      submit: 'update'
     },
     commentManager: {
       title: '留言版'
