@@ -32,7 +32,8 @@ class UserCreate extends Component {
 
     let newUser = {
       email: this.refs.email.refs.input.getDOMNode().value,
-      password: this.refs.pass.refs.input.getDOMNode().value,
+      password: this.refs.password.refs.input.getDOMNode().value,
+      username: this.refs.username.refs.input.getDOMNode().value,
       role: this.state.role,
     };
     this.props.flux.getActions('users').create(newUser);
@@ -49,7 +50,8 @@ class UserCreate extends Component {
                        </Button>}>
           <form onSubmit={this.handleSubmit.bind(this)} id='add-user-form'>
             <Input type='text' ref='email' label='Email'/>
-            <Input type='password' ref='pass' label='Password'/>
+            <Input type='password' ref='password' label='Password'/>
+            <Input type='text' ref='username' label='User Name'/>
             <span className='role'>Role</span>
             <Role onRoleChange={function(role){
                 this.setState({
