@@ -103,6 +103,7 @@ export default class Routes {
     setupAppRoute() {
 
       this.router.post('/rest/user/', UserController.create);
+      this.router.post('/rest/role/', RoleController.create);
       this.router.put('/rest/post/updateEditor/:id', PostController.updateEditor);
       this.router.put('/rest/post/:id', PostController.update);
       this.router.put('/rest/user/activated/:id', UserController.updateActivated);

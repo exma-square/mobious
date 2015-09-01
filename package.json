@@ -53,6 +53,7 @@
     "koa-static": "^1.4.9",
     "koa-static-cache": "^3.1.2",
     "lodash": "^3.10.0",
+    "material-ui": "^0.11.0",
     "modularized-normalize-scss": "git://github.com/hail2u/normalize.scss.git",
     "passport-facebook": "^2.0.0",
     "passport-local": "^1.0.0",
@@ -62,6 +63,7 @@
     "react-intl": "^1.2.0",
     "react-router": "^1.0.0-beta3",
     "react-tagsinput": "^1.4.0",
+    "react-tap-event-plugin": "^0.1.7",
     "sequelize": "^3.4.1",
     "sqlite3": "^3.0.9",
     "superagent": "^1.2.0"

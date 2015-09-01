@@ -12,16 +12,26 @@ class UsersActions {
     const promise = (resolve) => {
       // fake xhr
       this.alt.getActions('requests').start();
-
+      let role = params.role;
+      delete params.role;
       request.post(`${baseUrl}rest/user`)
       .send(params)
       .end((error, res) => {
         if (error) return resolve(error);
 
         let createdUser = res.body.user;
-        this.actions.createSuccess(createdUser);
-        this.alt.getActions('requests').success();
-        return resolve();
+        console.log(createdUser);
+        request.post(`${baseUrl}rest/role`)
+        .send({
+          authority: role,
+          UserId: createdUser.id
+        })
+        .end((error2) => {
+          if (error2) return resolve(error2);
+          this.actions.createSuccess(createdUser);
+          this.alt.getActions('requests').success();
+          return resolve();
+        });
       }, 300);
     };
     this.alt.resolve(promise);
