@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
@@ -9,7 +8,7 @@ import Spinner from 'components/shared/spinner';
 import LangPicker from 'components/shared/lang-picker';
 import Img from 'components/shared/img';
 
-import {Navbar, Nav} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, Glyphicon} from 'react-bootstrap';
 // Load styles for the header
 // and load the `react-logo.png` image
 // for the `<img src='' />` element
@@ -32,23 +31,51 @@ class Header extends Component {
   _getIntlMessage = IntlMixin.getIntlMessage
 
   state = {
-    spinner: false
+    spinner: false,
+    authStatus: this.props.flux
+    .getStore('auth')
+    .getState().authStatus
   }
 
   componentDidMount() {
     this.props.flux
-      .getStore('requests')
-      .listen(this._handleRequestStoreChange);
+    .getStore('requests')
+    .listen(this._handleRequestStoreChange);
+    this.props.flux
+    .getStore('auth')
+    .listen(this._handleAuthStoreChange);
   }
 
   _handleRequestStoreChange = ({inProgress}) => {
     return this.setState({spinner: inProgress});
   }
 
+  _handleAuthStoreChange = ({authStatus}) => {
+    return this.setState({authStatus: authStatus});
+  }
+  renderLogin() {
+    if (this.state.authStatus.isAuthenticated) {
+      return (
+        <NavItem href='logout'>{this.state.authStatus.sessionUser.username}&nbsp;
+          <Glyphicon glyph='hand-right'/>
+        </NavItem>
+      );
+    }
+    else {
+      return (
+        <li>
+          <Link to='/login-info'>
+            <Glyphicon glyph='user'/>
+            {this._getIntlMessage('loginMessage.login')}
+          </Link>
+        </li>
+      );
+    }
+  }
+
   render() {
     const {locales, flux} = this.props;
     const [activeLocale] = locales;
-
     return (
       <header className='app-header'>
         <Navbar brand={<Link to='/' className='app-logo'>
@@ -81,6 +108,9 @@ class Header extends Component {
                   {this._getIntlMessage('header.posts')}
               </Link>
             </li>
+          </Nav>
+          <Nav navbar right>
+            {this.renderLogin()}
           </Nav>
           <LangPicker
           activeLocale={activeLocale}

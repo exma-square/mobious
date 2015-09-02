@@ -55,6 +55,22 @@ export default {
     },
     commentManager: {
       title: '留言版'
+    },
+    loginMessage: {
+      login: 'Login',
+      logout: 'Logout',
+      success: {
+        title: 'Login Success.',
+        depiction: 'Enjoy It. :)'
+      },
+      fail: {
+        title: 'Fail.',
+        depiction: 'Please Check Your Account or Password.'
+      },
+      activated: {
+        title: 'Not Login.',
+        depiction: 'Your Account is Not Activated yet. Please Contact Your System Administrator.'
+      }
     }
   }
 };
