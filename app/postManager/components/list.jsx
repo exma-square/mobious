@@ -112,7 +112,7 @@ class Posts extends Component {
             <td>
               <Button bsStyle='danger' bsSize='small'
                 onClick={this._removePost.bind(this, post.id)}>
-                <Glyphicon glyph='trash' className="" />
+                <Glyphicon glyph='trash'/>
               </Button>
             </td>
           </div>

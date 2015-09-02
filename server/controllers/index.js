@@ -45,11 +45,15 @@ export default class Routes {
           if (err) throw err
           if (user === false) {
             ctx.status = 401
-            ctx.body = { success: false }
+            ctx.body = { loginMessage: 'fail' }
+          }else if (user.activated === false) {
+            ctx.status = 401
+            ctx.body = { loginMessage: 'activated' }
           } else {
+            console.log('OPPPPPPS');
             yield ctx.logIn(user);
             let authStatus = services.user.getAuthStatus(ctx);
-            ctx.body = authStatus
+            ctx.body = { authStatus: authStatus, loginMessage: 'success' }
           }
         }).call(this, next)
       });
