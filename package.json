@@ -64,6 +64,7 @@
     "react-router": "^1.0.0-beta3",
     "react-tagsinput": "^1.4.0",
     "react-tap-event-plugin": "^0.1.7",
+    "react-timer-mixin": "^0.13.2",
     "sequelize": "^3.4.1",
     "sqlite3": "^3.0.9",
     "superagent": "^1.2.0"

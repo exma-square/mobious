@@ -78,3 +78,33 @@ exports.updateActivated = function *() {
 
   this.body = {user}
 };
+
+exports.resetPasswordByAdmin= function *() {
+
+  let result = false;
+
+  try {
+
+    let authStatus = services.user.getAuthStatus(this);
+
+    //Verify Role is Admin
+    if(authStatus.authority ==='admin'){
+      let userId = this.params.id;
+      let pwd1 = this.request.body.pwd1;
+      let pwd2 = this.request.body.pwd2;
+
+      //Check Password
+      if(pwd1 === pwd2){
+        let user = yield models.User.findById(userId);
+        user.password = pwd1;
+       yield user.save();
+       result = true;
+      }
+
+    }
+
+  } catch (e) {
+    console.error("reset password error", e);
+  }
+  this.body = {success:result}
+};

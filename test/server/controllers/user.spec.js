@@ -124,4 +124,31 @@ describe("User", () => {
 
   });
 
+
+  it.only("reset password by admin", (done) => {
+
+    //Setting is 'admin' authority
+    sinon.stub(services.user, 'getAuthStatus', (app) =>{
+      return {authority: 'admin'};
+    });
+
+    let UserId = 2;
+    let editPassword= {pwd1: 'password', pwd2: 'password'};
+
+    request.put("/rest/user/resetPasswordByAdmin/" + UserId)
+    .expect(200)
+    .send(editPassword)
+    .end((error, res) => {
+      models.User.find({
+        where: {
+          id: UserId
+        }
+      }).then((updatedUser)=>{
+        updatedUser.password.should.be.equal(editPassword.pwd1);
+        done();
+      });
+    });
+
+  });
+
 });

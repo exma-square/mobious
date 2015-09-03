@@ -1,6 +1,6 @@
 import fs from "fs";
 
-describe.only("post", () => {
+describe("post", () => {
   before((done)=>{
     sinon.stub(services.user, 'isAuthenticated', (app) =>{
       return true;
