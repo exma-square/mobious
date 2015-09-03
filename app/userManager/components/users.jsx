@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {IntlMixin} from 'react-intl';
+import ResetPwd from 'userManager/components/resetpwd';
 import {Button, Table, Panel, Col, Glyphicon, ButtonToolbar} from 'react-bootstrap';
 
 if (process.env.BROWSER) {
@@ -26,24 +27,24 @@ class Users extends Component {
 
   componentWillMount() {
     this.props.flux
-      .getActions('page-title')
-      .set(this._getIntlMessage('userManager.page-title'));
+    .getActions('page-title')
+    .set(this._getIntlMessage('userManager.page-title'));
 
     this.props.flux
-      .getActions('users')
-      .fetch();
+    .getActions('users')
+    .fetch();
   }
 
   componentDidMount() {
     this.props.flux
-      .getStore('users')
-      .listen(this._handleStoreChange);
+    .getStore('users')
+    .listen(this._handleStoreChange);
   }
 
   componentWillUnmount() {
     this.props.flux
-      .getStore('users')
-      .unlisten(this._handleStoreChange);
+    .getStore('users')
+    .unlisten(this._handleStoreChange);
   }
 
   _handleStoreChange = (state) => {
@@ -53,8 +54,8 @@ class Users extends Component {
 
   _removeUser(id) {
     this.props.flux
-      .getActions('users')
-      .remove(id);
+    .getActions('users')
+    .remove(id);
   }
 
   _updateActivated(id, activated) {
@@ -88,17 +89,27 @@ class Users extends Component {
             <Link to={`/profile/${user.id}`}>
               <Button>Profile</Button>
             </Link>
+
             {() => {
               if (this.state.authStatus.authority === 'admin') {
                 return (
                   <Button bsStyle='danger' bsSize='small' className='user-remove'
                     onClick={this._removeUser.bind(this, user.id)}>
-                    X
+                    <Glyphicon glyph='trash'/>
                   </Button>
                 );
               }
             }()}
+            {() => {
+              if (this.state.authStatus.authority === 'admin') {
+                return (
+                  <ResetPwd flux={this.props.flux} parent={this} userId={user.id}/>
+                );
+              }
+            }()}
+
             {this.renderActivated(user)}
+
           </ButtonToolbar>
         </td>
       </tr>
@@ -107,7 +118,7 @@ class Users extends Component {
 
   render() {
     return (
-      <Col md={6} mdOffset={3} sm={8} smOffset={2} xs={12}>
+      <Col md={8} mdOffset={2} sm={8} smOffset={2} xs={12}>
         <Panel className="app-users"
           header={<h3>{this._getIntlMessage('userManager.title')}</h3>}
           footer={() => {
@@ -121,7 +132,7 @@ class Users extends Component {
               );
             }
           }()}
-        >
+          >
           <Table responsive>
             <thead>
               <tr>

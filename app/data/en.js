@@ -22,7 +22,16 @@ export default {
       email: 'Email address',
       actions: 'Actions',
       add: 'Add User',
-      profile: 'Profile'
+      profile: 'Profile',
+      resetPassword: {
+        title: 'Reset Password',
+        password: 'Password',
+        password_again: 'Password again',
+        close: 'Close',
+        reset: 'Reset',
+        resetting: 'Resetting...',
+        success: 'Success. Password is reset.'
+      }
     },
     beanManager: {
       title: 'Bean Manager',
