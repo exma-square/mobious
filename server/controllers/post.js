@@ -30,10 +30,13 @@ exports.create = function *() {
   try {
 
    let tmpPost = this.request.body;
+   let UserId = yield services.user.getSessionUser(this)
    let post_data = {
        title: tmpPost.title,
        content: tmpPost.content,
-       img: tmpPost.img
+       img: tmpPost.img,
+       CreatorId: UserId.id,
+       EditorId: UserId.id
      }
    let post = null;
    let tag_arr = [];
@@ -53,7 +56,7 @@ exports.create = function *() {
    tagResult.forEach((tr) => {
      tag_arr.push(tr.name);
    });
-   
+
    post = result;
    post.setDataValue('tags', tag_arr);
 
