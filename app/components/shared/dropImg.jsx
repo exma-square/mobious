@@ -22,7 +22,7 @@ class DropImg extends Component {
 
   render() {
     let img = '';
-    if (this.props.preview === undefined || this.props.preview === '') {
+    if (this.props.preview === null || this.props.preview === '' || this.props.preview === undefined ) {
       img = nonImage;
     }
     else {

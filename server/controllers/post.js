@@ -2,6 +2,7 @@ import parse from 'co-busboy';
 import fs from 'fs-extra';
 var os = require('os');
 var path = require('path');
+var co = require('co');
 
 exports.index = function *() {
 
@@ -26,33 +27,35 @@ exports.get = function *() {
 
 exports.create = function *() {
 
-  console.log('inside create api');
   try {
+
    let tmpPost = this.request.body;
+   let post_data = {
+       title: tmpPost.title,
+       content: tmpPost.content,
+       img: tmpPost.img
+     }
    let post = null;
    let tag_arr = [];
    let tmpTag = [];
 
-   let result = models.Post.create({
-       title: tmpPost.title,
-       content: tmpPost.content,
-       img: tmpPost.img
-   });
+   let result = yield models.Post.create(post_data);
+   let PostId = result.id;
 
-   tmpPost.tags.forEach((tag) => {
-     tmpTag.push({
+   tmpPost.tags.forEach(co.wrap(function* (tag) {
+     yield tmpTag.push({
          name: tag,
-         PostId: result.id
+         PostId: PostId
        });
-   });
+   }));
 
    let tagResult = yield models.Tag.bulkCreate(tmpTag);
    tagResult.forEach((tr) => {
-     console.log('tr name', tr.name);
      tag_arr.push(tr.name);
    });
-   post = yield result;
-   post.setDataValue('tags', yield tag_arr);
+   
+   post = result;
+   post.setDataValue('tags', tag_arr);
 
    this.body = {post};
 
