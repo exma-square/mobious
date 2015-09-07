@@ -2,7 +2,6 @@ import parse from 'co-busboy';
 import fs from 'fs-extra';
 var os = require('os');
 var path = require('path');
-var co = require('co');
 
 exports.index = function *() {
 
@@ -45,12 +44,12 @@ exports.create = function *() {
    let result = yield models.Post.create(post_data);
    let PostId = result.id;
 
-   tmpPost.tags.forEach(co.wrap(function* (tag) {
-     yield tmpTag.push({
+   yield tmpPost.tags.map((tag) => {
+     tmpTag.push({
          name: tag,
          PostId: PostId
        });
-   }));
+   });
 
    let tagResult = yield models.Tag.bulkCreate(tmpTag);
    tagResult.forEach((tr) => {
