@@ -29,7 +29,7 @@ class PostStore {
   }
 
   onFetchOneSuccess(post) {
-    return this.setState({post: post});
+    return this.setState({post: post, img: post.img});
   }
 
   updateImgSuccess(img) {

@@ -22,16 +22,16 @@ class DropImg extends Component {
 
   render() {
     let img = '';
-    if (this.props.preview === undefined || this.props.preview === '') {
+    if (this.props.preview === null || this.props.preview === '' || this.props.preview === undefined ) {
       img = nonImage;
     }
     else {
       img = '/assets/images/post/' + this.props.preview;
     }
     return (
-        <Col style={{display: 'inline-block', marginBottom: '3%'}}>
-          <Dropzone onDrop={this.onDrop.bind(this)} width={'100%'} height={'10%'}>
-            <img ref='previewImg' src={img} width={'100%'}/>
+        <Col style={{display: 'inline-block', marginBottom: '5%'}}>
+          <Dropzone onDrop={this.onDrop.bind(this)} style={{width: '95%', height: '10%'}}>
+            <img ref='previewImg' src={img} style={{width: '100%'}}/>
             <div>點擊或拖拉圖片至此區塊以上載圖片</div>
           </Dropzone>
         </Col>

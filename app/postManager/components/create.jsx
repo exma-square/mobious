@@ -27,6 +27,8 @@ class Create extends Component {
   }
 
   componentWillMount() {
+    this.props.flux
+    .getActions('posts');
   }
 
   componentDidMount() {

@@ -26,33 +26,38 @@ exports.get = function *() {
 
 exports.create = function *() {
 
-  console.log('inside create api');
   try {
+
    let tmpPost = this.request.body;
+   let UserId = yield services.user.getSessionUser(this)
+   let post_data = {
+       title: tmpPost.title,
+       content: tmpPost.content,
+       img: tmpPost.img,
+       CreatorId: UserId.id,
+       EditorId: UserId.id
+     }
    let post = null;
    let tag_arr = [];
    let tmpTag = [];
 
-   let result = models.Post.create({
-       title: tmpPost.title,
-       content: tmpPost.content,
-       img: tmpPost.img
-   });
+   let result = yield models.Post.create(post_data);
+   let PostId = result.id;
 
-   tmpPost.tags.forEach((tag) => {
+   yield tmpPost.tags.map((tag) => {
      tmpTag.push({
          name: tag,
-         PostId: result.id
+         PostId: PostId
        });
    });
 
    let tagResult = yield models.Tag.bulkCreate(tmpTag);
    tagResult.forEach((tr) => {
-     console.log('tr name', tr.name);
      tag_arr.push(tr.name);
    });
-   post = yield result;
-   post.setDataValue('tags', yield tag_arr);
+
+   post = result;
+   post.setDataValue('tags', tag_arr);
 
    this.body = {post};
 
