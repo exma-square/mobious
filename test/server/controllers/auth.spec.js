@@ -11,7 +11,8 @@ describe('auth', () => {
         'email': 'test@test.com',
         'phone': '(951)-385-6121',
         'cell': '(657)-919-3511',
-        'picture': ''
+        'picture': '',
+        activated: true
       }
       await models.User.create(testUser);
       done();
@@ -29,14 +30,12 @@ describe('auth', () => {
         .send(loginUserFormData)
         .expect(200)
         .end((error, res) => {
-
           if (error) return reject(error);
           return resolve(res.body);
         })
       });
 
-      loginResult.success.should.be.true;
-
+      loginResult.authStatus.isAuthenticated.should.be.true;
       let authResult = await new Promise((resolve, reject) => {
         request.get('/auth/status')
         .expect(200)

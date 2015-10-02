@@ -1,20 +1,13 @@
-var chai = require('chai');
+import chai from 'chai';
+import request from 'supertest';
+import sinon from 'sinon';
+import liftApp from '../../server';
 chai.should();
-
-global.request = require("supertest");
-global.sinon = require("sinon");
-global.app = null;
-
-var liftApp = require("../../server");
-
+global.sinon = sinon;
 before(async (done) => {
-
   let app = await liftApp();
   global.app = app;
-  global.request = global.request.agent(app.listen());
-
-  console.log("server start finish.");
-
+  global.request =
+    request.agent(app.listen());
   done();
-
 });

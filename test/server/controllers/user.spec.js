@@ -125,7 +125,7 @@ describe("User", () => {
   });
 
 
-  it.only("reset password by admin", (done) => {
+  it("reset password by admin", (done) => {
 
     //Setting is 'admin' authority
     sinon.stub(services.user, 'getAuthStatus', (app) =>{
